@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/map-my-shifter/static/css/main.55d3037b.chunk.css",
+    "main.js": "/map-my-shifter/static/js/main.05988457.chunk.js",
+    "main.js.map": "/map-my-shifter/static/js/main.05988457.chunk.js.map",
+    "runtime-main.js": "/map-my-shifter/static/js/runtime-main.8e91766a.js",
+    "runtime-main.js.map": "/map-my-shifter/static/js/runtime-main.8e91766a.js.map",
+    "static/js/2.caf28220.chunk.js": "/map-my-shifter/static/js/2.caf28220.chunk.js",
+    "static/js/2.caf28220.chunk.js.map": "/map-my-shifter/static/js/2.caf28220.chunk.js.map",
+    "index.html": "/map-my-shifter/index.html",
+    "precache-manifest.ace044cff748d4aaa1ab71acc085cbfd.js": "/map-my-shifter/precache-manifest.ace044cff748d4aaa1ab71acc085cbfd.js",
+    "service-worker.js": "/map-my-shifter/service-worker.js",
+    "static/css/main.55d3037b.chunk.css.map": "/map-my-shifter/static/css/main.55d3037b.chunk.css.map",
+    "static/js/2.caf28220.chunk.js.LICENSE.txt": "/map-my-shifter/static/js/2.caf28220.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8e91766a.js",
+    "static/js/2.caf28220.chunk.js",
+    "static/css/main.55d3037b.chunk.css",
+    "static/js/main.05988457.chunk.js"
+  ]
+}
