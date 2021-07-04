@@ -1,0 +1,42 @@
+@import "@carbon/layout/scss/layout";
+@import "@carbon/type/scss/styles";
+@import "@carbon/colors/scss/colors";
+
+.object__item_box {
+  padding: $spacing-03 $spacing-05;
+  &:first-of-type {
+    padding-top: $spacing-05;
+  }
+}
+
+.object__item_content {
+  background-color: $white-0;
+  padding: $spacing-05 $spacing-05;
+
+  .object_item__btn {
+    cursor: pointer;
+  }
+
+  .object_item__title {
+    @include carbon--type-style("productive-heading-03");
+    padding-bottom: $spacing-04;
+    margin-bottom: $spacing-05;
+  }
+
+  .object_item__map {
+    margin-bottom: $spacing-09;
+  }
+
+  .object_item__field {
+    margin-top: $spacing-04;
+    padding-left: $spacing-07;
+    padding-right: $spacing-07;
+  }
+
+  .object_item_field__header {
+    padding-top: $spacing-02;
+    padding-bottom: $spacing-02;
+    margin-bottom: $spacing-04;
+    border-bottom: 1px solid $carbon--gray-30;
+  }
+}
