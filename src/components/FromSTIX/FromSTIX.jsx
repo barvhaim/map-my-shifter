@@ -3,6 +3,8 @@ import AddFields from "./AddFields";
 import Mapping from "./Mapping";
 import Export from "./Export";
 import Import from "./Import";
+import Statistics from "./Statistics";
+import StatisticsCustom from "./StatisticsCustom";
 
 const FromSTIX = () => {
   return (
@@ -34,6 +36,15 @@ const FromSTIX = () => {
               <Import />
             </div>
           </div>
+
+          <div className="bx--row">
+            <div className="bx--col-sm-4">
+              <Statistics></Statistics>
+              <StatisticsCustom></StatisticsCustom>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>

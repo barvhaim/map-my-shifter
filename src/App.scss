@@ -20,6 +20,12 @@ body {
   margin-bottom: $spacing-03;
 }
 
+.section-title-margin-top {
+  @include carbon--type-style("productive-heading-01");
+  margin-bottom: $spacing-03;
+  margin-top: $spacing-03;
+}
+
 .bx--file__selected-file {
   margin-bottom: $spacing-04 !important;
 }
