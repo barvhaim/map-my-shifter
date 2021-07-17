@@ -39,8 +39,8 @@ const FromSTIX = () => {
 
           <div className="bx--row">
             <div className="bx--col-sm-4">
-              <Statistics></Statistics>
-              <StatisticsCustom></StatisticsCustom>
+              <Statistics/>
+              <StatisticsCustom/>
             </div>
 
           </div>
