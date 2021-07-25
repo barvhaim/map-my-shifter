@@ -5,7 +5,9 @@ import { closeCustomFieldModal, addField } from "../../store/actions/from_stix";
 import { isValidCustomStixField } from "../../global/stixHelper";
 
 const CustomFieldModal = () => {
-  const customFieldModalShow = useSelector((state) => state.fromStix.customFieldModalShow);
+  const customFieldModalShow = useSelector(
+    (state) => state.fromStix.customFieldModalShow
+  );
   const dispatch = useDispatch();
   const [customField, setCustomField] = useState("");
 
@@ -27,7 +29,7 @@ const CustomFieldModal = () => {
         dispatch(closeCustomFieldModal());
       }}
       primaryButtonDisabled={!isValidCustomStixField(customField)}
-    //   preventCloseOnClickOutside={false}
+      //   preventCloseOnClickOutside={false}
       shouldSubmitOnEnter={true}
       hasForm={true}
     >

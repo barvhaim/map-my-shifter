@@ -6,7 +6,9 @@ import { Button } from "carbon-components-react";
 
 const CustomField = () => {
   const dispatch = useDispatch();
-  const customFieldModalShow = useSelector((state) => state.fromStix.customFieldModalShow);
+  const customFieldModalShow = useSelector(
+    (state) => state.fromStix.customFieldModalShow
+  );
 
   return (
     <div>
@@ -19,7 +21,7 @@ const CustomField = () => {
       >
         Custom Field
       </Button>
-      {customFieldModalShow && <CustomFieldModal/>}
+      {customFieldModalShow && <CustomFieldModal />}
     </div>
   );
 };
