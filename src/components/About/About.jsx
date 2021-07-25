@@ -84,9 +84,6 @@ const About = () => {
                 <ListItem>
                   <a href={"https://github.com/idohersko"}>Ido Hersko</a>
                 </ListItem>
-                <ListItem>
-                  <a href={"https://github.com/noaakl"}>Noaa Kless</a>
-                </ListItem>
               </UnorderedList>
             </AccordionItem>
 

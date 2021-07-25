@@ -9,8 +9,6 @@ export const UPDATE_MAPPINGS_FILTER_FIELD_VALUE =
   "UPDATE_MAPPINGS_FILTER_FIELD_VALUE";
 export const CLEAR_MAPPINGS = "CLEAR_MAPPINGS";
 export const CHANGE_STIX_VERSION = "CHANGE_STIX_VERSION";
-export const SHOW_CUSTOM_FIELD_MODAL = "SHOW_CUSTOM_FIELD_MODAL";
-export const CLOSE_CUSTOM_FIELD_MODAL = "CLOSE_CUSTOM_FIELD_MODAL";
 
 export function addField(type, key) {
   return {
@@ -100,17 +98,5 @@ export function changeStixVersion(stixVersion) {
     payload: {
       version: stixVersion,
     },
-  };
-}
-
-export function showCustomFieldModal() {
-  return {
-    type: SHOW_CUSTOM_FIELD_MODAL,
-  };
-}
-
-export function closeCustomFieldModal() {
-  return {
-    type: CLOSE_CUSTOM_FIELD_MODAL,
   };
 }
