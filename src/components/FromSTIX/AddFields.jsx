@@ -5,6 +5,7 @@ import styles from "./from_stix.module.scss";
 import AddFieldItems from "./AddFieldItems";
 import FieldSearchBar from "./FieldSearchBar";
 import ChangeVersion from "./ChangeVersion";
+import CustomField from "./CustomField";
 
 const AddFields = () => {
   const stixFields = useSelector((state) => state.fromStix.stixFields);
@@ -13,6 +14,9 @@ const AddFields = () => {
       <div className="bx--row">
         <div className="bx--col">
           <h4 className="section-title">Select Fields</h4>
+        </div>
+        <div>
+          <CustomField />
         </div>
       </div>
 
