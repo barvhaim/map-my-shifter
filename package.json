@@ -30,8 +30,16 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}'",
+    "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx .",
+    "add": "git add ."
   },
+  "pre-commit": [
+    "prettier",
+    "eslint",
+    "add"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },
