@@ -1,8 +1,15 @@
 import React from "react";
 import { ClickableTile } from "carbon-components-react";
+
 import styles from "./welcome.module.scss";
+import { useHistory } from "react-router-dom";
 
 const Welcome = () => {
+  const history = useHistory();
+  const handleClickableTile = (link) => {
+    history.push(link);
+  };
+
   return (
     <>
       <div className="bx--grid">
@@ -17,12 +24,18 @@ const Welcome = () => {
 
         <div className="bx--row">
           <div className="bx--col-sm-2">
-            <ClickableTile href="/from_stix" className={styles.tile__btn}>
+            <ClickableTile
+              handleClick={() => handleClickableTile("/from_stix")}
+              className={styles.tile__btn}
+            >
               Generate "From STIX" File
             </ClickableTile>
           </div>
           <div className="bx--col-sm-2">
-            <ClickableTile href="/to_stix" className={styles.tile__btn}>
+            <ClickableTile
+              handleClick={() => handleClickableTile("/to_stix")}
+              className={styles.tile__btn}
+            >
               Generate "To STIX" File
             </ClickableTile>
           </div>
