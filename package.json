@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
-    "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}'",
+    "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}' && exit 1",
     "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx ."
   },
   "pre-commit": [
