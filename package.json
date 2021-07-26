@@ -36,7 +36,7 @@
     "eco": "echo \"fooo\" && exit 0"
   },
   "pre-commit": [
-    "eco"
+    "eslint"
   ],
   "eslintConfig": {
     "extends": "react-app"
