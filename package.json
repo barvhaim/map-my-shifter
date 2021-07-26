@@ -31,12 +31,14 @@
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
-    "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}' && exit 1",
-    "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx ."
+    "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}'",
+    "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx .",
+    "add": "git add"
   },
   "pre-commit": [
     "prettier",
-    "eslint"
+    "eslint",
+    "add"
   ],
   "eslintConfig": {
     "extends": "react-app"
