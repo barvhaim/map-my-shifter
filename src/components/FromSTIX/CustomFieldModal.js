@@ -6,10 +6,10 @@ import { isValidCustomStixField } from "../../global/stixHelper";
 
 const CustomFieldModal = () => {
 
-    console.log("/")
-
-  const customFieldModalShow = useSelector(
-    (state) => state.fromStix.customFieldModalShow
+  const customFieldModalShow = useSelector
+  (
+    (
+        state) => state.fromStix.customFieldModalShow
   );
   const dispatch = useDispatch();
   const [customField, setCustomField] = useState("");

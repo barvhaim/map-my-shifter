@@ -32,10 +32,10 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}'",
-    "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx .",
-    "eco": "echo \"fooo\" && exit 0"
+    "eslint": "npx eslint --ignore-path .gitignore --ext js,jsx ."
   },
   "pre-commit": [
+    "prettier",
     "eslint"
   ],
   "eslintConfig": {
