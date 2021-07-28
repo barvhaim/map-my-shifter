@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./from_stix.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {clearMappings} from "../../store/actions/from_stix";
+//import {useSelector} from "react-redux";
 import "./Statistics.scss";
 
 
 const Statistics = () => {
-    const dispatch = useDispatch();
 //    const mappingCustom = useSelector((state) => state.fromStix.mappingCustom);
 
 //(Object.keys(mappingCustom).length
