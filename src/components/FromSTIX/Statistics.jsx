@@ -8,19 +8,39 @@ const Statistics = () => {
     const mapping = useSelector((state) => state.fromStix.mapping);
     const stixVersion = useSelector((state) => state.fromStix.stixFields);
 
-    function TotalNumberOfOfficialObjects(stixVersion){
-        return stixVersion.length;
-    }
-
-    function NumberOfOfficialObjectsCurrentlyInUse(mapping){
+    function CalculateNumberOfCustomObjects(mapping){
         var mylist = [];
         for (let i = 0; i < Object.keys(mapping).length; i++) {
             mylist.push((Object.keys(mapping))[i].split(':')[0]);
         }
         const unique = [...new Set(mylist)];
-        return unique.length - 0;
+
+
+        var counter = 0;
+        for (let i = 0; i < unique.length; i++) {
+            var myString = unique[i];
+            var myTruncatedString = myString.substring(0,2);
+            if (myTruncatedString==="x-"){
+                counter++;
+            }
+        }
+
+        return counter;
+
     }
-//instead of the zero it will be the number of custom object added.
+
+    function TotalNumberOfOfficialObjects(stixVersion){
+        return stixVersion.length;
+    }
+
+    function CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping){
+        var mylist = [];
+        for (let i = 0; i < Object.keys(mapping).length; i++) {
+            mylist.push((Object.keys(mapping))[i].split(':')[0]);
+        }
+        const unique = [...new Set(mylist)];
+        return unique.length - CalculateNumberOfCustomObjects(mapping);
+    }
 
     function CalculateCoveragePercentageOfOfficialObjects(Denominator, Nominator){
         var percentage = Nominator/Denominator * 100;
@@ -41,9 +61,9 @@ const Statistics = () => {
                         <div className="bx--col">
                             Official STIX Object
                             <ul className="stats">
-                                {CalculateCoveragePercentageOfOfficialObjects(TotalNumberOfOfficialObjects(stixVersion),NumberOfOfficialObjectsCurrentlyInUse(mapping))} %
+                                {CalculateCoveragePercentageOfOfficialObjects((CalculateNumberOfOfficialObjectsCurrentlyInUse(stixVersion)+CalculateNumberOfCustomObjects(mapping)),CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping))} %
                             </ul>
-                            ({NumberOfOfficialObjectsCurrentlyInUse(mapping)} of {TotalNumberOfOfficialObjects(stixVersion)})
+                            ({CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)} of {TotalNumberOfOfficialObjects(stixVersion)})
                         </div>
                     </div>
                 </div>
