@@ -48,7 +48,7 @@ const StatisticsCustom = () => {
         var percentage = Nominator/Denominator * 100;
         var percentageAfterTrunc = percentage.toFixed(2);
 
-        if (isNaN(percentageAfterTrunc)) {
+        if (isNaN(percentageAfterTrunc) || Denominator === 0 || Denominator === null) {
             return 0;
         }
         return percentageAfterTrunc;
@@ -62,7 +62,7 @@ const StatisticsCustom = () => {
                         <div className="bx--col">
                             Custom STIX Object
                             <ul className="stats">
-                                {CalculateCoveragePercentage((CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)+CalculateNumberOfCustomObjects(mapping)),CalculateNumberOfCustomObjects(mapping))} %
+                                {CalculateCoveragePercentage((CalculateNumberOfCustomObjects(mapping)+CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)),CalculateNumberOfCustomObjects(mapping))} %
                             </ul>
                         </div>
                     </div>

@@ -31,6 +31,8 @@ const Statistics = () => {
         return counter;
     }
 
+
+
     function TotalNumberOfOfficialObjects(stixVersion){
         return stixVersion.length;
     }
@@ -52,7 +54,7 @@ const Statistics = () => {
         var percentage = Nominator/Denominator * 100;
         var percentageAfterTrunc = percentage.toFixed(2);
 
-        if (isNaN(percentageAfterTrunc)) {
+        if (isNaN(percentageAfterTrunc) || Denominator === 0 || Denominator === null) {
             return 0;
         }
         return percentageAfterTrunc;
@@ -71,7 +73,7 @@ const Statistics = () => {
                         <div className="bx--col">
                             Official STIX Object
                             <ul className="stats">
-                                {CalculateCoveragePercentage((CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)+CalculateNumberOfCustomObjects(mapping)),CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping))} %
+                                {CalculateCoveragePercentage(TotalNumberOfOfficialObjects(stixVersion),CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping))} %
                             </ul>
                             ({CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)} of {TotalNumberOfOfficialObjects(stixVersion)})
                         </div>
