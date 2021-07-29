@@ -27,9 +27,7 @@ const StatisticsCustom = () => {
                 counter++;
             }
         }
-
         return counter;
-
     }
 
     function CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping){
