@@ -4,7 +4,7 @@ import Mapping from "./Mapping";
 import Export from "./Export";
 import Import from "./Import";
 import Statistics from "./Statistics";
-import StatisticsCustom from "./StatisticsCustom";
+
 
 const FromSTIX = () => {
   return (
@@ -40,7 +40,6 @@ const FromSTIX = () => {
           <div className="bx--row">
             <div className="bx--col-sm-4">
               <Statistics/>
-              <StatisticsCustom/>
             </div>
 
           </div>
