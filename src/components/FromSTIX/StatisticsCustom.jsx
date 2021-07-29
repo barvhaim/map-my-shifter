@@ -10,8 +10,12 @@ const StatisticsCustom = () => {
     const mapping = useSelector((state) => state.fromStix.mapping);
     function CalculateNumberOfCustomObjects(mapping){
         var mylist = [];
-        for (let i = 0; i < Object.keys(mapping).length; i++) {
-            mylist.push((Object.keys(mapping))[i].split(':')[0]);
+        for (let i = 0; i < Object.keys(mapping).length; i++)
+        {
+            if(mapping[(Object.keys(mapping))[i]][0])
+            {
+                mylist.push((Object.keys(mapping))[i].split(':')[0]);
+            }
         }
         const unique = [...new Set(mylist)];
 
@@ -30,8 +34,12 @@ const StatisticsCustom = () => {
 
     function CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping){
         var mylist = [];
-        for (let i = 0; i < Object.keys(mapping).length; i++) {
-            mylist.push((Object.keys(mapping))[i].split(':')[0]);
+        for (let i = 0; i < Object.keys(mapping).length; i++)
+        {
+            if(mapping[(Object.keys(mapping))[i]][0])
+            {
+                mylist.push((Object.keys(mapping))[i].split(':')[0]);
+            }
         }
         const unique = [...new Set(mylist)];
         return unique.length - CalculateNumberOfCustomObjects(mapping);

@@ -10,10 +10,60 @@ const Statistics = () => {
 
     function CalculateNumberOfCustomObjects(mapping){
         var mylist = [];
-        for (let i = 0; i < Object.keys(mapping).length; i++) {
-            mylist.push((Object.keys(mapping))[i].split(':')[0]);
+        for (let i = 0; i < Object.keys(mapping).length; i++)
+        {
+            if(mapping[(Object.keys(mapping))[i]][0])
+            {
+                mylist.push((Object.keys(mapping))[i].split(':')[0]);
+            }
         }
+
+
+        // var objectWhithoutValue = 0;
+        // for (let i = 0; i < mylist.length; i++) {
+        //     if(!mapping[(Object.keys(mapping))[i]][0]){
+        //         objectWhithoutValue++;
+        //     }
+        //
+        //     /*
+        //     {console.log(mapping[(Object.keys(mapping))[i]][0])}
+        //     var res = Object.keys(mapping).map(function(name){
+        //         var obj = {};
+        //         obj[(Object.keys(mapping))[i]] = mapping[(Object.keys(mapping))[i]];
+        //         return obj;
+        //     });
+        //     {console.log(mapping)}
+        //     {console.log("eeeeeeeeeeeeeeeee")}
+        //     {console.log(res)};
+        //
+        //      */
+        // }  {console.log(objectWhithoutValue)}
+
+
+
         const unique = [...new Set(mylist)];
+
+        // {console.log(unique)}
+
+        // var objectWhithoutValue = 0;
+        // for (let i = 0; i < unique.length; i++) {
+        //     if(!mapping[(Object.keys(mapping))[i]][0]){
+        //         objectWhithoutValue++;
+        //     }
+        //
+        //     /*
+        //     {console.log(mapping[(Object.keys(mapping))[i]][0])}
+        //     var res = Object.keys(mapping).map(function(name){
+        //         var obj = {};
+        //         obj[(Object.keys(mapping))[i]] = mapping[(Object.keys(mapping))[i]];
+        //         return obj;
+        //     });
+        //     {console.log(mapping)}
+        //     {console.log("eeeeeeeeeeeeeeeee")}
+        //     {console.log(res)};
+        //
+        //      */
+        // }
 
 
         var counter = 0;
@@ -35,16 +85,24 @@ const Statistics = () => {
 
     function CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping){
         var mylist = [];
-        for (let i = 0; i < Object.keys(mapping).length; i++) {
-            mylist.push((Object.keys(mapping))[i].split(':')[0]);
+        for (let i = 0; i < Object.keys(mapping).length; i++)
+        {
+            if(mapping[(Object.keys(mapping))[i]][0])
+            {
+                mylist.push((Object.keys(mapping))[i].split(':')[0]);
+            }
         }
         const unique = [...new Set(mylist)];
         return unique.length - CalculateNumberOfCustomObjects(mapping);
     }
 
-    function CalculateCoveragePercentageOfOfficialObjects(Denominator, Nominator){
+    function CalculateCoveragePercentage(Denominator, Nominator){
         var percentage = Nominator/Denominator * 100;
         var percentageAfterTrunc = percentage.toFixed(2);
+
+        if (isNaN(percentageAfterTrunc)) {
+            return 0;
+        }
         return percentageAfterTrunc;
     }
 
@@ -61,7 +119,7 @@ const Statistics = () => {
                         <div className="bx--col">
                             Official STIX Object
                             <ul className="stats">
-                                {CalculateCoveragePercentageOfOfficialObjects((CalculateNumberOfOfficialObjectsCurrentlyInUse(stixVersion)+CalculateNumberOfCustomObjects(mapping)),CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping))} %
+                                {CalculateCoveragePercentage((CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)+CalculateNumberOfCustomObjects(mapping)),CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping))} %
                             </ul>
                             ({CalculateNumberOfOfficialObjectsCurrentlyInUse(mapping)} of {TotalNumberOfOfficialObjects(stixVersion)})
                         </div>
