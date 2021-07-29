@@ -76,7 +76,7 @@
   .title {
     @include carbon--type-style("body-short-01");
   }
-  .coverage_precent {
+  .coverage_percent {
     @include carbon--type-style("productive-heading-04");
     margin-top: $spacing-03;
     margin-bottom: $spacing-03;

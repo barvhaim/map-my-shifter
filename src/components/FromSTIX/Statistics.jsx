@@ -8,12 +8,10 @@ const Statistics = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
   const fieldsCount = Object.keys(stixFields).length;
 
-  const getNumOfOfficialObjects = (mapping) => {
+  const getNumOfObjects = (mapping) => {
     let officialObjects = {};
     let customObjects = {};
     Object.keys(mapping).forEach((field) => {
-      console.log(mapping);
-      console.log(field);
       const [type, key] = field.split(":");
       if (
         !(type in officialObjects) &&
@@ -24,7 +22,11 @@ const Statistics = () => {
             if (type.startsWith("x-")) {
               customObjects[type] = key;
             } else {
-              officialObjects[type] = key;
+              Object.values(stixFields).forEach((field) => {
+                if (type === field.type) {
+                  officialObjects[type] = key;
+                }
+              });
             }
           }
         });
@@ -36,8 +38,7 @@ const Statistics = () => {
     ];
   };
 
-  const [officialObjectsCount, customObjectsCount] =
-    getNumOfOfficialObjects(mapping);
+  const [officialObjectsCount, customObjectsCount] = getNumOfObjects(mapping);
 
   return (
     <>
@@ -53,12 +54,12 @@ const Statistics = () => {
               type="Official"
               objectsCount={officialObjectsCount}
               fieldsCount={fieldsCount}
-            ></StatisticsObjects>
+            />
             <StatisticsObjects
               type="Custom"
               objectsCount={customObjectsCount}
               fieldsCount={officialObjectsCount + customObjectsCount}
-            ></StatisticsObjects>
+            />
           </div>
         </div>
       </div>
