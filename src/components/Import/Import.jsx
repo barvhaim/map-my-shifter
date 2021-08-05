@@ -14,7 +14,8 @@ const Import = (props) => {
           <h4 className="section-title">Load Configuration</h4>
         </div>
       </div>
-      <div className="bx--row">
+
+      <div className="bx--row" style={{ marginBottom: ".75rem" }}>
         <div className={`bx--col ${styles.import__col}`}>
           <div className="bx--row">
             <div className="bx--col">

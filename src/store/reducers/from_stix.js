@@ -10,6 +10,8 @@ import {
   UPDATE_MAPPINGS_FILTER_FIELD_VALUE,
   CLEAR_MAPPINGS,
   CHANGE_STIX_VERSION,
+  SHOW_CUSTOM_FIELD_MODAL,
+  CLOSE_CUSTOM_FIELD_MODAL,
 } from "../actions/from_stix";
 import stixLanguageV2_0 from "../../global/stixLangV2";
 import stixLanguageV2_1 from "../../global/stixLangV2_1";
@@ -22,6 +24,7 @@ const INITIAL_STATE = {
   fieldSearch: "",
   fieldMappingFilter: "",
   stixVersion: STIX_VERSION.V_2_0,
+  customFieldModalShow: false,
 };
 
 const FromSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -174,6 +177,20 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
           return state;
         }
       }
+    }
+
+    case SHOW_CUSTOM_FIELD_MODAL: {
+      return {
+        ...state,
+        customFieldModalShow: true,
+      };
+    }
+
+    case CLOSE_CUSTOM_FIELD_MODAL: {
+      return {
+        ...state,
+        customFieldModalShow: false,
+      };
     }
 
     default:
