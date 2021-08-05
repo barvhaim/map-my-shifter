@@ -9,7 +9,6 @@ function getDataSourceFieldId(stateMapping, objectName, dataSourceField) {
     const ids = Object.keys(stateMapping[objectName]).filter((id) => {
       return dataSourceField === stateMapping[objectName][id].field;
     });
-    console.log(ids);
     return ids[0];
   }
 }
@@ -17,61 +16,67 @@ function getDataSourceFieldId(stateMapping, objectName, dataSourceField) {
 function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
   if (!shifterMapping) return stateMapping;
   Object.keys(shifterMapping).forEach((dataSourceField) => {
-    console.log(shifterMapping);
-    console.log(dataSourceField);
-    console.log(shifterMapping[dataSourceField]);
-    let references = null;
-    let transformer = null;
     if (new Set(Object.keys(shifterMapping[dataSourceField])).has("key")) {
-      console.log(shifterMapping[dataSourceField].key);
       if (new Set(Object.keys(shifterMapping[dataSourceField])).has("object")) {
         const objectName = shifterMapping[dataSourceField].object;
-        if (
-          new Set(Object.keys(shifterMapping[dataSourceField])).has(
-            "references"
-          )
-        ) {
-          references = shifterMapping[dataSourceField].references;
-        }
-        if (
-          new Set(Object.keys(shifterMapping[dataSourceField])).has(
-            "transformer"
-          )
-        ) {
-          transformer = shifterMapping[dataSourceField].transformer;
-        }
         const dataSourceFieldId = uuidv4();
         const mapped_to_id = uuidv4();
+        const id = getDataSourceFieldId(
+          stateMapping,
+          objectName,
+          dataSourceField
+        );
+        // || dataSourceFieldId;
+        const references = shifterMapping[dataSourceField]?.references;
+        const transformer = shifterMapping[dataSourceField]?.transformer;
+        // if (!fieldName) {
+        //   fieldName = dataSourceField;
+        // }
+        const mappedTo = {
+          id: mapped_to_id,
+          key: shifterMapping[dataSourceField].key,
+          ...(transformer ? { transformer: transformer } : {}),
+          ...(references ? { references: references } : {}),
+        };
 
-        const id =
-          getDataSourceFieldId(stateMapping, objectName, dataSourceField) ||
-          dataSourceFieldId;
-        if (!fieldName) {
-          fieldName = dataSourceField;
-        }
         stateMapping[objectName] = {
           ...stateMapping[objectName],
-          [id]: {
-            ...(id !== dataSourceFieldId ? stateMapping[objectName][id] : {}),
-            ...(id === dataSourceFieldId ? { field: fieldName } : {}),
-            mapped_to: [
-              ...(id === dataSourceFieldId
-                ? {}
-                : { ...stateMapping[objectName][id].mapped_to }),
-              {
-                id: mapped_to_id,
-                key: shifterMapping[dataSourceField].key,
-                references: references ? references : "",
-                transformer: transformer ? transformer : "",
-              },
-            ],
-          },
         };
+
+        // stateMapping = {
+        //   ...stateMapping,
+        //   [objectName]: {
+        //     ...stateMapping[objectName],
+        //     [id] : {
+        //       ...stateMapping[objectName][id],
+        //       ...(id===dataSourceFieldId ? { field: fieldName? fieldName : dataSourceField } : {}),
+        //       mapped_to: [
+        //         ...stateMapping[objectName][id].mapped_to,
+        //         mappedTo,
+        //       ]
+        //     }
+        //   }
+        // }
+
+        if (id) {
+          // console.log(stateMapping)
+          // console.log(stateMapping[objectName])
+          // console.log(stateMapping[objectName][id])
+          // console.log(stateMapping[objectName][id].mapped_to)
+          stateMapping[objectName][id] = {
+            ...stateMapping[objectName][id],
+            mapped_to: [...stateMapping[objectName][id].mapped_to, mappedTo],
+          };
+        } else {
+          stateMapping[objectName][dataSourceFieldId] = {
+            field: fieldName ? fieldName : dataSourceField,
+            mapped_to: [mappedTo],
+          };
+        }
       } else {
         console.log("metadata");
       }
     } else {
-      console.log("hey");
       shifterMappingToStateMapping(
         shifterMapping[dataSourceField],
         stateMapping,
