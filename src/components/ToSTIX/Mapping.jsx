@@ -19,6 +19,10 @@ import {
   openNewObjectModal,
   removeDataSourceField,
   removeObject,
+  updateDataSourceField,
+  removeMappingField,
+  addMappingField,
+  updateMappingField,
 } from "../../store/actions/to_stix";
 
 const Mapping = () => {
@@ -27,19 +31,32 @@ const Mapping = () => {
   console.log(mapping);
 
   const getTransformers = () => {
+    //TODO: NONE in func
     return [
-      {
-        id: 1,
-        text: "func 1",
-      },
-      {
-        id: 2,
-        text: "func 2",
-      },
-      {
-        id: 3,
-        text: "func 3",
-      },
+      "None",
+      "StringToBool",
+      "EpochToTimestamp",
+      "FormatMac",
+      "FormatTCPProtocol",
+      "EpochSecondsToTimestamp",
+      "TimestampToMilliseconds",
+      "ToInteger",
+      "ToString",
+      "ToLowercaseArray",
+      "ToBase64",
+      "ToFilePath",
+      "ToDirectoryPath",
+      "ToFileName",
+      "ToDomainName",
+      "ToIPv4",
+      "DateTimeToUnixTimestamp",
+      "NaiveToUTC",
+      "TimestampToUTC",
+      "SetToOne",
+      "FilterIPv4List",
+      "FilterIPv6List",
+      "ValueToList",
+      "GraphIDToPID",
     ];
   };
 
@@ -114,89 +131,215 @@ const Mapping = () => {
 
                     {Object.keys(mapping[objectName]).map((fieldId) => {
                       return (
-                        <div className={styles.object_item__map}>
-                          <div className={"bx--row"}>
-                            <div>
-                              <SubtractAlt20
-                                style={{ marginLeft: "1rem" }}
-                                className={`${styles.object_item__btn}`}
-                                onClick={() => {
-                                  dispatch(
-                                    removeDataSourceField(objectName, fieldId)
-                                  );
-                                }}
-                              />
-                            </div>
-                            <div className={`bx--col`}>
-                              <TextInput
-                                size={"sm"}
-                                value={mapping[objectName][fieldId].field}
-                              />
-                            </div>
-                          </div>
-
-                          <div
-                            className={`bx--row ${styles.object_item__field}`}
-                          >
-                            <div className={"bx--col-sm-4"}>
-                              <div
-                                className={`bx--row ${styles.object_item_field__header}`}
-                              >
-                                <div className={"bx--col-sm-1"}>STIX field</div>
-                                <div className={"bx--col-sm-1"}>Reference</div>
-                                <div className={"bx--col-sm-1"}>
-                                  Transformer
-                                </div>
-                                <div className={"bx--col-sm-1"}>Remove</div>
+                        <div key={fieldId}>
+                          <div className={styles.object_item__map}>
+                            <div className={"bx--row"}>
+                              <div>
+                                <SubtractAlt20
+                                  style={{ marginLeft: "1rem" }}
+                                  className={`${styles.object_item__btn}`}
+                                  onClick={() => {
+                                    dispatch(
+                                      removeDataSourceField(objectName, fieldId)
+                                    );
+                                  }}
+                                />
                               </div>
+                              <div className={`bx--col`}>
+                                <TextInput
+                                  labelText={"Field Name"}
+                                  id={fieldId}
+                                  onChange={(e) => {
+                                    dispatch(
+                                      updateDataSourceField(
+                                        objectName,
+                                        fieldId,
+                                        e.target.value
+                                      )
+                                    );
+                                  }}
+                                  value={mapping[objectName][fieldId].field}
+                                  size={"sm"}
+                                />
+                              </div>
+                            </div>
 
-                              {mapping[objectName][fieldId].mapped_to.map(
-                                (stixField) => {
-                                  return (
-                                    <div className={"bx--row"}>
-                                      <div className={"bx--col-sm-1"}>
-                                        <TextInput
-                                          size={"sm"}
-                                          value={stixField.key}
-                                        />
+                            <div
+                              className={`bx--row ${styles.object_item__field}`}
+                            >
+                              <div className={"bx--col-sm-4"}>
+                                <div
+                                  className={`bx--row ${styles.object_item_field__header}`}
+                                >
+                                  <div className={"bx--col-sm-1"}>
+                                    STIX field
+                                  </div>
+                                  <div className={"bx--col-sm-1"}>
+                                    Transformer
+                                  </div>
+                                  <div className={"bx--col-sm-1"}>
+                                    References
+                                  </div>
+                                  <div
+                                    className={"bx--col-sm-1"}
+                                    style={{ textAlign: "right" }}
+                                  >
+                                    <Add20
+                                      className={`${styles.object_item__btn}`}
+                                      style={{
+                                        border: "1px solid #000000",
+                                      }}
+                                      onClick={() => {
+                                        dispatch(
+                                          addMappingField(
+                                            objectName,
+                                            fieldId,
+                                            ""
+                                          )
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                                {mapping[objectName][fieldId].mapped_to.map(
+                                  (stixField) => {
+                                    const stixFieldTransformer = mapping[
+                                      objectName
+                                    ][fieldId].mapped_to
+                                      .filter(
+                                        (o) =>
+                                          o.id === stixField.id && o.transformer
+                                      )
+                                      .map((i) => i.transformer)[0];
+                                    let stixFieldReferences = mapping[
+                                      objectName
+                                    ][fieldId].mapped_to
+                                      .filter(
+                                        (o) =>
+                                          o.id === stixField.id && o.references
+                                      )
+                                      .map((i) => i.references);
+                                    stixFieldReferences =
+                                      stixField.key.endsWith("_refs")
+                                        ? stixFieldReferences[0]
+                                        : stixFieldReferences;
+                                    return (
+                                      <div key={fieldId + stixField.id}>
+                                        <div
+                                          className={`bx--row ${styles.object_item__field}`}
+                                        >
+                                          <div className={"bx--col-sm-1"}>
+                                            <TextInput
+                                              id={stixField.id + stixField.key}
+                                              labelText={""}
+                                              onChange={(e) => {
+                                                dispatch(
+                                                  updateMappingField(
+                                                    objectName,
+                                                    fieldId,
+                                                    stixField.id,
+                                                    e.target.value,
+                                                    "key"
+                                                  )
+                                                );
+                                              }}
+                                              size={"sm"}
+                                              value={stixField.key}
+                                            />
+                                          </div>
+                                          <div className={"bx--col-sm-1"}>
+                                            <Dropdown
+                                              size={"sm"}
+                                              ariaLabel="Dropdown"
+                                              id="transformer"
+                                              items={getTransformers()}
+                                              label="None"
+                                              selectedItem={
+                                                stixFieldTransformer
+                                              }
+                                              onChange={(e) => {
+                                                dispatch(
+                                                  updateMappingField(
+                                                    objectName,
+                                                    fieldId,
+                                                    stixField.id,
+                                                    e.selectedItem,
+                                                    "transformer"
+                                                  )
+                                                );
+                                              }}
+                                            />
+                                          </div>
+                                          <div className={"bx--col-sm-1"}>
+                                            <MultiSelect
+                                              id={"references"}
+                                              size={"sm"}
+                                              useTitleInItem={false}
+                                              label={
+                                                stixFieldReferences.length !== 0
+                                                  ? stixFieldReferences.map(
+                                                      (r) =>
+                                                        r !==
+                                                        stixFieldReferences[
+                                                          stixFieldReferences.length -
+                                                            1
+                                                        ]
+                                                          ? r + ", "
+                                                          : r
+                                                    )
+                                                  : "None"
+                                              }
+                                              invalid={false}
+                                              invalidText="Invalid Selection"
+                                              onChange={(e) => {
+                                                dispatch(
+                                                  updateMappingField(
+                                                    objectName,
+                                                    fieldId,
+                                                    stixField.id,
+                                                    e.selectedItems,
+                                                    "references"
+                                                  )
+                                                );
+                                              }}
+                                              items={getObjects().filter(
+                                                (o) => o !== objectName
+                                              )}
+                                              initialSelectedItems={
+                                                stixFieldReferences
+                                              }
+                                              selectedItem={stixFieldReferences}
+                                              itemToString={(item) =>
+                                                item ? item : ""
+                                              }
+                                              inline={true}
+                                            />
+                                          </div>
+                                          <div className={"bx--col-sm-1"}>
+                                            <div className={"bx--row"}>
+                                              <Delete20
+                                                className={`${styles.object_item__btn}`}
+                                                style={{
+                                                  border: "1px solid #000000",
+                                                }}
+                                                onClick={() => {
+                                                  dispatch(
+                                                    removeMappingField(
+                                                      objectName,
+                                                      fieldId,
+                                                      stixField.id
+                                                    )
+                                                  );
+                                                }}
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div className={"bx--col-sm-1"}>
-                                        <Dropdown
-                                          size={"sm"}
-                                          ariaLabel="Dropdown"
-                                          id="carbon-dropdown-example"
-                                          items={getObjects()}
-                                          label="None"
-                                        />
-                                      </div>
-                                      <div className={"bx--col-sm-1"}>
-                                        <MultiSelect
-                                          size={"sm"}
-                                          useTitleInItem={false}
-                                          label="Transformers"
-                                          invalid={false}
-                                          invalidText="Invalid Selection"
-                                          onChange={() => {}}
-                                          items={getTransformers()}
-                                          initialSelectedItems={[]}
-                                          itemToString={(item) =>
-                                            item ? item.text : ""
-                                          }
-                                        />
-                                      </div>
-                                      <div className={"bx--col-sm-1"}>
-                                        <Delete20
-                                          className={`${styles.object_item__btn}`}
-                                          style={{
-                                            border: "1px solid #000000",
-                                          }}
-                                          onClick={() => {}}
-                                        />
-                                      </div>
-                                    </div>
-                                  );
-                                }
-                              )}
+                                    );
+                                  }
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>

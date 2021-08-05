@@ -24,13 +24,19 @@
   }
 
   .object_item__map {
-    margin-bottom: $spacing-09;
+    background-color: $white-0;
+    margin-bottom: $spacing-07;
+    padding-left: $spacing-02;
+    padding-right: $spacing-02;
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-05;
+    border: 1.5px solid $carbon--gray-30;
   }
 
   .object_item__field {
-    margin-top: $spacing-04;
-    padding-left: $spacing-07;
-    padding-right: $spacing-07;
+    margin-top: $spacing-05;
+    padding-left: $spacing-04;
+    padding-right: $spacing-04;
   }
 
   .object_item_field__header {

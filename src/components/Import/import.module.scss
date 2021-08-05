@@ -1,0 +1,11 @@
+@import "@carbon/layout/scss/layout";
+@import "@carbon/type/scss/styles";
+@import "@carbon/colors/scss/colors";
+
+.import__col {
+  background-color: $carbon--white-0;
+  padding: {
+    top: $spacing-03;
+    bottom: $spacing-01;
+  }
+}

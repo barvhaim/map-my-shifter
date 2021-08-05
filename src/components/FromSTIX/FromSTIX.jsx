@@ -1,10 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import AddFields from "./AddFields";
 import Mapping from "./Mapping";
-import Export from "./Export";
-import Import from "./Import";
+import Export from "../Export/Export";
+import Import from "../Import/Import";
+import { stateMappingToShifterMapping, loadJsonFromDisk } from "./utils";
+import {
+  updateMappingsFromFile,
+  clearMappings,
+} from "../../store/actions/from_stix";
 
 const FromSTIX = () => {
+  const mapping = useSelector((state) => state.fromStix.mapping);
+
   return (
     <div className="bx--grid">
       <div className="bx--row">
@@ -25,13 +33,20 @@ const FromSTIX = () => {
         <div className="bx--col-sm-1">
           <div className="bx--row">
             <div className="bx--col-sm-4">
-              <Export />
+              <Export
+                mapping={mapping}
+                stateMappingToShifterMapping={stateMappingToShifterMapping}
+              />
             </div>
           </div>
 
           <div className="bx--row">
             <div className="bx--col-sm-4">
-              <Import />
+              <Import
+                loadJsonFromDisk={loadJsonFromDisk}
+                updateMappingsFromFile={updateMappingsFromFile}
+                clearMappings={clearMappings}
+              />
             </div>
           </div>
         </div>
