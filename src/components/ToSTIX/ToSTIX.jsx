@@ -10,27 +10,9 @@ import {
   clearMappings,
 } from "../../store/actions/to_stix";
 
+
 const ToSTIX = () => {
   const mapping = useSelector((state) => state.toStix.mapping);
-
-  // const loadJson = loadJsonFromDisk();
-  // const parseMapping = (o, s = '', objects) => {
-  //   if (typeof o !== "object") return;
-  //
-  //   if ('key' in o) {
-  //     console.log(o.key);
-  //
-  //     if ('object' in o) {
-  //       console.log(o.object);
-  //     }
-  //     console.log(s);
-  //   } else {
-  //     Object.keys(o).forEach(k => {
-  //       const new_s = s + "." + k
-  //       parseMapping(o[k], new_s);
-  //     });
-  //   }
-  // }
 
   return (
     <>
