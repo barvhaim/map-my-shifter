@@ -10,7 +10,6 @@ import {
   clearMappings,
 } from "../../store/actions/to_stix";
 
-
 const ToSTIX = () => {
   const mapping = useSelector((state) => state.toStix.mapping);
 

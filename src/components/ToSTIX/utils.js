@@ -4,14 +4,19 @@ export function loadJsonFromDisk(obj) {
   return shifterMappingToStateMapping(obj, {}, "");
 }
 
-function getDataSourceFieldId(stateMapping, objectName, dataSourceField, dataSourceFieldId) {
+function getDataSourceFieldId(
+  stateMapping,
+  objectName,
+  dataSourceField,
+  dataSourceFieldId
+) {
   let ids = [];
   if (objectName in stateMapping) {
     ids = Object.keys(stateMapping[objectName]).filter((id) => {
       return dataSourceField === stateMapping[objectName][id].field;
     });
   }
-  return ids.length!==0? ids[0] : dataSourceFieldId;
+  return ids.length !== 0 ? ids[0] : dataSourceFieldId;
 }
 
 function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
@@ -27,7 +32,7 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
           objectName,
           dataSourceField,
           dataSourceFieldId
-        )
+        );
 
         const references = shifterMapping[dataSourceField]?.references;
         const transformer = shifterMapping[dataSourceField]?.transformer;
@@ -43,13 +48,16 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
           ...stateMapping[objectName],
         };
         stateMapping[objectName][id] = {
-            ...stateMapping[objectName][id],
-            ...(id===dataSourceFieldId ? { field: fieldName? fieldName : dataSourceField } : {}),
-            mapped_to: [
-              (id!==dataSourceFieldId ? {...stateMapping[objectName][id].mapped_to, mappedTo} : mappedTo),
-            ]
-          }
-
+          ...stateMapping[objectName][id],
+          ...(id === dataSourceFieldId
+            ? { field: fieldName ? fieldName : dataSourceField }
+            : {}),
+          mapped_to: [
+            id !== dataSourceFieldId
+              ? { ...stateMapping[objectName][id].mapped_to, mappedTo }
+              : mappedTo,
+          ],
+        };
       } else {
         console.log("metadata");
       }
