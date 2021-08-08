@@ -16,6 +16,7 @@ function getDataSourceFieldId(
       return dataSourceField === stateMapping[objectName][id].field;
     });
   }
+  console.log(ids);
   return ids.length !== 0 ? ids[0] : dataSourceFieldId;
 }
 
@@ -106,5 +107,6 @@ export function stateMappingToShifterMapping(stateMapping) {
       });
     });
   });
+  console.log(output);
   return output;
 }
