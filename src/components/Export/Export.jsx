@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-// import { useSelector } from "react-redux";
 import { Button, TextInput } from "carbon-components-react";
 import { Save16 } from "@carbon/icons-react";
 import { saveAs } from "file-saver";
 import styles from "./export.module.scss";
+import PropTypes from "prop-types";
 
 const Export = (props) => {
   const [exportFilename, setExportFilename] = useState("");
@@ -59,6 +59,11 @@ const Export = (props) => {
       </div>
     </>
   );
+};
+
+Export.propTypes = {
+  mapping: PropTypes.object,
+  stateMappingToShifterMapping: PropTypes.func,
 };
 
 export default Export;

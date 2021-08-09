@@ -80,9 +80,10 @@ export function stateMappingToShifterMapping(stateMapping) {
       const mappedTo = stateMapping[object][field].mapped_to;
       Object.keys(mappedTo).forEach((index) => {
         const key = mappedTo[index].key;
-        const transformer = mappedTo[index].transformer
-          ? mappedTo[index].transformer
-          : null;
+        const transformer =
+          mappedTo[index].transformer && mappedTo[index].transformer !== "None"
+            ? mappedTo[index].transformer
+            : null;
         let references = mappedTo[index].references
           ? mappedTo[index].references
           : null;

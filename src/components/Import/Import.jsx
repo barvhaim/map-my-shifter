@@ -2,9 +2,9 @@ import React from "react";
 import { FileUploader } from "carbon-components-react";
 import styles from "./import.module.scss";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
 const Import = (props) => {
-  console.log(props);
   const dispatch = useDispatch();
 
   return (
@@ -54,6 +54,12 @@ const Import = (props) => {
       </div>
     </>
   );
+};
+
+Import.propTypes = {
+  loadJsonFromDisk: PropTypes.func,
+  updateMappingsFromFile: PropTypes.func,
+  clearMappings: PropTypes.func,
 };
 
 export default Import;
