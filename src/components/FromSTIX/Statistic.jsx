@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./statistics.module.scss";
+import styles from "./from_stix.module.scss";
 
-const StatisticsObjects = ({
+const Statistic = ({
   officialObjectsCount,
   requiredObjectsCount,
   officialFieldsCount,
@@ -28,4 +28,4 @@ const StatisticsObjects = ({
   );
 };
 
-export default StatisticsObjects;
+export default Statistic;

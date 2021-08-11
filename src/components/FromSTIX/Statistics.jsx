@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import styles from "./statistics.module.scss";
-import StatisticsObjects from "./StatisticsObjects";
-import { getNumOfFields } from "./utils";
+import styles from "./from_stix.module.scss";
+import Statistic from "./Statistic";
+import { getNumOfFields, getNumOfObjects } from "./utils";
 
-const Statistics = ({ mapping, getNumOfObjects }) => {
+const Statistics = ({ mapping }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
   const stixTypesSet = useMemo(
     () => new Set(Object.values(stixFields).map((field) => field.type)),
@@ -30,7 +30,7 @@ const Statistics = ({ mapping, getNumOfObjects }) => {
       <div className="bx--row" style={{ marginBottom: ".75rem" }}>
         <div className={`bx--col ${styles.statistics__col}`}>
           <div className="bx--row">
-            <StatisticsObjects
+            <Statistic
               officialObjectsCount={officialObjectsCount}
               requiredObjectsCount={requiredObjectsCount}
               officialFieldsCount={officialFieldsCount}

@@ -53,7 +53,7 @@ export function filterMappingFieldsForValue(mappings, value) {
     }, {});
 }
 
-export function getNumOfFromStixObjects(mapping, stixTypesSet) {
+export function getNumOfObjects(mapping, stixTypesSet) {
   const officialObjects = new Set();
   const requiredObjects = new Set();
   Object.keys(mapping).forEach((field) => {
@@ -70,4 +70,18 @@ export function getNumOfFromStixObjects(mapping, stixTypesSet) {
     }
   });
   return [officialObjects.size, requiredObjects.size];
+}
+
+export function getNumOfFields(stixFields) {
+  let officialFieldsCount = 0;
+  let requiredFieldsCount = 0;
+  Object.keys(stixFields).forEach((field) => {
+    officialFieldsCount += stixFields[field].items.length;
+    Object.keys(stixFields[field].items).forEach((item) => {
+      if (stixFields[field].items[item].required) {
+        requiredFieldsCount += 1;
+      }
+    });
+  });
+  return [officialFieldsCount, requiredFieldsCount];
 }

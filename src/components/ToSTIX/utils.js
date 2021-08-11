@@ -110,21 +110,29 @@ export function stateMappingToShifterMapping(stateMapping) {
   return output;
 }
 
-export function getNumOfToStixObjects(mapping, stixTypesSet) {
+export function getDataForStatistics(mapping, stixTypesSet) {
+  const officialFields = new Set();
+  const CustomFields = new Set();
   const officialObjects = new Set();
-  const requiredObjects = new Set();
-  Object.keys(mapping).forEach((field) => {
-    Object.keys(mapping[field]).forEach((id) => {
-      Object.keys(mapping[field][id].mapped_to).forEach((index) => {
-        const [type, key] = mapping[field][id].mapped_to[index].key.split(":");
+  const CustomObjects = new Set();
+  Object.keys(mapping).forEach((object) => {
+    Object.keys(mapping[object]).forEach((id) => {
+      Object.keys(mapping[object][id].mapped_to).forEach((index) => {
+        const [type, key] = mapping[object][id].mapped_to[index].key.split(":");
         if (stixTypesSet.has(type)) {
-          officialObjects.add(`${type}:${key}`);
-          if (mapping[field][id].mapped_to[index].required) {
-            requiredObjects.add(`${type}:${key}`);
-          }
+          officialFields.add(`${type}:${key}`);
+          officialObjects.add(object);
+        } else if (type.startsWith("x-")) {
+          CustomFields.add(`${type}:${key}`);
+          CustomObjects.add(object);
         }
       });
     });
   });
-  return [officialObjects.size, requiredObjects.size];
+  return [
+    officialFields.size,
+    CustomFields.size,
+    officialObjects.size,
+    CustomObjects.size,
+  ];
 }

@@ -8,6 +8,7 @@ import MappingObject from "./MappingObject";
 const Mapping = () => {
   const dispatch = useDispatch();
   const mapping = useSelector((state) => state.toStix.mapping);
+  console.log(mapping);
 
   return (
     <>
