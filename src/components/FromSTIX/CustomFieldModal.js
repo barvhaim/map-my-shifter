@@ -29,7 +29,6 @@ const CustomFieldModal = () => {
         dispatch(closeCustomFieldModal());
       }}
       primaryButtonDisabled={!isValidCustomStixField(customField)}
-      //   preventCloseOnClickOutside={false}
       shouldSubmitOnEnter={true}
       hasForm={true}
     >

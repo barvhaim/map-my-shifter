@@ -9,7 +9,8 @@ import {
   updateMappingsFromFile,
   clearMappings,
 } from "../../store/actions/from_stix";
-import Statistics from "./Statistics";
+import Statistics from "../Statistics/Statistics";
+import { getNumOfFromStixObjects } from "./utils";
 
 const FromSTIX = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
@@ -53,7 +54,10 @@ const FromSTIX = () => {
 
           <div className="bx--row">
             <div className="bx--col-sm-4">
-              <Statistics />
+              <Statistics
+                mapping={mapping}
+                getNumOfObjects={getNumOfFromStixObjects}
+              />
             </div>
           </div>
         </div>

@@ -1,0 +1,22 @@
+@import "@carbon/layout/scss/layout";
+@import "@carbon/type/scss/styles";
+@import "@carbon/colors/scss/colors";
+
+.statistics__col {
+  background-color: $carbon--white-0;
+  padding: {
+    top: $spacing-05;
+    bottom: $spacing-05;
+  }
+  .title {
+    @include carbon--type-style("body-short-01");
+  }
+  .coverage_percent {
+    @include carbon--type-style("productive-heading-04");
+    margin-top: $spacing-03;
+    margin-bottom: $spacing-03;
+  }
+  .coverage_count {
+    @include carbon--type-style("label-01");
+  }
+}

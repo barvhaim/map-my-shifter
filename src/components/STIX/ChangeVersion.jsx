@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dropdown } from "carbon-components-react";
-import { changeStixVersion } from "../../store/actions/from_stix";
+import { changeStixVersion } from "../../store/actions/stix";
 import { STIX_VERSION } from "../../global/constants";
 
 const stixVersionsList = [

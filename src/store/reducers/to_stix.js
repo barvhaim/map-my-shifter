@@ -8,37 +8,19 @@ import {
   REMOVE_DATASOURCE_FIELD,
   REMOVE_OBJECT,
   UPDATE_DATASOURCE_FIELD,
-  ADD_MAPPING_FIELD,
-  REMOVE_MAPPING_FIELD,
-  UPDATE_MAPPING_FIELD,
-  CLEAR_MAPPINGS,
-  UPDATE_MAPPINGS_FROM_FILE,
+  ADD_STIX_FIELD,
+  REMOVE_STIX_FIELD,
+  UPDATE_STIX_FIELD,
+  CLEAR_TO_STIX_MAPPINGS,
+  UPDATE_TO_STIX_MAPPINGS_FROM_FILE,
+  OPEN_SELECT_FIELD_MODAL,
+  CLOSE_SELECT_FIELD_MODAL,
 } from "../actions/to_stix";
 
 const INITIAL_STATE = {
   isNewObjectModalOpen: false,
-  mapping: {
-    // src_ip: {
-    //   a1337: {
-    //     field: "dest.ip",
-    //     mapped_to: [
-    //       {
-    //         id: "57db89",
-    //         key: "ipv4-addr.value",
-    //       },
-    //     ],
-    //   },
-    //   a1338: {
-    //     field: "src.ip",
-    //     mapped_to: [
-    //       {
-    //         id: "57db99",
-    //         key: "ipv4-addr.value",
-    //       },
-    //     ],
-    //   },
-    // },
-  },
+  isSelectFieldModalOpen: false,
+  mapping: {},
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -54,6 +36,20 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isNewObjectModalOpen: false,
+      };
+    }
+
+    case OPEN_SELECT_FIELD_MODAL: {
+      return {
+        ...state,
+        isSelectFieldModalOpen: true,
+      };
+    }
+
+    case CLOSE_SELECT_FIELD_MODAL: {
+      return {
+        ...state,
+        isSelectFieldModalOpen: false,
       };
     }
 
@@ -141,7 +137,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    case ADD_MAPPING_FIELD: {
+    case ADD_STIX_FIELD: {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
       const key = action.payload?.key;
@@ -169,7 +165,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    case REMOVE_MAPPING_FIELD: {
+    case REMOVE_STIX_FIELD: {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
       const mappingId = action.payload?.mappingId;
@@ -193,13 +189,13 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    case UPDATE_MAPPING_FIELD: {
+    case UPDATE_STIX_FIELD: {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
       const mappingId = action.payload?.mappingId;
       const value = action.payload?.value;
-      console.log(value);
       const type = action.payload?.type;
+      const required = action.payload?.required;
       if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
         return {
           ...state,
@@ -210,7 +206,12 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
               [fieldId]: {
                 ...state.mapping[objectName][fieldId],
                 mapped_to: state.mapping[objectName][fieldId].mapped_to.map(
-                  (o) => (o.id === mappingId ? { ...o, [type]: value } : o)
+                  (o) =>
+                    o.id === mappingId
+                      ? required
+                        ? { ...o, [type]: value, required: required }
+                        : { ...o, [type]: value }
+                      : o
                 ),
               },
             },
@@ -220,14 +221,14 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    case CLEAR_MAPPINGS: {
+    case CLEAR_TO_STIX_MAPPINGS: {
       return {
         ...state,
         mapping: {},
       };
     }
 
-    case UPDATE_MAPPINGS_FROM_FILE: {
+    case UPDATE_TO_STIX_MAPPINGS_FROM_FILE: {
       return {
         ...state,
         mapping: action.payload.mappings,

@@ -39,7 +39,7 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
 
         const mappedTo = {
           id: mapped_to_id,
-          key: shifterMapping[dataSourceField].key,
+          key: shifterMapping[dataSourceField].key.replace(".", ":"),
           ...(transformer ? { transformer: transformer } : {}),
           ...(references ? { references: references } : {}),
         };
@@ -79,7 +79,7 @@ export function stateMappingToShifterMapping(stateMapping) {
       const _field = stateMapping[object][field].field;
       const mappedTo = stateMapping[object][field].mapped_to;
       Object.keys(mappedTo).forEach((index) => {
-        const key = mappedTo[index].key;
+        const key = mappedTo[index].key.replace(":", ".");
         const transformer =
           mappedTo[index].transformer && mappedTo[index].transformer !== "None"
             ? mappedTo[index].transformer
@@ -108,4 +108,23 @@ export function stateMappingToShifterMapping(stateMapping) {
     });
   });
   return output;
+}
+
+export function getNumOfToStixObjects(mapping, stixTypesSet) {
+  const officialObjects = new Set();
+  const requiredObjects = new Set();
+  Object.keys(mapping).forEach((field) => {
+    Object.keys(mapping[field]).forEach((id) => {
+      Object.keys(mapping[field][id].mapped_to).forEach((index) => {
+        const [type, key] = mapping[field][id].mapped_to[index].key.split(":");
+        if (stixTypesSet.has(type)) {
+          officialObjects.add(`${type}:${key}`);
+          if (mapping[field][id].mapped_to[index].required) {
+            requiredObjects.add(`${type}:${key}`);
+          }
+        }
+      });
+    });
+  });
+  return [officialObjects.size, requiredObjects.size];
 }

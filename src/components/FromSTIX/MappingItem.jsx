@@ -11,7 +11,7 @@ import { Delete20, Close16, Add16 } from "@carbon/icons-react";
 import styles from "./from_stix.module.scss";
 
 const MappingItem = ({ title }) => {
-  const values = useSelector((state) => state.fromStix.mapping[title]);
+  const values = useSelector((state) => state.fromStix.mapping[title].values);
   const dispatch = useDispatch();
   return (
     <li className={styles.mapping__item}>

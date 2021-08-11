@@ -9,6 +9,8 @@ import {
   updateMappingsFromFile,
   clearMappings,
 } from "../../store/actions/to_stix";
+import Statistics from "../Statistics/Statistics";
+import { getNumOfToStixObjects } from "./utils";
 
 const ToSTIX = () => {
   const mapping = useSelector((state) => state.toStix.mapping);
@@ -44,6 +46,15 @@ const ToSTIX = () => {
                   loadJsonFromDisk={loadJsonFromDisk}
                   updateMappingsFromFile={updateMappingsFromFile}
                   clearMappings={clearMappings}
+                />
+              </div>
+            </div>
+
+            <div className="bx--row">
+              <div className="bx--col-sm-4">
+                <Statistics
+                  mapping={mapping}
+                  getNumOfObjects={getNumOfToStixObjects}
                 />
               </div>
             </div>

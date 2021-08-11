@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   removeDataSourceField,
   updateDataSourceField,
-  removeMappingField,
-  addMappingField,
-  updateMappingField,
+  removeStixField,
+  addStixField,
+  updateStixField,
+  openSelectFieldModal,
 } from "../../store/actions/to_stix";
 import transformers from "../../global/transformers";
+import SelectFieldModal from "./SelectFieldModal";
 
-const MappingField = ({ objectName, fieldId }) => {
+const StixField = ({ objectName, fieldId }) => {
   const dispatch = useDispatch();
   const mapping = useSelector((state) => state.toStix.mapping);
 
@@ -58,31 +60,38 @@ const MappingField = ({ objectName, fieldId }) => {
                 <Add20
                   className={`${styles.object_item__btn}`}
                   onClick={() => {
-                    dispatch(addMappingField(objectName, fieldId, ""));
+                    dispatch(addStixField(objectName, fieldId, ""));
                   }}
                 />
               </div>
             </div>
             {mapping[objectName][fieldId].mapped_to.map((stixField) => {
               const stixFieldTransformer = stixField?.transformer;
-              console.log(stixField.references);
               const stixFieldReferences =
                 stixField.references && stixField.references.length !== 0
                   ? stixField.key.endsWith("_refs")
                     ? stixField.references
                     : [stixField.references]
                   : [];
-              console.log(stixFieldReferences);
               return (
                 <div key={`${fieldId}_${stixField.id}`}>
+                  <SelectFieldModal
+                    objectName={objectName}
+                    fieldId={fieldId}
+                    stixFieldId={stixField.id}
+                    type={"key"}
+                  />
                   <div className={`bx--row ${styles.object_item__field}`}>
                     <div className={"bx--col-sm-1"}>
                       <TextInput
                         id={`${stixField.id}_${stixField.key}`}
                         labelText={""}
+                        onClick={() => {
+                          dispatch(openSelectFieldModal());
+                        }}
                         onChange={(e) => {
                           dispatch(
-                            updateMappingField(
+                            updateStixField(
                               objectName,
                               fieldId,
                               stixField.id,
@@ -105,7 +114,7 @@ const MappingField = ({ objectName, fieldId }) => {
                         selectedItem={stixFieldTransformer}
                         onChange={(e) => {
                           dispatch(
-                            updateMappingField(
+                            updateStixField(
                               objectName,
                               fieldId,
                               stixField.id,
@@ -137,7 +146,7 @@ const MappingField = ({ objectName, fieldId }) => {
                         invalidText="Invalid Selection"
                         onChange={(e) => {
                           dispatch(
-                            updateMappingField(
+                            updateStixField(
                               objectName,
                               fieldId,
                               stixField.id,
@@ -163,11 +172,7 @@ const MappingField = ({ objectName, fieldId }) => {
                           className={`${styles.object_item__btn}`}
                           onClick={() => {
                             dispatch(
-                              removeMappingField(
-                                objectName,
-                                fieldId,
-                                stixField.id
-                              )
+                              removeStixField(objectName, fieldId, stixField.id)
                             );
                           }}
                         />
@@ -184,4 +189,4 @@ const MappingField = ({ objectName, fieldId }) => {
   );
 };
 
-export default MappingField;
+export default StixField;

@@ -42,20 +42,6 @@ function shifterMappingToStateMapping(shifterMapping) {
   return stateMapping;
 }
 
-export function filterFieldsForValue(fields, value) {
-  if (!value || value === "") return fields;
-  const lowerCaseValue = value.toLowerCase();
-  let filteredFields = fields.filter(
-    (category) =>
-      category.title.toLowerCase().includes(lowerCaseValue) ||
-      category.type.includes(lowerCaseValue)
-  );
-  filteredFields = filteredFields.filter(
-    (category) => category.items.length > 0
-  );
-  return filteredFields;
-}
-
 export function filterMappingFieldsForValue(mappings, value) {
   if (!value || value === "") return mappings;
   const lowerCaseValue = value.toLowerCase();
@@ -65,4 +51,23 @@ export function filterMappingFieldsForValue(mappings, value) {
       obj[key] = mappings[key];
       return obj;
     }, {});
+}
+
+export function getNumOfFromStixObjects(mapping, stixTypesSet) {
+  const officialObjects = new Set();
+  const requiredObjects = new Set();
+  Object.keys(mapping).forEach((field) => {
+    const [type, key] = field.split(":");
+    if (Object.keys(mapping[field].values).length > 0) {
+      Object.keys(mapping[field].values).forEach((val) => {
+        if (mapping[field].values[val].value !== "" && stixTypesSet.has(type)) {
+          officialObjects.add(`${type}:${key}`);
+          if (mapping[field].required) {
+            requiredObjects.add(`${type}:${key}`);
+          }
+        }
+      });
+    }
+  });
+  return [officialObjects.size, requiredObjects.size];
 }

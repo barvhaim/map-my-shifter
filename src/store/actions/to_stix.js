@@ -5,11 +5,14 @@ export const REMOVE_OBJECT = "REMOVE_OBJECT";
 export const ADD_DATASOURCE_FIELD = "ADD_DATASOURCE_FIELD";
 export const REMOVE_DATASOURCE_FIELD = "REMOVE_DATASOURCE_FIELD";
 export const UPDATE_DATASOURCE_FIELD = "UPDATE_DATASOURCE_FIELD";
-export const REMOVE_MAPPING_FIELD = "REMOVE_MAPPING_FIELD";
-export const ADD_MAPPING_FIELD = "ADD_MAPPING_FIELD";
-export const UPDATE_MAPPING_FIELD = "UPDATE_MAPPING_FIELD";
-export const CLEAR_MAPPINGS = "CLEAR_MAPPINGS";
-export const UPDATE_MAPPINGS_FROM_FILE = "UPDATE_MAPPINGS_FROM_FILE";
+export const REMOVE_STIX_FIELD = "REMOVE_STIX_FIELD";
+export const ADD_STIX_FIELD = "ADD_STIX_FIELD";
+export const UPDATE_STIX_FIELD = "UPDATE_STIX_FIELD";
+export const CLEAR_TO_STIX_MAPPINGS = "CLEAR_TO_STIX_MAPPINGS";
+export const UPDATE_TO_STIX_MAPPINGS_FROM_FILE =
+  "UPDATE_TO_STIX_MAPPINGS_FROM_FILE";
+export const OPEN_SELECT_FIELD_MODAL = "OPEN_SELECT_FIELD_MODAL";
+export const CLOSE_SELECT_FIELD_MODAL = "CLOSE_SELECT_FIELD_MODAL";
 
 export function openNewObjectModal() {
   return {
@@ -20,6 +23,18 @@ export function openNewObjectModal() {
 export function closeNewObjectModal() {
   return {
     type: CLOSE_NEW_OBJECT_MODAL,
+  };
+}
+
+export function openSelectFieldModal() {
+  return {
+    type: OPEN_SELECT_FIELD_MODAL,
+  };
+}
+
+export function closeSelectFieldModal() {
+  return {
+    type: CLOSE_SELECT_FIELD_MODAL,
   };
 }
 
@@ -72,9 +87,9 @@ export function removeDataSourceField(objectName, fieldId) {
   };
 }
 
-export function addMappingField(objectName, fieldId, key) {
+export function addStixField(objectName, fieldId, key) {
   return {
-    type: ADD_MAPPING_FIELD,
+    type: ADD_STIX_FIELD,
     payload: {
       objectName,
       fieldId,
@@ -83,28 +98,30 @@ export function addMappingField(objectName, fieldId, key) {
   };
 }
 
-export function updateMappingField(
+export function updateStixField(
   objectName,
   fieldId,
   mappingId,
   value,
-  type
+  type,
+  required = false
 ) {
   return {
-    type: UPDATE_MAPPING_FIELD,
+    type: UPDATE_STIX_FIELD,
     payload: {
       objectName,
       fieldId,
       mappingId,
       value,
       type,
+      required,
     },
   };
 }
 
-export function removeMappingField(objectName, fieldId, mappingId) {
+export function removeStixField(objectName, fieldId, mappingId) {
   return {
-    type: REMOVE_MAPPING_FIELD,
+    type: REMOVE_STIX_FIELD,
     payload: {
       objectName,
       fieldId,
@@ -115,13 +132,13 @@ export function removeMappingField(objectName, fieldId, mappingId) {
 
 export function clearMappings() {
   return {
-    type: CLEAR_MAPPINGS,
+    type: CLEAR_TO_STIX_MAPPINGS,
   };
 }
 
 export function updateMappingsFromFile(mappings) {
   return {
-    type: UPDATE_MAPPINGS_FROM_FILE,
+    type: UPDATE_TO_STIX_MAPPINGS_FROM_FILE,
     payload: {
       mappings,
     },
