@@ -1,5 +1,5 @@
 import React from "react";
-import { Add20, Delete20, SubtractAlt20 } from "@carbon/icons-react";
+import { Add20, Delete20, SubtractAlt20, List20 } from "@carbon/icons-react";
 import { Dropdown, MultiSelect, TextInput } from "carbon-components-react";
 import styles from "./to_stix.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,13 +82,17 @@ const StixField = ({ objectName, fieldId }) => {
                     type={"key"}
                   />
                   <div className={`bx--row ${styles.object_item__field}`}>
+                    <div>
+                      <List20
+                        onClick={() => {
+                          dispatch(openSelectFieldModal());
+                        }}
+                      />
+                    </div>
                     <div className={"bx--col-sm-1"}>
                       <TextInput
                         id={`${stixField.id}_${stixField.key}`}
                         labelText={""}
-                        onClick={() => {
-                          dispatch(openSelectFieldModal());
-                        }}
                         onChange={(e) => {
                           dispatch(
                             updateStixField(
@@ -166,17 +170,15 @@ const StixField = ({ objectName, fieldId }) => {
                         inline={true}
                       />
                     </div>
-                    <div className={"bx--col-sm-1"}>
-                      <div className={"bx--row"}>
-                        <Delete20
-                          className={`${styles.object_item__btn}`}
-                          onClick={() => {
-                            dispatch(
-                              removeStixField(objectName, fieldId, stixField.id)
-                            );
-                          }}
-                        />
-                      </div>
+                    <div>
+                      <Delete20
+                        className={`${styles.object_item__btn}`}
+                        onClick={() => {
+                          dispatch(
+                            removeStixField(objectName, fieldId, stixField.id)
+                          );
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
