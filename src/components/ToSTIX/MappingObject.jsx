@@ -3,7 +3,7 @@ import { Add20, Close20 } from "@carbon/icons-react";
 import styles from "./to_stix.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addDataSourceField, removeObject } from "../../store/actions/to_stix";
-import StixField from "./StixField";
+import StixField from "./DadaSourseField";
 
 const MappingObject = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const MappingObject = () => {
               </div>
             </div>
           ) : null}
-          <StixField objectName={objectName} />
+          <StixField mapping={mapping[objectName]} objectName={objectName} />
         </div>
       </div>
     </ul>
