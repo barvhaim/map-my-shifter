@@ -10,7 +10,7 @@ import {
 } from "../../store/actions/to_stix";
 import StixField from "./StixField";
 
-const DadaSourseField = ({ mapping, objectName }) => {
+const DataSourseField = ({ mapping, objectName }) => {
   const dispatch = useDispatch();
 
   return Object.keys(mapping).map((fieldId) => (
@@ -71,4 +71,4 @@ const DadaSourseField = ({ mapping, objectName }) => {
   ));
 };
 
-export default DadaSourseField;
+export default DataSourseField;

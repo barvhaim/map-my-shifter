@@ -3,6 +3,7 @@
 @import "@carbon/colors/scss/colors";
 
 .object__item_box {
+  margin-top: $spacing-05;
   padding: $spacing-03 $spacing-05;
   &:first-of-type {
     padding-top: $spacing-05;
@@ -27,10 +28,7 @@
   .object_item__map {
     background-color: $white-0;
     margin-bottom: $spacing-07;
-    padding-left: $spacing-02;
-    padding-right: $spacing-02;
-    padding-top: $spacing-05;
-    padding-bottom: $spacing-05;
+    padding: $spacing-05 $spacing-05;
     border: 1.5px solid $carbon--gray-30;
   }
 
