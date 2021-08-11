@@ -73,7 +73,6 @@ export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
       });
     }
   });
-  console.log([officialObjects.size, requiredObjects.size]);
   return [officialObjects.size, requiredObjects.size];
 }
 
@@ -88,6 +87,5 @@ export function getNumOfFields(stixFields) {
       }
     });
   });
-  console.log([officialFieldsCount, requiredFieldsCount]);
   return [officialFieldsCount, requiredFieldsCount];
 }

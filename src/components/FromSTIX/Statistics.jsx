@@ -8,9 +8,7 @@ import { requiredFields } from "../../global/requiredFields";
 const Statistics = ({ mapping }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
   const stixVersion = useSelector((state) => state.stix.stixVersion);
-  console.log(stixVersion);
   const requiredSet = requiredFields[stixVersion];
-  console.log(requiredSet);
   const stixTypesSet = useMemo(
     () => new Set(Object.values(stixFields).map((field) => field.type)),
     [stixFields]

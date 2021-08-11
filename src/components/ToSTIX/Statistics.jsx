@@ -17,11 +17,6 @@ const Statistics = ({ mapping }) => {
     customObjectsCount,
   ] = getDataForStatistics(mapping, stixTypesSet);
 
-  console.log(officialFieldsCount);
-  console.log(customFieldsCount);
-  console.log(officialObjectsCount);
-  console.log(customObjectsCount);
-
   const sum = officialFieldsCount + customFieldsCount;
 
   return (
