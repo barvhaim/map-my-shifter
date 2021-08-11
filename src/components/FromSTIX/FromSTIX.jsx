@@ -13,6 +13,7 @@ import Statistics from "./Statistics";
 
 const FromSTIX = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
+  console.log(mapping);
 
   return (
     <div className="bx--grid">

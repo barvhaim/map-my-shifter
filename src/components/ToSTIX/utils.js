@@ -20,6 +20,7 @@ function getDataSourceFieldId(
 }
 
 function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
+  //
   if (!shifterMapping) return stateMapping;
   Object.keys(shifterMapping).forEach((dataSourceField) => {
     if (new Set(Object.keys(shifterMapping[dataSourceField])).has("key")) {

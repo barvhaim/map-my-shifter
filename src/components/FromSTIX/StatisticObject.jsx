@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./from_stix.module.scss";
 
-const Statistic = ({
+const StatisticObject = ({
   officialObjectsCount,
   requiredObjectsCount,
   officialFieldsCount,
@@ -22,10 +22,10 @@ const Statistic = ({
         {officialObjectsCount} of {officialFieldsCount} fields
       </div>
       <div className={styles.coverage_count}>
-        {requiredObjectsCount} of {requiredFieldsCount} required
+        {requiredObjectsCount} of {requiredFieldsCount} required fields
       </div>
     </div>
   );
 };
 
-export default Statistic;
+export default StatisticObject;

@@ -33,11 +33,7 @@ const Mapping = () => {
               button to start mapping or load configuration.
             </p>
           ) : (
-            <ul>
-              {Object.keys(mapping).map((objectName) => (
-                <MappingObject key={objectName} objectName={objectName} />
-              ))}
-            </ul>
+            <MappingObject />
           )}
         </div>
       </div>

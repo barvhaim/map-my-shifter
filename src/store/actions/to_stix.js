@@ -98,14 +98,7 @@ export function addStixField(objectName, fieldId, key) {
   };
 }
 
-export function updateStixField(
-  objectName,
-  fieldId,
-  mappingId,
-  value,
-  type,
-  required = false
-) {
+export function updateStixField(objectName, fieldId, mappingId, value, type) {
   return {
     type: UPDATE_STIX_FIELD,
     payload: {
@@ -114,7 +107,6 @@ export function updateStixField(
       mappingId,
       value,
       type,
-      required,
     },
   };
 }

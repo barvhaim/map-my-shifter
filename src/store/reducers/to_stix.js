@@ -195,7 +195,6 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const mappingId = action.payload?.mappingId;
       const value = action.payload?.value;
       const type = action.payload?.type;
-      const required = action.payload?.required;
       if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
         return {
           ...state,
@@ -206,12 +205,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
               [fieldId]: {
                 ...state.mapping[objectName][fieldId],
                 mapped_to: state.mapping[objectName][fieldId].mapped_to.map(
-                  (o) =>
-                    o.id === mappingId
-                      ? required
-                        ? { ...o, [type]: value, required: required }
-                        : { ...o, [type]: value }
-                      : o
+                  (o) => (o.id === mappingId ? { ...o, [type]: value } : o)
                 ),
               },
             },

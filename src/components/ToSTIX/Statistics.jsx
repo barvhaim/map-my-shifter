@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import styles from "./to_stix.module.scss";
 import { getDataForStatistics } from "./utils";
-import Statistic from "./Statistic";
+import StatisticObject from "./StatisticObject";
 
 const Statistics = ({ mapping }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
@@ -17,6 +17,11 @@ const Statistics = ({ mapping }) => {
     customObjectsCount,
   ] = getDataForStatistics(mapping, stixTypesSet);
 
+  console.log(officialFieldsCount);
+  console.log(customFieldsCount);
+  console.log(officialObjectsCount);
+  console.log(customObjectsCount);
+
   const sum = officialFieldsCount + customFieldsCount;
 
   return (
@@ -30,19 +35,21 @@ const Statistics = ({ mapping }) => {
       <div className="bx--row" style={{ marginBottom: ".75rem" }}>
         <div className={`bx--col ${styles.statistics__col}`}>
           <div className="bx--row">
-            <Statistic
-              FieldsCount={officialFieldsCount}
-              ObjectsCount={officialObjectsCount}
+            <StatisticObject
+              fieldsCount={officialFieldsCount}
+              objectsCount={officialObjectsCount}
               sum={sum}
+              type={"Official"}
             />
           </div>
         </div>
         <div className={`bx--col ${styles.statistics__col}`}>
           <div className="bx--row">
-            <Statistic
-              FieldsCount={customFieldsCount}
-              ObjectsCount={customObjectsCount}
+            <StatisticObject
+              fieldsCount={customFieldsCount}
+              objectsCount={customObjectsCount}
               sum={sum}
+              type={"Custom"}
             />
           </div>
         </div>

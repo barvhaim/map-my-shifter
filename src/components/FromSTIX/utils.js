@@ -9,7 +9,9 @@ export function stateMappingToShifterMapping(stateMapping) {
     if (!(type in output)) {
       output[type] = { fields: {} };
     }
-    output[type]["fields"][key] = stateMapping[field].map((o) => o.value);
+    output[type]["fields"][key] = stateMapping[field].values.map(
+      (o) => o.value
+    );
   });
   return output;
 }
@@ -32,10 +34,12 @@ function shifterMappingToStateMapping(shifterMapping) {
     if ("fields" in shifterMapping[type]) {
       const fields = shifterMapping[type]["fields"];
       Object.keys(fields).forEach((key) => {
-        stateMapping[`${type}:${key}`] = fields[key].map((value) => ({
-          value,
-          id: uuidv4(),
-        }));
+        stateMapping[`${type}:${key}`] = {
+          values: fields[key].map((value) => ({
+            value,
+            id: uuidv4(),
+          })),
+        };
       });
     }
   });
@@ -53,7 +57,7 @@ export function filterMappingFieldsForValue(mappings, value) {
     }, {});
 }
 
-export function getNumOfObjects(mapping, stixTypesSet) {
+export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
   const officialObjects = new Set();
   const requiredObjects = new Set();
   Object.keys(mapping).forEach((field) => {
@@ -62,13 +66,14 @@ export function getNumOfObjects(mapping, stixTypesSet) {
       Object.keys(mapping[field].values).forEach((val) => {
         if (mapping[field].values[val].value !== "" && stixTypesSet.has(type)) {
           officialObjects.add(`${type}:${key}`);
-          if (mapping[field].required) {
+          if (requiredSet.has(`${type}:${key}`)) {
             requiredObjects.add(`${type}:${key}`);
           }
         }
       });
     }
   });
+  console.log([officialObjects.size, requiredObjects.size]);
   return [officialObjects.size, requiredObjects.size];
 }
 
@@ -83,5 +88,6 @@ export function getNumOfFields(stixFields) {
       }
     });
   });
+  console.log([officialFieldsCount, requiredFieldsCount]);
   return [officialFieldsCount, requiredFieldsCount];
 }

@@ -1,0 +1,23 @@
+import React from "react";
+import styles from "./to_stix.module.scss";
+
+const StatisticObject = ({ fieldsCount, objectsCount, sum, type }) => {
+  const objectsStatistics = (fieldsCount / sum) * 100;
+
+  console.log(fieldsCount);
+  console.log(objectsCount);
+  console.log(sum);
+
+  return (
+    <div className="bx--col">
+      <div className="bx--label-description">{type} STIX Coverage</div>
+      <div className={styles.coverage_percent}>
+        {sum === 0 ? 0 : Math.round(objectsStatistics * 100) / 100}%
+      </div>
+      <div className={styles.coverage_count}>{fieldsCount} fields</div>
+      <div className={styles.coverage_count}>{objectsCount} objects</div>
+    </div>
+  );
+};
+
+export default StatisticObject;

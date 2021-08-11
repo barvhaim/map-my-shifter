@@ -12,6 +12,40 @@ const Mapping = () => {
   const fieldMappingFilter = useSelector(
     (state) => state.fromStix.fieldMappingFilter
   );
+  console.log(
+    new Set([
+      "autonomous-system:number",
+      "directory:path",
+      "domain-name:value",
+      "email-addr:value",
+      "email-message:is_multipart",
+      "ipv4-addr:value",
+      "ipv6-addr:value",
+      "mac-addr:value",
+      "software:name",
+      "url:value",
+      "user-account:user_id",
+      "windows-registry-key:key",
+    ])
+  );
+  console.log(
+    new Set([
+      "autonomous-system:number",
+      "directory:path",
+      "domain-name:value",
+      "email-addr:value",
+      "email-message:is_multipart",
+      "ipv4-addr:value",
+      "ipv6-addr:value",
+      "mac-addr:value",
+      "mutex:name",
+      "network-traffic:protocols",
+      "software:name",
+      "url:value",
+      "user-account:user_id",
+    ])
+  );
+
   return (
     <>
       <div className="bx--row">
