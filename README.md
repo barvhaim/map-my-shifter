@@ -1,4 +1,4 @@
-![6b112b14705d4d56b401766df306f129](https://user-images.githubusercontent.com/16198896/114301821-0653e000-9acf-11eb-923d-baeec7ba80dc.png)
+![logo](https://user-images.githubusercontent.com/16198896/129204519-78bb6448-246e-4e6d-a456-182792c7b894.png)
 
 # `map-my-shifter`
 
