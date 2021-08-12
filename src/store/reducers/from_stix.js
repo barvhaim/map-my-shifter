@@ -72,7 +72,7 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
             ...state.mapping,
             [action.payload.field]: {
               ...state.mapping[action.payload.field],
-              values: state.mapping[action.payload.field].filter(
+              values: state.mapping[action.payload.field].values.filter(
                 (o) => o.id !== action.payload.id
               ),
             },

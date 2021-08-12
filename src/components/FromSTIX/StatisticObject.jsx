@@ -19,10 +19,10 @@ const StatisticObject = ({
         %
       </div>
       <div className={styles.coverage_count}>
-        {officialObjectsCount} of {officialFieldsCount} fields
+        {officialObjectsCount} of {officialFieldsCount} STIX fields
       </div>
       <div className={styles.coverage_count}>
-        {requiredObjectsCount} of {requiredFieldsCount} required fields
+        {requiredObjectsCount} of {requiredFieldsCount} required STIX fields
       </div>
     </div>
   );
