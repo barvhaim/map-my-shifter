@@ -7,6 +7,7 @@ import { SubtractAlt20 } from "@carbon/icons-react";
 import { useDispatch } from "react-redux";
 import { TextInput } from "carbon-components-react";
 import styles from "./to_stix.module.scss";
+import StixFieldsTable from "./StixFieldsTable";
 
 const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const dispatch = useDispatch();
@@ -39,14 +40,19 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
 
 const SourceField = ({ objectKey, fieldId, fieldData }) => {
   return (
-    <div className={styles.object_item__map}>
+    <div key={fieldId} className={styles.object_item__map}>
       <SourceFieldHeader
         objectKey={objectKey}
         fieldId={fieldId}
         fieldData={fieldData}
       />
+      <StixFieldsTable
+        objectKey={objectKey}
+        sourceFieldId={fieldId}
+        sourceFieldData={fieldData}
+      />
     </div>
   );
 };
 
-export default SourceField;
+export default React.memo(SourceField);

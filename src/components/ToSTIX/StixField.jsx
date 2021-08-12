@@ -1,137 +1,100 @@
 import React from "react";
-import { Delete20, List20 } from "@carbon/icons-react";
-import { Dropdown, MultiSelect, TextInput } from "carbon-components-react";
 import styles from "./to_stix.module.scss";
-import { useDispatch } from "react-redux";
 import {
+  openSelectFieldModal,
   removeStixField,
   updateStixField,
-  openSelectFieldModal,
 } from "../../store/actions/to_stix";
+import { Dropdown, TextInput } from "carbon-components-react";
+import { useDispatch } from "react-redux";
 import transformers from "../../global/transformers";
-import SelectFieldModal from "./SelectFieldModal";
+import { Delete20, List20 } from "@carbon/icons-react";
+import ReferencesSelector from "./ReferencesSelector";
 
-const StixField = ({ mapping, fieldId, objectName }) => {
+const StixField = ({
+  objectKey,
+  sourceFieldId,
+  stixFieldId,
+  stixFieldKey,
+  stixFieldTransformer,
+  stixFieldReferences,
+}) => {
   const dispatch = useDispatch();
-
-  const getObjects = () => {
-    return [...Object.keys(mapping)];
-  };
-
-  return Object.keys(mapping).map((stixField) => {
-    const stixFieldTransformer = stixField?.transformer;
-    const stixFieldReferences =
-      stixField.references && stixField.references.length !== 0
-        ? stixField.key.endsWith("_refs")
-          ? stixField.references
-          : [stixField.references]
-        : [];
-    return (
-      <div key={`${fieldId}_${stixField.id}`}>
-        <SelectFieldModal
-          objectName={objectName}
-          fieldId={fieldId}
-          stixFieldId={stixField.id}
-          type={"key"}
-        />
-        <div className={`bx--row ${styles.object_item__field}`}>
-          <div>
-            <List20
-              onClick={() => {
-                dispatch(openSelectFieldModal());
-              }}
-            />
-          </div>
-          <div className={"bx--col-sm-1"}>
-            <TextInput
-              id={`${stixField.id}_${stixField.key}`}
-              labelText={""}
-              onChange={(e) => {
-                dispatch(
-                  updateStixField(
-                    objectName,
-                    fieldId,
-                    stixField.id,
-                    e.target.value,
-                    "key"
-                  )
-                );
-              }}
-              size={"sm"}
-              value={stixField.key}
-            />
-          </div>
-          <div className={"bx--col-sm-1"}>
-            <Dropdown
-              size={"sm"}
-              ariaLabel="Dropdown"
-              id="transformer"
-              items={transformers}
-              label="None"
-              selectedItem={stixFieldTransformer}
-              onChange={(e) => {
-                dispatch(
-                  updateStixField(
-                    objectName,
-                    fieldId,
-                    stixField.id,
-                    e.selectedItem,
-                    "transformer"
-                  )
-                );
-              }}
-            />
-          </div>
-          <div className={"bx--col-sm-1"}>
-            <MultiSelect
-              id={"references"}
-              size={"sm"}
-              useTitleInItem={false}
-              label={
-                stixFieldReferences?.length !== 0
-                  ? stixFieldReferences.map((referenceObjectName) =>
-                      referenceObjectName !==
-                      stixFieldReferences[stixFieldReferences.length - 1]
-                        ? referenceObjectName + ", "
-                        : referenceObjectName
+  return (
+    <div key={stixFieldId}>
+      <div className={`bx--row ${styles.object_item__field}`}>
+        <div className={"bx--col-md-3"}>
+          <div className={"bx--row"}>
+            <div className={"bx--col"}>
+              <TextInput
+                id={stixFieldId}
+                labelText={""}
+                onChange={(e) => {
+                  dispatch(
+                    updateStixField(
+                      objectKey,
+                      sourceFieldId,
+                      stixFieldId,
+                      e.target.value,
+                      "key"
                     )
-                  : "None"
-              }
-              invalid={false}
-              invalidText="Invalid Selection"
-              onChange={(e) => {
-                dispatch(
-                  updateStixField(
-                    objectName,
-                    fieldId,
-                    stixField.id,
-                    e.selectedItems,
-                    "references"
-                  )
-                );
-              }}
-              items={getObjects().filter((o) => o !== objectName)}
-              disabled={
-                getObjects().filter((o) => o !== objectName).length === 0
-              }
-              initialSelectedItems={stixFieldReferences}
-              selectedItem={stixFieldReferences}
-              itemToString={(item) => (item ? item : "")}
-              inline={true}
-            />
-          </div>
-          <div>
-            <Delete20
-              className={`${styles.object_item__btn}`}
-              onClick={() => {
-                dispatch(removeStixField(objectName, fieldId, stixField.id));
-              }}
-            />
+                  );
+                }}
+                size={"sm"}
+                value={stixFieldKey}
+              />
+            </div>
+            <div>
+              <List20
+                onClick={() => {
+                  dispatch(
+                    openSelectFieldModal(objectKey, sourceFieldId, stixFieldId)
+                  );
+                }}
+              />
+            </div>
           </div>
         </div>
+        <div className={"bx--col-md-2"}>
+          <Dropdown
+            size={"sm"}
+            ariaLabel="Dropdown"
+            id="transformer"
+            items={transformers}
+            label="None"
+            selectedItem={stixFieldTransformer}
+            onChange={(e) => {
+              dispatch(
+                updateStixField(
+                  objectKey,
+                  sourceFieldId,
+                  stixFieldId,
+                  e.selectedItem,
+                  "transformer"
+                )
+              );
+            }}
+          />
+        </div>
+
+        <ReferencesSelector
+          objectKey={objectKey}
+          sourceFieldId={sourceFieldId}
+          stixFieldId={stixFieldId}
+          selectedReferences={stixFieldReferences}
+        />
+
+        <div>
+          <Delete20
+            className={`${styles.object_item__btn}`}
+            onClick={() => {
+              dispatch(removeStixField(objectKey, sourceFieldId, stixFieldId));
+            }}
+          />
+        </div>
       </div>
-    );
-  });
+    </div>
+  );
 };
 
-export default StixField;
+export default React.memo(StixField);

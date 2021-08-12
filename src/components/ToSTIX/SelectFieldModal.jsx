@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeSelectFieldModal } from "../../store/actions/to_stix";
 import SelectField from "../STIX/SelectField";
 
-const SelectFieldModal = ({ objectName, fieldId, stixFieldId, type }) => {
+const SelectFieldModal = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.toStix.isSelectFieldModalOpen);
+  const selectFieldModal = useSelector(
+    (state) => state.toStix.selectFieldModal
+  );
+  const isOpen = !(selectFieldModal === null);
 
   return (
     <Modal
@@ -19,12 +22,14 @@ const SelectFieldModal = ({ objectName, fieldId, stixFieldId, type }) => {
       hasForm={false}
       passiveModal={true}
     >
-      <SelectField
-        objectName={objectName}
-        fieldId={fieldId}
-        stixFieldId={stixFieldId}
-        type={type}
-      />
+      {isOpen && (
+        <SelectField
+          objectName={selectFieldModal.objectKey}
+          fieldId={selectFieldModal.sourceFieldId}
+          stixFieldId={selectFieldModal.stixFieldId}
+          type={"key"}
+        />
+      )}
     </Modal>
   );
 };
