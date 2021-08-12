@@ -26,9 +26,14 @@ export function closeNewObjectModal() {
   };
 }
 
-export function openSelectFieldModal() {
+export function openSelectFieldModal(objectKey, sourceFieldId, stixFieldId) {
   return {
     type: OPEN_SELECT_FIELD_MODAL,
+    payload: {
+      objectKey,
+      sourceFieldId,
+      stixFieldId,
+    },
   };
 }
 

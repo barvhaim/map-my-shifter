@@ -60,7 +60,7 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
           ],
         };
       } else {
-        console.log("metadata");
+        console.log("TODO - metadata");
       }
     } else {
       shifterMappingToStateMapping(

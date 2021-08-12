@@ -17,15 +17,7 @@ const FromSTIX = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
   const stixVersion = useSelector((state) => state.stix.stixVersion);
   const stixFields = useSelector((state) => state.stix.stixFields);
-
-  console.log(mapping);
-
   const requiredSet = requiredFields[stixVersion];
-
-  // const stixFieldsObject = useMemo(
-  //   () => new Set(Object.values(stixFields).map((field) => field.type)), //
-  //   [stixFields]
-  // );
   const stixFieldsObject = useMemo(
     () =>
       Object.assign(
@@ -35,27 +27,11 @@ const FromSTIX = () => {
       ),
     [stixFields]
   );
-  console.log(stixFieldsObject); //name
-
   const [coverage, officialObjectsCount, requiredObjectsCount] = getObjectsData(
     mapping,
     stixFieldsObject,
     requiredSet
   );
-  // const officialObjectsCount = Object.keys(officialObjects);
-  console.log(officialObjectsCount);
-  // console.log(officialObjects);
-  // console.log(Object.assign(Array.from(officialObjects, o => ({[o]:''}))))
-  // console.log(Object.assign(Array.from(stixFieldsObject, o => ({[o]:''}))))
-  // // let noaa = {};
-  // // noaa = Object.assign({}, ...Array.from(officialObjects, value => ({ [value.split(":")[0]]: [noaa[value.split(":")[0]] ,value.split(":")[1]] })))
-  // console.log(Array.from(officialObjects, value => ({ [value.split(":")[0]]: value.split(":")[1] })))
-  // console.log(Object.assign({}, ...Array.from(stixFieldsObject, value => ({ [value]: 0 }))))
-  // console.log(Object.assign(Array.from(officialObjects)))
-  // console.log(Object.assign(Array.from(officialObjects)).map(o=>o.split(":")))
-  // console.log(noaa);
-  // console.log(officialObjects);
-
   return (
     <div className="bx--grid">
       <div className="bx--row">

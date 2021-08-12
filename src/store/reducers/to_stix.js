@@ -19,7 +19,7 @@ import {
 
 const INITIAL_STATE = {
   isNewObjectModalOpen: false,
-  isSelectFieldModalOpen: false,
+  selectFieldModal: null,
   mapping: {},
 };
 
@@ -42,14 +42,18 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
     case OPEN_SELECT_FIELD_MODAL: {
       return {
         ...state,
-        isSelectFieldModalOpen: true,
+        selectFieldModal: {
+          objectKey: action.payload.objectKey,
+          sourceFieldId: action.payload.sourceFieldId,
+          stixFieldId: action.payload.stixFieldId,
+        },
       };
     }
 
     case CLOSE_SELECT_FIELD_MODAL: {
       return {
         ...state,
-        isSelectFieldModalOpen: false,
+        selectFieldModal: null,
       };
     }
 
@@ -191,21 +195,26 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
 
     case UPDATE_STIX_FIELD: {
       const objectName = action.payload?.objectName;
-      const fieldId = action.payload?.fieldId;
-      const mappingId = action.payload?.mappingId;
+      const sourceFieldId = action.payload?.fieldId;
+      const stixFieldId = action.payload?.mappingId;
       const value = action.payload?.value;
       const type = action.payload?.type;
-      if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
+      if (
+        objectName in state.mapping &&
+        sourceFieldId in state.mapping[objectName]
+      ) {
         return {
           ...state,
           mapping: {
             ...state.mapping,
             [objectName]: {
               ...state.mapping[objectName],
-              [fieldId]: {
-                ...state.mapping[objectName][fieldId],
-                mapped_to: state.mapping[objectName][fieldId].mapped_to.map(
-                  (o) => (o.id === mappingId ? { ...o, [type]: value } : o)
+              [sourceFieldId]: {
+                ...state.mapping[objectName][sourceFieldId],
+                mapped_to: state.mapping[objectName][
+                  sourceFieldId
+                ].mapped_to.map((o) =>
+                  o.id === stixFieldId ? { ...o, [type]: value } : o
                 ),
               },
             },

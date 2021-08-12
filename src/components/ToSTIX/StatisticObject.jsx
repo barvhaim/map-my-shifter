@@ -6,12 +6,12 @@ const StatisticObject = ({ fieldsCount, objectsCount, sum, type }) => {
 
   return (
     <div className="bx--col">
-      <div className="bx--label-description">{type} STIX Coverage</div>
+      <div className="bx--label-description">{type} STIX fields</div>
       <div className={styles.coverage_percent}>
         {sum === 0 ? 0 : Math.round(objectsStatistics * 100) / 100}%
       </div>
-      <div className={styles.coverage_count}>{fieldsCount} fields</div>
-      <div className={styles.coverage_count}>{objectsCount} objects</div>
+      <div className={styles.coverage_count}>{fieldsCount} STIX fields</div>
+      <div className={styles.coverage_count}>{objectsCount} STIX objects</div>
     </div>
   );
 };
