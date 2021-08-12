@@ -6,7 +6,7 @@ import AddFieldItems from "./AddFieldItems";
 import FieldSearchBar from "./FieldSearchBar";
 import ChangeVersion from "./ChangeVersion";
 
-const SelectField = ({ objectName, fieldId, stixFieldId, type }) => {
+const SelectField = ({ objectName, fieldId, stixFieldId, type, objects }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
 
   return (
@@ -33,6 +33,7 @@ const SelectField = ({ objectName, fieldId, stixFieldId, type }) => {
                 fieldId={fieldId}
                 stixFieldId={stixFieldId}
                 updateType={type}
+                objects={objects}
               />
             ))}
           </Accordion>

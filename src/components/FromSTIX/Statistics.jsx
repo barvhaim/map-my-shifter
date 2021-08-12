@@ -1,23 +1,15 @@
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./from_stix.module.scss";
 import StatisticObject from "./StatisticObject";
-import { getNumOfFields, getNumOfObjects } from "./utils";
-import { requiredFields } from "../../global/requiredFields";
+import { getNumOfFields } from "./utils";
+import { Help32 } from "@carbon/icons-react";
+import { colorFields } from "../../store/actions/from_stix";
 
-const Statistics = ({ mapping }) => {
+const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
+  const dispatch = useDispatch();
+  const toColor = useSelector((state) => state.fromStix.colorFields);
   const stixFields = useSelector((state) => state.stix.stixFields);
-  const stixVersion = useSelector((state) => state.stix.stixVersion);
-  const requiredSet = requiredFields[stixVersion];
-  const stixTypesSet = useMemo(
-    () => new Set(Object.values(stixFields).map((field) => field.type)),
-    [stixFields]
-  );
-  const [officialObjectsCount, requiredObjectsCount] = getNumOfObjects(
-    mapping,
-    stixTypesSet,
-    requiredSet
-  );
   const [officialFieldsCount, requiredFieldsCount] = useMemo(
     () => getNumOfFields(stixFields),
     [stixFields]
@@ -28,6 +20,12 @@ const Statistics = ({ mapping }) => {
       <div className="bx--row">
         <div className={"bx--col"}>
           <h4 className="section-title">Coverage Statistics</h4>
+        </div>
+        <div className={"bx--col"}>
+          <Help32
+            size={"16px"}
+            onClick={() => dispatch(colorFields(!toColor))}
+          />
         </div>
       </div>
 

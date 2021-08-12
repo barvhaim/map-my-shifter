@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AccordionItem } from "carbon-components-react";
 import styles from "./stix.module.scss";
 import {
@@ -16,8 +16,10 @@ const AddFieldItems = ({
   fieldId,
   stixFieldId,
   updateType,
+  objects,
 }) => {
   const dispatch = useDispatch();
+  const toColor = useSelector((state) => state.fromStix.colorFields);
 
   const selectStixField = (
     value,
@@ -60,7 +62,12 @@ const AddFieldItems = ({
                 updateType
               );
             }}
-            className={styles.field__item}
+            disabled={toColor}
+            className={
+              toColor && objects && !objects.has(`${type}:${item.name}`)
+                ? styles.colored_field__item
+                : styles.field__item
+            }
           >
             {item.name} {item.required ? "(*)" : ""}
           </li>

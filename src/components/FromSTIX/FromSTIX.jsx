@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import AddFields from "./AddFields";
 import Mapping from "./Mapping";
@@ -10,10 +10,30 @@ import {
   clearMappings,
 } from "../../store/actions/from_stix";
 import Statistics from "./Statistics";
+import { getNumOfObjects } from "./utils";
+import { requiredFields } from "../../global/requiredFields";
 
 const FromSTIX = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
+  const stixVersion = useSelector((state) => state.stix.stixVersion);
+  const stixFields = useSelector((state) => state.stix.stixFields);
+
   console.log(mapping);
+
+  const requiredSet = requiredFields[stixVersion];
+
+  const stixTypesSet = useMemo(
+    () => new Set(Object.values(stixFields).map((field) => field.type)),
+    [stixFields]
+  );
+
+  const [officialObjects, requiredObjectsCount] = getNumOfObjects(
+    mapping,
+    stixTypesSet,
+    requiredSet
+  );
+  const officialObjectsCount = officialObjects.size;
+  console.log(officialObjects);
 
   return (
     <div className="bx--grid">
@@ -25,7 +45,7 @@ const FromSTIX = () => {
 
       <div className="bx--row">
         <div className="bx--col-sm-1">
-          <AddFields />
+          <AddFields objects={officialObjects} />
         </div>
 
         <div className="bx--col-sm-2">
@@ -54,7 +74,10 @@ const FromSTIX = () => {
 
           <div className="bx--row">
             <div className="bx--col-sm-4">
-              <Statistics mapping={mapping} />
+              <Statistics
+                officialObjectsCount={officialObjectsCount}
+                requiredObjectsCount={requiredObjectsCount}
+              />
             </div>
           </div>
         </div>

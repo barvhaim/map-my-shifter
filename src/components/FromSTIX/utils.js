@@ -58,6 +58,7 @@ export function filterMappingFieldsForValue(mappings, value) {
 }
 
 export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
+  //TODO: change name
   const officialObjects = new Set();
   const requiredObjects = new Set();
   Object.keys(mapping).forEach((field) => {
@@ -73,7 +74,7 @@ export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
       });
     }
   });
-  return [officialObjects.size, requiredObjects.size];
+  return [officialObjects, requiredObjects.size];
 }
 
 export function getNumOfFields(stixFields) {

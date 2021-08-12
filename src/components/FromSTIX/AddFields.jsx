@@ -1,9 +1,8 @@
 import React from "react";
 import CustomField from "./CustomField";
 import SelectField from "../STIX/SelectField";
-import { addField } from "../../store/actions/from_stix";
 
-const AddFields = () => {
+const AddFields = ({ objects }) => {
   return (
     <>
       <div className="bx--row">
@@ -15,7 +14,7 @@ const AddFields = () => {
         </div>
       </div>
 
-      <SelectField addField={addField} />
+      <SelectField objects={objects} />
     </>
   );
 };
