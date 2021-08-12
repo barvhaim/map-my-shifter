@@ -13,7 +13,7 @@ const About = () => {
       <div className={"bx--row"}>
         <div className={"bx--col"}>
           <img
-            src="https://user-images.githubusercontent.com/16198896/114301821-0653e000-9acf-11eb-923d-baeec7ba80dc.png"
+            src="https://user-images.githubusercontent.com/16198896/129204519-78bb6448-246e-4e6d-a456-182792c7b894.png"
             alt="logo"
           />
           <h4>STIX-Shifter Connector's Mapping Builder</h4>
