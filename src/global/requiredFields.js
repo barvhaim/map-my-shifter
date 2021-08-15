@@ -30,6 +30,6 @@ const requiredSetV2_1 = new Set([
 ]);
 
 export const requiredFields = {
-  stix_version_2_0: new Set(requiredSetV2_0),
-  stix_version_2_1: new Set(requiredSetV2_1),
+  stix_version_2_0: requiredSetV2_0,
+  stix_version_2_1: requiredSetV2_1,
 };

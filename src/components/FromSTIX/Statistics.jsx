@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./from_stix.module.scss";
 import StatisticObject from "./StatisticObject";
 import { getNumOfFields } from "./utils";
-import { Help32 } from "@carbon/icons-react";
+import { AccessibilityColor20 } from "@carbon/icons-react";
 import { colorFields } from "../../store/actions/from_stix";
 
 const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
@@ -22,7 +22,7 @@ const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
           <h4 className="section-title">Coverage Statistics</h4>
         </div>
         <div className={"bx--col"}>
-          <Help32
+          <AccessibilityColor20
             size={"16px"}
             onClick={() => dispatch(colorFields(!toColor))}
           />

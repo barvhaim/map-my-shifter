@@ -57,16 +57,24 @@ export function filterMappingFieldsForValue(mappings, value) {
     }, {});
 }
 
-export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
-  //TODO: change name
+export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
+  //name
   const officialObjects = new Set();
   const requiredObjects = new Set();
+  const coverage = Object.assign(
+    {},
+    ...Array.from(Object.keys(stixFieldsObject), (value) => ({ [value]: [] }))
+  );
   Object.keys(mapping).forEach((field) => {
     const [type, key] = field.split(":");
     if (Object.keys(mapping[field].values).length > 0) {
       Object.keys(mapping[field].values).forEach((val) => {
-        if (mapping[field].values[val].value !== "" && stixTypesSet.has(type)) {
+        if (
+          mapping[field].values[val].value !== "" &&
+          stixFieldsObject[type]?.includes(key)
+        ) {
           officialObjects.add(`${type}:${key}`);
+          coverage[type] = [...coverage[type], `${key}`];
           if (requiredSet.has(`${type}:${key}`)) {
             requiredObjects.add(`${type}:${key}`);
           }
@@ -74,7 +82,7 @@ export function getNumOfObjects(mapping, stixTypesSet, requiredSet) {
       });
     }
   });
-  return [officialObjects, requiredObjects.size];
+  return [coverage, officialObjects.size, requiredObjects.size];
 }
 
 export function getNumOfFields(stixFields) {
@@ -90,3 +98,5 @@ export function getNumOfFields(stixFields) {
   });
   return [officialFieldsCount, requiredFieldsCount];
 }
+
+export function mappedItems() {}

@@ -42,12 +42,21 @@ const AddFieldItems = ({
       );
       dispatch(closeSelectFieldModal());
     } else {
-      dispatch(addField(value, required));
+      // if (!objects.has(value)) {
+      if (!objects[type].includes(value.split(":")[1])) {
+        dispatch(addField(value, required));
+      }
     }
   };
 
   return (
-    <AccordionItem title={title}>
+    <AccordionItem
+      title={
+        toColor
+          ? `${title}  (${objects[type].length}/${items.length})`
+          : `${title}`
+      }
+    >
       <ul>
         {items.map((item) => (
           <li
@@ -64,9 +73,9 @@ const AddFieldItems = ({
             }}
             disabled={toColor}
             className={
-              toColor && objects && !objects.has(`${type}:${item.name}`)
-                ? styles.colored_field__item
-                : styles.field__item
+              toColor && objects && objects[type].includes(`${item.name}`)
+                ? `${styles.field__item} ${styles.colored}`
+                : `${styles.field__item} ${styles.hover}`
             }
           >
             {item.name} {item.required ? "(*)" : ""}

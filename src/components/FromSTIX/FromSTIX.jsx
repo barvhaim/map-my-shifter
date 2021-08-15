@@ -10,7 +10,7 @@ import {
   clearMappings,
 } from "../../store/actions/from_stix";
 import Statistics from "./Statistics";
-import { getNumOfObjects } from "./utils";
+import { getObjectsData } from "./utils";
 import { requiredFields } from "../../global/requiredFields";
 
 const FromSTIX = () => {
@@ -22,18 +22,39 @@ const FromSTIX = () => {
 
   const requiredSet = requiredFields[stixVersion];
 
-  const stixTypesSet = useMemo(
-    () => new Set(Object.values(stixFields).map((field) => field.type)),
+  // const stixFieldsObject = useMemo(
+  //   () => new Set(Object.values(stixFields).map((field) => field.type)), //
+  //   [stixFields]
+  // );
+  const stixFieldsObject = useMemo(
+    () =>
+      Object.assign(
+        ...Array.from(stixFields, (field) => ({
+          [field.type]: field.items.map((item) => item.name),
+        }))
+      ),
     [stixFields]
   );
+  console.log(stixFieldsObject); //name
 
-  const [officialObjects, requiredObjectsCount] = getNumOfObjects(
+  const [coverage, officialObjectsCount, requiredObjectsCount] = getObjectsData(
     mapping,
-    stixTypesSet,
+    stixFieldsObject,
     requiredSet
   );
-  const officialObjectsCount = officialObjects.size;
-  console.log(officialObjects);
+  // const officialObjectsCount = Object.keys(officialObjects);
+  console.log(officialObjectsCount);
+  // console.log(officialObjects);
+  // console.log(Object.assign(Array.from(officialObjects, o => ({[o]:''}))))
+  // console.log(Object.assign(Array.from(stixFieldsObject, o => ({[o]:''}))))
+  // // let noaa = {};
+  // // noaa = Object.assign({}, ...Array.from(officialObjects, value => ({ [value.split(":")[0]]: [noaa[value.split(":")[0]] ,value.split(":")[1]] })))
+  // console.log(Array.from(officialObjects, value => ({ [value.split(":")[0]]: value.split(":")[1] })))
+  // console.log(Object.assign({}, ...Array.from(stixFieldsObject, value => ({ [value]: 0 }))))
+  // console.log(Object.assign(Array.from(officialObjects)))
+  // console.log(Object.assign(Array.from(officialObjects)).map(o=>o.split(":")))
+  // console.log(noaa);
+  // console.log(officialObjects);
 
   return (
     <div className="bx--grid">
@@ -45,7 +66,7 @@ const FromSTIX = () => {
 
       <div className="bx--row">
         <div className="bx--col-sm-1">
-          <AddFields objects={officialObjects} />
+          <AddFields objects={coverage} />
         </div>
 
         <div className="bx--col-sm-2">
