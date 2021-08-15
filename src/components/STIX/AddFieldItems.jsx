@@ -52,7 +52,7 @@ const AddFieldItems = ({
   return (
     <AccordionItem
       title={
-        toColor
+        toColor && objects
           ? `${title}  (${objects[type].length}/${items.length})`
           : `${title}`
       }
