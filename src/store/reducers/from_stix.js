@@ -10,14 +10,12 @@ import {
   SHOW_CUSTOM_FIELD_MODAL,
   CLOSE_CUSTOM_FIELD_MODAL,
   UPDATE_FROM_STIX_MAPPINGS_FROM_FILE,
-  COLOR_FIELDS,
 } from "../actions/from_stix";
 
 const INITIAL_STATE = {
   mapping: {},
   fieldMappingFilter: "",
   customFieldModalShow: false,
-  colorFields: false,
 };
 
 const FromSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -136,13 +134,6 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         customFieldModalShow: false,
-      };
-    }
-
-    case COLOR_FIELDS: {
-      return {
-        ...state,
-        colorFields: action.payload.toColor,
       };
     }
 

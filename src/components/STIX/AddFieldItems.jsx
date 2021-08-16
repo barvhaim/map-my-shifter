@@ -19,7 +19,6 @@ const AddFieldItems = ({
   objects,
 }) => {
   const dispatch = useDispatch();
-  const toColor = useSelector((state) => state.fromStix.colorFields);
 
   const selectStixField = (
     value,
@@ -52,7 +51,7 @@ const AddFieldItems = ({
   return (
     <AccordionItem
       title={
-        toColor && objects
+        objects
           ? `${title}  (${objects[type].size}/${items.length})`
           : `${title}`
       }
@@ -71,9 +70,8 @@ const AddFieldItems = ({
                 updateType
               );
             }}
-            disabled={toColor}
             className={
-              toColor && objects && objects[type].has(`${item.name}`)
+              objects && objects[type].has(`${item.name}`)
                 ? `${styles.field__item} ${styles.colored}`
                 : `${styles.field__item} ${styles.hover}`
             }

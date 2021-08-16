@@ -11,7 +11,6 @@ export const UPDATE_MAPPINGS_FILTER_FIELD_VALUE =
 export const CLEAR_FROM_STIX_MAPPINGS = "CLEAR_FROM_STIX_MAPPINGS";
 export const SHOW_CUSTOM_FIELD_MODAL = "SHOW_CUSTOM_FIELD_MODAL";
 export const CLOSE_CUSTOM_FIELD_MODAL = "CLOSE_CUSTOM_FIELD_MODAL";
-export const COLOR_FIELDS = "COLOR_FIELDS";
 
 export function addField(field, required = false) {
   return {
@@ -95,14 +94,5 @@ export function showCustomFieldModal() {
 export function closeCustomFieldModal() {
   return {
     type: CLOSE_CUSTOM_FIELD_MODAL,
-  };
-}
-
-export function colorFields(toColor) {
-  return {
-    type: COLOR_FIELDS,
-    payload: {
-      toColor,
-    },
   };
 }
