@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "./logo-no-bg.png";
 import { ClickableTile } from "carbon-components-react";
 import { useDispatch } from "react-redux";
 import styles from "./welcome.module.scss";
@@ -17,6 +18,11 @@ const Welcome = () => {
   return (
     <>
       <div className="bx--grid">
+        <div className="bx--row">
+          <div className="bx--col">
+            <img src={logo} alt="Logo" width={300} />
+          </div>
+        </div>
         <div className="bx--row">
           <div className="bx--col">
             <p>
