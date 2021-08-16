@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AccordionItem } from "carbon-components-react";
 import styles from "./stix.module.scss";
 import {

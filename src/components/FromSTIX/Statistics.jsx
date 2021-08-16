@@ -1,12 +1,10 @@
 import React, { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./from_stix.module.scss";
 import StatisticObject from "./StatisticObject";
 import { getNumOfFields } from "./utils";
-import { AccessibilityColor20 } from "@carbon/icons-react";
 
 const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
-  const dispatch = useDispatch();
   const stixFields = useSelector((state) => state.stix.stixFields);
   const [officialFieldsCount, requiredFieldsCount] = useMemo(
     () => getNumOfFields(stixFields),
