@@ -43,7 +43,7 @@ const AddFieldItems = ({
       dispatch(closeSelectFieldModal());
     } else {
       // if (!objects.has(value)) {
-      if (!objects[type].includes(value.split(":")[1])) {
+      if (!objects[type].has(value.split(":")[1])) {
         dispatch(addField(value, required));
       }
     }
@@ -53,7 +53,7 @@ const AddFieldItems = ({
     <AccordionItem
       title={
         toColor && objects
-          ? `${title}  (${objects[type].length}/${items.length})`
+          ? `${title}  (${objects[type].size}/${items.length})`
           : `${title}`
       }
     >
@@ -73,7 +73,7 @@ const AddFieldItems = ({
             }}
             disabled={toColor}
             className={
-              toColor && objects && objects[type].includes(`${item.name}`)
+              toColor && objects && objects[type].has(`${item.name}`)
                 ? `${styles.field__item} ${styles.colored}`
                 : `${styles.field__item} ${styles.hover}`
             }

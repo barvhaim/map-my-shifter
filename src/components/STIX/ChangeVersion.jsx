@@ -17,7 +17,9 @@ const stixVersionsList = [
 
 const ChangeVersion = () => {
   const dispatch = useDispatch();
-  const stixVersion = useSelector((state) => state.fromStix.stixVersion);
+  const stixVersion = useSelector((state) => state.stix.stixVersion);
+  console.log(stixVersionsList);
+  console.log(stixVersion);
   return (
     <div>
       <Dropdown

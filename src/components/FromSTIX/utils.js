@@ -58,12 +58,13 @@ export function filterMappingFieldsForValue(mappings, value) {
 }
 
 export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
-  //name
   const officialObjects = new Set();
   const requiredObjects = new Set();
   const coverage = Object.assign(
     {},
-    ...Array.from(Object.keys(stixFieldsObject), (value) => ({ [value]: [] }))
+    ...Array.from(Object.keys(stixFieldsObject), (value) => ({
+      [value]: new Set(),
+    }))
   );
   Object.keys(mapping).forEach((field) => {
     const [type, key] = field.split(":");
@@ -74,7 +75,7 @@ export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
           stixFieldsObject[type]?.includes(key)
         ) {
           officialObjects.add(`${type}:${key}`);
-          coverage[type] = [...coverage[type], `${key}`];
+          coverage[type].add(`${key}`);
           if (requiredSet.has(`${type}:${key}`)) {
             requiredObjects.add(`${type}:${key}`);
           }
@@ -82,6 +83,7 @@ export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
       });
     }
   });
+  console.log(coverage);
   return [coverage, officialObjects.size, requiredObjects.size];
 }
 
