@@ -14,6 +14,7 @@ const ReferencesSelector = ({
   const allAvailableObjectKeys = useMemo(() => {
     return [...Object.keys(mapping)].filter((o) => o !== objectKey);
   }, [objectKey, mapping]);
+  console.log(selectedReferences);
 
   return (
     <div className={"bx--col-md-2"}>

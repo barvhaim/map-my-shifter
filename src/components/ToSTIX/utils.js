@@ -20,10 +20,17 @@ function getDataSourceFieldId(
 }
 
 function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
-  //
   if (!shifterMapping) return stateMapping;
   Object.keys(shifterMapping).forEach((dataSourceField) => {
-    if (new Set(Object.keys(shifterMapping[dataSourceField])).has("key")) {
+    if (typeof Object.keys(shifterMapping[dataSourceField]) === Array) {
+      shifterMappingToStateMapping(
+        shifterMapping[dataSourceField],
+        stateMapping,
+        dataSourceField
+      );
+    } else if (
+      new Set(Object.keys(shifterMapping[dataSourceField])).has("key")
+    ) {
       if (new Set(Object.keys(shifterMapping[dataSourceField])).has("object")) {
         const objectName = shifterMapping[dataSourceField].object;
         const dataSourceFieldId = uuidv4();
@@ -55,7 +62,7 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
             : {}),
           mapped_to: [
             id !== dataSourceFieldId
-              ? { ...stateMapping[objectName][id].mapped_to, mappedTo }
+              ? { ...stateMapping[objectName][id].mapped_to, ...mappedTo }
               : mappedTo,
           ],
         };
@@ -63,10 +70,13 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
         console.log("TODO - metadata");
       }
     } else {
+      const newFieldName = fieldName
+        ? `${fieldName}.${dataSourceField}`
+        : dataSourceField;
       shifterMappingToStateMapping(
         shifterMapping[dataSourceField],
         stateMapping,
-        dataSourceField
+        newFieldName
       );
     }
   });
@@ -112,6 +122,7 @@ export function stateMappingToShifterMapping(stateMapping) {
 }
 
 export function getDataForStatistics(mapping, stixTypesSet) {
+  console.log(mapping);
   const officialFields = new Set();
   const CustomFields = new Set();
   const officialObjects = new Set();
@@ -119,6 +130,12 @@ export function getDataForStatistics(mapping, stixTypesSet) {
   Object.keys(mapping).forEach((object) => {
     Object.keys(mapping[object]).forEach((id) => {
       Object.keys(mapping[object][id].mapped_to).forEach((index) => {
+        console.log(mapping);
+        console.log(mapping[object]);
+        console.log(mapping[object][id]);
+        console.log(mapping[object][id].mapped_to);
+        console.log(mapping[object][id].mapped_to[index]);
+        console.log(mapping[object][id].mapped_to[index].key);
         const [type, key] = mapping[object][id].mapped_to[index].key.split(":");
         if (stixTypesSet.has(type)) {
           officialFields.add(`${type}:${key}`);

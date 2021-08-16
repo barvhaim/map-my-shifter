@@ -20,7 +20,7 @@
     padding-bottom: $spacing-02;
     margin-bottom: $spacing-03;
     padding-left: $spacing-04;
-    cursor: pointer;
+    cursor: default;
   }
   .colored {
     color: $carbon--gray-40;
@@ -28,6 +28,7 @@
   .hover {
     &:hover {
       background-color: $carbon--gray-20;
+      cursor: pointer;
     }
   }
 }
