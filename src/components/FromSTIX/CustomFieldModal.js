@@ -24,7 +24,7 @@ const CustomFieldModal = () => {
       }}
       onRequestSubmit={() => {
         const [type, key] = customField.split(":");
-        dispatch(addField(type, key));
+        dispatch(addField(`${type}:${key}`));
         setCustomField("");
         dispatch(closeCustomFieldModal());
       }}
