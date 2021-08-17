@@ -23,7 +23,6 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
   if (!shifterMapping) return stateMapping;
   Object.keys(shifterMapping).forEach((dataSourceField) => {
     if (typeof Object.keys(shifterMapping[dataSourceField]) === Array) {
-      console.log(dataSourceField);
       shifterMappingToStateMapping(
         shifterMapping[dataSourceField],
         stateMapping,
@@ -74,7 +73,6 @@ function shifterMappingToStateMapping(shifterMapping, stateMapping, fieldName) {
       const newFieldName = fieldName
         ? `${fieldName}.${dataSourceField}`
         : dataSourceField;
-      console.log(newFieldName);
       shifterMappingToStateMapping(
         shifterMapping[dataSourceField],
         stateMapping,
@@ -124,7 +122,6 @@ export function stateMappingToShifterMapping(stateMapping) {
 }
 
 export function getDataForStatistics(mapping, stixTypesSet) {
-  // console.log(mapping);
   const officialFields = new Set();
   const CustomFields = new Set();
   const officialObjects = new Set();

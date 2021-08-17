@@ -27,12 +27,9 @@ const StixFieldsTableHeader = ({ objectKey, sourceFieldId }) => {
 const StixFieldsTableBody = ({ objectKey, sourceFieldId, stixFieldsData }) => {
   return stixFieldsData.map((stixField) => {
     const stixFieldTransformer = stixField?.transformer;
-    // console.log(typeof stixField.references);
-    // console.log(stixField.references);
     const stixFieldReferences =
       stixField.references && stixField.references.length !== 0
-        ? // ? stixField.key.endsWith("_refs")
-          !typeof stixField.references === Array
+        ? !typeof stixField.references === Array
           ? stixField.references
           : [stixField.references]
         : [];

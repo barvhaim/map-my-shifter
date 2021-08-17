@@ -83,7 +83,6 @@ export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
       });
     }
   });
-  console.log(coverage);
   return [coverage, officialObjects.size, requiredObjects.size];
 }
 

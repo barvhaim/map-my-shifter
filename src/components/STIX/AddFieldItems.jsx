@@ -41,7 +41,6 @@ const AddFieldItems = ({
       );
       dispatch(closeSelectFieldModal());
     } else {
-      // if (!objects.has(value)) {
       if (!objects[type].has(value.split(":")[1])) {
         dispatch(addField(value, required));
       }
