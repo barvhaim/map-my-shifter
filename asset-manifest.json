@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/map-my-shifter/static/css/main.c6509346.chunk.css",
-    "main.js": "/map-my-shifter/static/js/main.49477246.chunk.js",
-    "main.js.map": "/map-my-shifter/static/js/main.49477246.chunk.js.map",
+    "main.js": "/map-my-shifter/static/js/main.1917fede.chunk.js",
+    "main.js.map": "/map-my-shifter/static/js/main.1917fede.chunk.js.map",
     "runtime-main.js": "/map-my-shifter/static/js/runtime-main.8e91766a.js",
     "runtime-main.js.map": "/map-my-shifter/static/js/runtime-main.8e91766a.js.map",
     "static/js/2.dd5bb6bd.chunk.js": "/map-my-shifter/static/js/2.dd5bb6bd.chunk.js",
     "static/js/2.dd5bb6bd.chunk.js.map": "/map-my-shifter/static/js/2.dd5bb6bd.chunk.js.map",
     "index.html": "/map-my-shifter/index.html",
-    "precache-manifest.437a92a7313bd6175d43cba9de5502ec.js": "/map-my-shifter/precache-manifest.437a92a7313bd6175d43cba9de5502ec.js",
+    "precache-manifest.69d171f539c176016d4510533bef89f9.js": "/map-my-shifter/precache-manifest.69d171f539c176016d4510533bef89f9.js",
     "service-worker.js": "/map-my-shifter/service-worker.js",
     "static/css/main.c6509346.chunk.css.map": "/map-my-shifter/static/css/main.c6509346.chunk.css.map",
     "static/js/2.dd5bb6bd.chunk.js.LICENSE.txt": "/map-my-shifter/static/js/2.dd5bb6bd.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.8e91766a.js",
     "static/js/2.dd5bb6bd.chunk.js",
     "static/css/main.c6509346.chunk.css",
-    "static/js/main.49477246.chunk.js"
+    "static/js/main.1917fede.chunk.js"
   ]
 }
