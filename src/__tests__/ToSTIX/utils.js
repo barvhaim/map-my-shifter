@@ -1,4 +1,4 @@
-// import {loadJsonFromDisk} from '../../components/ToSTIX/utils.js';
+import { loadJsonFromDisk } from "../../components/ToSTIX/utils.js";
 import { stateMappingToShifterMapping } from "../../components/ToSTIX/utils.js";
 
 const mapping = {
@@ -98,6 +98,6 @@ test("convert mapping to output json content", () => {
   expect(stateMappingToShifterMapping(mapping)).toEqual(outputJsonContent);
 });
 
-// test('convert json content TO mapping', () => {
-//     expect(loadJsonFromDisk(outputJsonContent)).toEqual(mapping);
-// });
+test("convert json content TO mapping", () => {
+  expect(loadJsonFromDisk(outputJsonContent)).toEqual(mapping);
+});
