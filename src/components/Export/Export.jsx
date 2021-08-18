@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Button, TextInput } from "carbon-components-react";
 import { Save16 } from "@carbon/icons-react";
 import { saveAs } from "file-saver";
 import styles from "./export.module.scss";
-import PropTypes from "prop-types";
 
 const Export = (props) => {
   const [exportFilename, setExportFilename] = useState("");
