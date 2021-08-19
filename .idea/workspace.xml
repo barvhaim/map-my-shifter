@@ -20,7 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1005c26-29c5-40c9-ad7e-08d9b4d8b90d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +47,11 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jenkinsfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sonar-project.properties" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JupyterTrust" id="15cc8b66-c743-460a-b862-18d6cf84af7e" />
   <component name="ProjectId" id="1kKLa2hjZImmiBlupjz8P53Y5oi" />
@@ -73,17 +79,6 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -283,7 +278,8 @@
       <workItem from="1629274526062" duration="50000" />
       <workItem from="1629274579985" duration="2190000" />
       <workItem from="1629384859948" duration="98000" />
-      <workItem from="1629384983829" duration="181000" />
+      <workItem from="1629384983829" duration="255000" />
+      <workItem from="1629386035185" duration="32000" />
     </task>
     <task id="LOCAL-00001" summary="Added from STIX fields search bar and file loading option">
       <created>1605462186771</created>
@@ -411,7 +407,21 @@
       <option name="project" value="LOCAL" />
       <updated>1629385034524</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="ignore sonarqube">
+      <created>1629385182095</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1629385182095</updated>
+    </task>
+    <task id="LOCAL-00020" summary="remove sonarfiles">
+      <created>1629385223579</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1629385223579</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,6 +457,8 @@
     <MESSAGE value="remove .idea files" />
     <MESSAGE value="added proptypes and renamed customfieldmodal" />
     <MESSAGE value="jenkins pipeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="jenkins pipeline" />
+    <MESSAGE value="ignore sonarqube" />
+    <MESSAGE value="remove sonarfiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove sonarfiles" />
   </component>
 </project>
