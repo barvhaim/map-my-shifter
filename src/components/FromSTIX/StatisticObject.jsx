@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./from_stix.module.scss";
+import PropTypes from "prop-types";
 
 const StatisticObject = ({
   officialObjectsCount,
@@ -26,6 +27,13 @@ const StatisticObject = ({
       </div>
     </div>
   );
+};
+
+StatisticObject.propTypes = {
+  officialObjectsCount: PropTypes.number,
+  requiredObjectsCount: PropTypes.number,
+  officialFieldsCount: PropTypes.number,
+  requiredFieldsCount: PropTypes.number,
 };
 
 export default StatisticObject;

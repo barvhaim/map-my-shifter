@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AccordionItem } from "carbon-components-react";
 import styles from "./stix.module.scss";
 import {
@@ -12,47 +12,44 @@ const AddFieldItems = ({
   title,
   type,
   items,
-  objectName,
-  fieldId,
-  stixFieldId,
-  updateType,
-  objects,
+  fieldNameToUpdate,
+  officialFields,
 }) => {
   const dispatch = useDispatch();
+  const selectFieldModalData = useSelector(
+    (state) => state.toStix.selectFieldModalData
+  );
+  const isInModal = selectFieldModalData ? true : false;
 
-  const selectStixField = (
-    value,
-    required,
-    objectName,
-    fieldId,
-    stixFieldId,
-    updateType
-  ) => {
-    if (objectName && fieldId && stixFieldId && updateType) {
-      dispatch(
-        updateStixField(
-          objectName,
-          fieldId,
-          stixFieldId,
-          value,
-          updateType,
-          required
-        )
-      );
-      dispatch(closeSelectFieldModal());
-    } else {
-      if (!objects[type].has(value.split(":")[1])) {
-        dispatch(addField(value, required));
-      }
-    }
+  const addFieldFromMenu = (value, required) => {
+    dispatch(addField(value, required));
+  };
+
+  const addFieldFromModal = (value, fieldNameToUpdate) => {
+    dispatch(closeSelectFieldModal());
+    dispatch(
+      updateStixField(
+        selectFieldModalData.objectKey,
+        selectFieldModalData.sourceFieldId,
+        selectFieldModalData.stixFieldId,
+        value,
+        fieldNameToUpdate
+      )
+    );
+  };
+
+  const handleSelectStixField = (value, required, fieldNameToUpdate) => {
+    isInModal
+      ? addFieldFromModal(value, fieldNameToUpdate)
+      : addFieldFromMenu(value, required);
   };
 
   return (
     <AccordionItem
       title={
-        objects
-          ? `${title}  (${objects[type].size}/${items.length})`
-          : `${title}`
+        isInModal
+          ? `${title}`
+          : `${title}  (${officialFields[type].size}/${items.length})`
       }
     >
       <ul>
@@ -60,17 +57,14 @@ const AddFieldItems = ({
           <li
             key={item.name}
             onClick={() => {
-              selectStixField(
+              handleSelectStixField(
                 `${type}:${item.name}`,
                 item.required,
-                objectName,
-                fieldId,
-                stixFieldId,
-                updateType
+                fieldNameToUpdate
               );
             }}
             className={
-              objects && objects[type].has(`${item.name}`)
+              !isInModal && officialFields[type].has(`${item.name}`)
                 ? `${styles.field__item} ${styles.colored}`
                 : `${styles.field__item} ${styles.hover}`
             }

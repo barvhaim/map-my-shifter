@@ -19,19 +19,23 @@ const INITIAL_STATE = {
 };
 
 const FromSTIXReducer = (state = INITIAL_STATE, action) => {
+  //
   switch (action.type) {
     case ADD_FIELD: {
       const field = action.payload.field;
-      return {
-        ...state,
-        mapping: {
-          ...state.mapping,
-          [field]: {
-            required: action.payload.required,
-            values: [],
+      if (!(field in state.mapping)) {
+        return {
+          ...state,
+          mapping: {
+            ...state.mapping,
+            [field]: {
+              required: action.payload.required,
+              values: [],
+            },
           },
-        },
-      };
+        };
+      }
+      return state;
     }
 
     case DELETE_FIELD: {

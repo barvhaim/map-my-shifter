@@ -16,7 +16,7 @@
 
   .object_item__btn {
     cursor: pointer;
-    border: 1px solid #000000;
+    border: $spacing-01 solid $carbon--gray-100;
   }
 
   .object_item__title {
@@ -29,7 +29,7 @@
     background-color: $white-0;
     margin-bottom: $spacing-07;
     padding: $spacing-05 $spacing-05;
-    border: 1.5px solid $carbon--gray-30;
+    border: $spacing-01 solid $carbon--gray-30;
   }
 
   .object_item__field {
@@ -42,7 +42,7 @@
     padding-top: $spacing-02;
     padding-bottom: $spacing-02;
     margin-bottom: $spacing-04;
-    border-bottom: 1px solid $carbon--gray-30;
+    border-bottom: $spacing-01 solid $carbon--gray-30;
   }
 }
 

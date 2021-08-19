@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import AddFields from "./AddFields";
+import SelectFields from "./SelectFields";
 import Mapping from "./Mapping";
 import Export from "../Export/Export";
 import Import from "../Import/Import";
@@ -10,14 +10,14 @@ import {
   clearMappings,
 } from "../../store/actions/from_stix";
 import Statistics from "./Statistics";
-import { getObjectsData } from "./utils";
-import { requiredFields } from "../../global/requiredFields";
+import { getDataForStatistics, getOfficialFieldsFromMapping } from "./utils";
+import { requiredStixFields } from "../../global/requiredStixFields";
 
 const FromSTIX = () => {
   const mapping = useSelector((state) => state.fromStix.mapping);
   const stixVersion = useSelector((state) => state.stix.stixVersion);
   const stixFields = useSelector((state) => state.stix.stixFields);
-  const requiredSet = requiredFields[stixVersion];
+  const requiredFields = requiredStixFields[stixVersion];
   const stixFieldsObject = useMemo(
     () =>
       Object.assign(
@@ -27,10 +27,13 @@ const FromSTIX = () => {
       ),
     [stixFields]
   );
-  const [coverage, officialObjectsCount, requiredObjectsCount] = getObjectsData(
+  const officialFields = getOfficialFieldsFromMapping(
     mapping,
-    stixFieldsObject,
-    requiredSet
+    stixFieldsObject
+  );
+  const [officialObjectsCount, requiredObjectsCount] = getDataForStatistics(
+    officialFields,
+    requiredFields
   );
   return (
     <div className="bx--grid">
@@ -42,7 +45,7 @@ const FromSTIX = () => {
 
       <div className="bx--row">
         <div className="bx--col-sm-1">
-          <AddFields objects={coverage} />
+          <SelectFields officialFields={officialFields} />
         </div>
 
         <div className="bx--col-sm-2">

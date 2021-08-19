@@ -1,4 +1,4 @@
-const requiredSetV2_0 = new Set([
+const requiredStixFieldsV2_0 = new Set([
   "autonomous-system:number",
   "directory:path",
   "domain-name:value",
@@ -13,7 +13,7 @@ const requiredSetV2_0 = new Set([
   "windows-registry-key:key",
 ]);
 
-const requiredSetV2_1 = new Set([
+const requiredStixFieldsV2_1 = new Set([
   "autonomous-system:number",
   "directory:path",
   "domain-name:value",
@@ -29,7 +29,7 @@ const requiredSetV2_1 = new Set([
   "user-account:user_id",
 ]);
 
-export const requiredFields = {
-  stix_version_2_0: requiredSetV2_0,
-  stix_version_2_1: requiredSetV2_1,
+export const requiredStixFields = {
+  stix_version_2_0: requiredStixFieldsV2_0,
+  stix_version_2_1: requiredStixFieldsV2_1,
 };

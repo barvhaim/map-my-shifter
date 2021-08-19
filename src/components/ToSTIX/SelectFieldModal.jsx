@@ -2,14 +2,14 @@ import React from "react";
 import { Modal } from "carbon-components-react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSelectFieldModal } from "../../store/actions/to_stix";
-import SelectField from "../STIX/SelectField";
+import AddFields from "../STIX/AddFields";
 
 const SelectFieldModal = () => {
   const dispatch = useDispatch();
-  const selectFieldModal = useSelector(
-    (state) => state.toStix.selectFieldModal
+  const selectFieldModalData = useSelector(
+    (state) => state.toStix.selectFieldModalData
   );
-  const isOpen = !(selectFieldModal === null);
+  const isOpen = !(selectFieldModalData === null);
 
   return (
     <Modal
@@ -22,14 +22,7 @@ const SelectFieldModal = () => {
       hasForm={false}
       passiveModal={true}
     >
-      {isOpen && (
-        <SelectField
-          objectName={selectFieldModal.objectKey}
-          fieldId={selectFieldModal.sourceFieldId}
-          stixFieldId={selectFieldModal.stixFieldId}
-          type={"key"}
-        />
-      )}
+      {isOpen && <AddFields fieldNameToUpdate={"key"} />}
     </Modal>
   );
 };

@@ -6,9 +6,7 @@ export function stateMappingToShifterMapping(stateMapping) {
   Object.keys(stateMapping).forEach((field) => {
     const type = field.split(":")[0];
     const key = field.split(":")[1];
-    if (!(type in output)) {
-      output[type] = { fields: {} };
-    }
+    if (!(type in output)) output[type] = { fields: {} };
     output[type]["fields"][key] = stateMapping[field].values.map(
       (o) => o.value
     );
@@ -57,10 +55,8 @@ export function filterMappingFieldsForValue(mappings, value) {
     }, {});
 }
 
-export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
-  const officialObjects = new Set();
-  const requiredObjects = new Set();
-  const coverage = Object.assign(
+export function getOfficialFieldsFromMapping(mapping, stixFieldsObject) {
+  const officialFields = Object.assign(
     {},
     ...Array.from(Object.keys(stixFieldsObject), (value) => ({
       [value]: new Set(),
@@ -73,17 +69,24 @@ export function getObjectsData(mapping, stixFieldsObject, requiredSet) {
         if (
           mapping[field].values[val].value !== "" &&
           stixFieldsObject[type]?.includes(key)
-        ) {
-          officialObjects.add(`${type}:${key}`);
-          coverage[type].add(`${key}`);
-          if (requiredSet.has(`${type}:${key}`)) {
-            requiredObjects.add(`${type}:${key}`);
-          }
-        }
+        )
+          officialFields[type].add(`${key}`);
       });
     }
   });
-  return [coverage, officialObjects.size, requiredObjects.size];
+  return officialFields;
+}
+
+export function getDataForStatistics(officialFields, requiredStixFields) {
+  let officialObjectsCount = 0;
+  let requiredObjectsCount = 0;
+  Object.keys(officialFields).forEach((type) => {
+    officialObjectsCount += officialFields[type].size;
+    officialFields[type].forEach((key) => {
+      if (requiredStixFields.has(`${type}:${key}`)) requiredObjectsCount++;
+    });
+  });
+  return [officialObjectsCount, requiredObjectsCount];
 }
 
 export function getNumOfFields(stixFields) {
@@ -92,9 +95,7 @@ export function getNumOfFields(stixFields) {
   Object.keys(stixFields).forEach((field) => {
     officialFieldsCount += stixFields[field].items.length;
     Object.keys(stixFields[field].items).forEach((item) => {
-      if (stixFields[field].items[item].required) {
-        requiredFieldsCount += 1;
-      }
+      if (stixFields[field].items[item].required) requiredFieldsCount += 1;
     });
   });
   return [officialFieldsCount, requiredFieldsCount];

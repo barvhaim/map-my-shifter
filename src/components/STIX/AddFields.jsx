@@ -6,8 +6,9 @@ import AddFieldItems from "./AddFieldItems";
 import FieldSearchBar from "./FieldSearchBar";
 import ChangeVersion from "./ChangeVersion";
 
-const SelectField = ({ objectName, fieldId, stixFieldId, type, objects }) => {
+const AddFields = ({ fieldNameToUpdate, officialFields }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
+  const isInModal = fieldNameToUpdate ? true : false;
 
   return (
     <>
@@ -28,12 +29,17 @@ const SelectField = ({ objectName, fieldId, stixFieldId, type, objects }) => {
                 key={o.title}
                 title={o.title}
                 type={o.type}
-                items={o.items}
-                objectName={objectName}
-                fieldId={fieldId}
-                stixFieldId={stixFieldId}
-                updateType={type}
-                objects={objects}
+                items={
+                  isInModal
+                    ? o.items.filter(
+                        (item) =>
+                          !item.name.endsWith("_ref") &&
+                          !item.name.endsWith("_refs")
+                      )
+                    : o.items
+                }
+                fieldNameToUpdate={fieldNameToUpdate}
+                officialFields={officialFields}
               />
             ))}
           </Accordion>
@@ -43,4 +49,4 @@ const SelectField = ({ objectName, fieldId, stixFieldId, type, objects }) => {
   );
 };
 
-export default SelectField;
+export default AddFields;

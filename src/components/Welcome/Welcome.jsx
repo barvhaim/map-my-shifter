@@ -1,17 +1,12 @@
 import React from "react";
 import logo from "./logo-no-bg.png";
 import { ClickableTile } from "carbon-components-react";
-import { useDispatch } from "react-redux";
 import styles from "./welcome.module.scss";
 import { useHistory } from "react-router-dom";
-import { STIX_VERSION } from "../../global/constants";
-import { changeStixVersion } from "../../store/actions/stix";
 
 const Welcome = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const handleClickableTile = (link) => {
-    dispatch(changeStixVersion(STIX_VERSION.V_2_0));
     history.push(link);
   };
 

@@ -19,7 +19,7 @@ import {
 
 const INITIAL_STATE = {
   isNewObjectModalOpen: false,
-  selectFieldModal: null,
+  selectFieldModalData: null,
   mapping: {},
 };
 
@@ -42,7 +42,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
     case OPEN_SELECT_FIELD_MODAL: {
       return {
         ...state,
-        selectFieldModal: {
+        selectFieldModalData: {
           objectKey: action.payload.objectKey,
           sourceFieldId: action.payload.sourceFieldId,
           stixFieldId: action.payload.stixFieldId,
@@ -53,7 +53,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
     case CLOSE_SELECT_FIELD_MODAL: {
       return {
         ...state,
-        selectFieldModal: null,
+        selectFieldModalData: null,
       };
     }
 
