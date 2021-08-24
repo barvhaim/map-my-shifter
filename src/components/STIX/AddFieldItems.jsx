@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AccordionItem } from "carbon-components-react";
 import styles from "./stix.module.scss";
 import {
@@ -16,38 +16,19 @@ const AddFieldItems = ({
   officialFields,
 }) => {
   const dispatch = useDispatch();
-  const selectFieldModalData = useSelector(
-    (state) => state.toStix.selectFieldModalData
-  );
-  const isInModal = selectFieldModalData ? true : false;
-
-  const addFieldFromMenu = (value, required) => {
-    dispatch(addField(value, required));
-  };
-
-  const addFieldFromModal = (value, fieldNameToUpdate) => {
-    dispatch(closeSelectFieldModal());
-    dispatch(
-      updateStixField(
-        selectFieldModalData.objectKey,
-        selectFieldModalData.sourceFieldId,
-        selectFieldModalData.stixFieldId,
-        value,
-        fieldNameToUpdate
-      )
-    );
-  };
+  const isToStix = fieldNameToUpdate ? true : false;
 
   const handleSelectStixField = (value, required, fieldNameToUpdate) => {
-    isInModal
-      ? addFieldFromModal(value, fieldNameToUpdate)
-      : addFieldFromMenu(value, required);
+    isToStix
+      ? dispatch(updateStixField(value, fieldNameToUpdate)) &&
+        dispatch(closeSelectFieldModal())
+      : dispatch(addField(value, required));
   };
 
   return (
     <AccordionItem
       title={
-        isInModal
+        isToStix
           ? `${title}`
           : `${title}  (${officialFields[type].size}/${items.length})`
       }
@@ -64,7 +45,7 @@ const AddFieldItems = ({
               );
             }}
             className={
-              !isInModal && officialFields[type].has(`${item.name}`)
+              !isToStix && officialFields[type].has(`${item.name}`)
                 ? `${styles.field__item} ${styles.colored}`
                 : `${styles.field__item} ${styles.hover}`
             }

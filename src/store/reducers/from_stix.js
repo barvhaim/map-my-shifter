@@ -29,7 +29,7 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
           mapping: {
             ...state.mapping,
             [field]: {
-              required: action.payload.required,
+              // required: action.payload.required,
               values: [],
             },
           },

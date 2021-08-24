@@ -8,7 +8,7 @@ import ChangeVersion from "./ChangeVersion";
 
 const AddFields = ({ fieldNameToUpdate, officialFields }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
-  const isInModal = fieldNameToUpdate ? true : false;
+  const isToStix = fieldNameToUpdate ? true : false;
 
   return (
     <>
@@ -30,7 +30,7 @@ const AddFields = ({ fieldNameToUpdate, officialFields }) => {
                 title={o.title}
                 type={o.type}
                 items={
-                  isInModal
+                  !isToStix
                     ? o.items.filter(
                         (item) =>
                           !item.name.endsWith("_ref") &&

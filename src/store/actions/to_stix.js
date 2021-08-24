@@ -103,15 +103,15 @@ export function addStixField(objectName, fieldId, key) {
   };
 }
 
-export function updateStixField(objectName, fieldId, mappingId, value, type) {
+export function updateStixField(value, type, objectName, fieldId, mappingId) {
   return {
     type: UPDATE_STIX_FIELD,
     payload: {
+      value,
+      type,
       objectName,
       fieldId,
       mappingId,
-      value,
-      type,
     },
   };
 }

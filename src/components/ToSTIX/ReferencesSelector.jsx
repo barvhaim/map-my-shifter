@@ -36,11 +36,11 @@ const ReferencesSelector = ({
         onChange={(e) => {
           dispatch(
             updateStixField(
+              e.selectedItems,
+              "references",
               objectKey,
               sourceFieldId,
-              stixFieldId,
-              e.selectedItems,
-              "references"
+              stixFieldId
             )
           );
         }}

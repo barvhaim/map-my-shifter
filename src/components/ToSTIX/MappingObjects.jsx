@@ -4,7 +4,7 @@ import MappingObject from "./MappingObject";
 
 const MappingObjects = () => {
   const mapping = useSelector((state) => state.toStix.mapping);
-  console.log(mapping);
+  // console.log(mapping);
   const isMappingEmpty = Object.keys(mapping).length === 0;
 
   if (isMappingEmpty) {

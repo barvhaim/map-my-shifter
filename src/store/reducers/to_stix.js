@@ -194,9 +194,12 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
     }
 
     case UPDATE_STIX_FIELD: {
-      const objectName = action.payload?.objectName;
-      const sourceFieldId = action.payload?.fieldId;
-      const stixFieldId = action.payload?.mappingId;
+      const objectName =
+        state.selectFieldModalData?.objectKey || action.payload?.objectName;
+      const sourceFieldId =
+        state.selectFieldModalData?.sourceFieldId || action.payload?.fieldId;
+      const stixFieldId =
+        state.selectFieldModalData?.stixFieldId || action.payload?.mappingId;
       const value = action.payload?.value;
       const type = action.payload?.type;
       if (

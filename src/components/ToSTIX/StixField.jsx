@@ -32,11 +32,11 @@ const StixField = ({
                 onChange={(e) => {
                   dispatch(
                     updateStixField(
+                      e.target.value,
+                      "key",
                       objectKey,
                       sourceFieldId,
-                      stixFieldId,
-                      e.target.value,
-                      "key"
+                      stixFieldId
                     )
                   );
                 }}
@@ -66,11 +66,11 @@ const StixField = ({
             onChange={(e) => {
               dispatch(
                 updateStixField(
+                  e.selectedItem,
+                  "transformer",
                   objectKey,
                   sourceFieldId,
-                  stixFieldId,
-                  e.selectedItem,
-                  "transformer"
+                  stixFieldId
                 )
               );
             }}

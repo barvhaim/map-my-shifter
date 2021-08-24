@@ -1,103 +1,107 @@
-import { loadJsonFromDisk } from "../../components/ToSTIX/utils.js";
-import { stateMappingToShifterMapping } from "../../components/ToSTIX/utils.js";
+import {
+  loadJsonFromDisk,
+  getDataSourceFieldId,
+  shifterMappingToStateMapping,
+  getFieldName,
+  stateMappingToShifterMapping,
+  getValue,
+  getDataForStatistics,
+} from "./utils.js";
+import { testArgs } from "../../global/testHelper";
 
-const mapping = {
-  "x-qradar": {
-    "7cf1f4b3-2c62-4ee7-bd7f-0e18d266440e": {
-      field: "categoryid",
-      mapped_to: [
-        {
-          id: "b9e9c970-8b4f-41e2-a3dc-c2da48676d52",
-          key: "x-qradar:category_id",
-          transformer: "ToInteger",
-        },
-      ],
-    },
-  },
-  useraccount: {
-    "c3e7a403-c733-4b02-8d9b-ec7e24a1f001": {
-      field: "username",
-      mapped_to: [
-        {
-          id: "2663fd6e-17dc-4d4f-8c33-f6cd0a317cce",
-          key: "user-account:user_id",
-        },
-      ],
-    },
-  },
-  finding: {
-    "5017aa35-239d-495e-9715-4da4a839278f": {
-      field: "username",
-      mapped_to: [
-        {
-          id: "ae999cdc-355a-423f-af28-524f3929fea7",
-          key: "x-ibm-finding:src_application_user_ref",
-          references: "useraccount",
-        },
-      ],
-    },
-  },
-  process: {
-    "00184524-60bc-41d8-93da-79c4d2570760": {
-      field: "username",
-      mapped_to: [
-        {
-          id: "ff0db88b-0e20-4840-bfe6-c42f5829b922",
-          key: "process:creator_user_ref",
-          references: "useraccount",
-        },
-      ],
-    },
-  },
-  event: {
-    "598bb818-410d-4cf0-b51c-1c693039ec51": {
-      field: "username",
-      mapped_to: [
-        {
-          id: "0c591d52-6160-4756-a8a6-10426e892d58",
-          key: "x-oca-event:user_ref",
-          references: "useraccount",
-        },
-      ],
-    },
-  },
-};
+// ------------------------------------------------------
+// loadJsonFromDisk
 
-const outputJsonContent = {
-  categoryid: [
-    {
-      key: "x-qradar.category_id",
-      object: "x-qradar",
-      transformer: "ToInteger",
-    },
-  ],
-  username: [
-    {
-      key: "user-account.user_id",
-      object: "useraccount",
-    },
-    {
-      key: "x-ibm-finding.src_application_user_ref",
-      object: "finding",
-      references: "useraccount",
-    },
-    {
-      key: "process.creator_user_ref",
-      object: "process",
-      references: "useraccount",
-    },
-    {
-      key: "x-oca-event.user_ref",
-      object: "event",
-      references: "useraccount",
-    },
-  ],
-};
-
-test("convert mapping to output json content", () => {
-  expect(stateMappingToShifterMapping(mapping)).toEqual(outputJsonContent);
+test("loadJsonFromDisk", () => {
+  loadJsonFromDisk(testArgs.arrayMapping);
+  expect(shifterMappingToStateMapping.toHaveBeenCalled);
 });
 
-// test("convert json content TO mapping", () => {
-//   expect(loadJsonFromDisk(outputJsonContent)).toEqual(mapping);
+// ------------------------------------------------------
+// getDataSourceFieldId
+
+test("getDataSourceFieldId - return dataSourceFieldId", () => {
+  expect(
+    getDataSourceFieldId(
+      testArgs.stateMapping,
+      testArgs.objectName,
+      2,
+      testArgs.dataSourceFieldId
+    )
+  ).toEqual(testArgs.dataSourceFieldId);
+});
+
+// ------------------------------------------------------
+// shifterMappingToStateMapping
+
+jest.mock("uuid", () => {
+  let counter = 0;
+  counter += 1;
+  const uuidGen = () => `uuid_${counter}`;
+  uuidGen.reset = () => {
+    counter = 0;
+  };
+  return { v4: uuidGen };
+});
+
+test("shifterMappingToStateMapping - Qradar", () => {
+  expect(
+    shifterMappingToStateMapping(testArgs.shifterMappingQradar, {}, "")
+  ).toEqual(testArgs.stateMappingQradar);
+});
+
+test("shifterMappingToStateMapping - Elastic", () => {
+  expect(
+    shifterMappingToStateMapping(testArgs.shifterMappingElastic, {}, "")
+  ).toEqual(testArgs.stateMappingElastic);
+});
+
+// ------------------------------------------------------
+// getFieldName
+
+test("get field name - no change", () => {
+  expect(getFieldName("username", "0")).toEqual("username");
+});
+
+test("get field name - combine", () => {
+  expect(getFieldName("agent", "type")).toEqual("agent.type");
+});
+
+// ------------------------------------------------------
+// createStateMapping
+// test("create State Mapping", () => {
+//   expect(createStateMapping(testArgs.shifterMapping, testArgs.currStateMapping, 0, "source.ip")).toEqual(testArgs.createdStateMapping);
 // });
+
+// ------------------------------------------------------
+// stateMappingToShifterMapping
+
+test("convert mapping to output json content", () => {
+  expect(stateMappingToShifterMapping(testArgs.mapping)).toEqual(
+    testArgs.outputJsonContent
+  );
+});
+
+test("convert mapping to output json content - one object, one Source field name, one stix field", () => {
+  expect(
+    stateMappingToShifterMapping(testArgs.oneObj_oneSource_oneStixfield_mapping)
+  ).toEqual(testArgs.oneObj_oneSource_oneStixfield_jasonContent);
+});
+
+// ------------------------------------------------------
+// getValue
+
+test("get Value", () => {
+  expect(getValue(testArgs.mappedTo, 0, "transformer")).toEqual(
+    "ToDirectoryPath"
+  );
+});
+
+// ------------------------------------------------------
+// getDataForStatistics
+
+test("get Data For Statistics", () => {
+  expect(
+    getDataForStatistics(testArgs.mappingForStatictic, testArgs.stixTypesSet)
+  ).toEqual(testArgs.data);
+});
