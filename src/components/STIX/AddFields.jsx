@@ -8,7 +8,7 @@ import ChangeVersion from "./ChangeVersion";
 
 const AddFields = ({ fieldNameToUpdate, officialFields }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
-  const isToStix = fieldNameToUpdate ? true : false;
+  const isToStix = !!fieldNameToUpdate;
 
   return (
     <>

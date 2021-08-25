@@ -32,6 +32,7 @@ const NewObjectModal = () => {
       <TextInput
         id={"new-object-name"}
         labelText={"Object name"}
+        autoComplete={"off"}
         onChange={(e) => {
           setObjectName(e.target.value);
         }}

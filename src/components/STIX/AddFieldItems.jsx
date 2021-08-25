@@ -16,7 +16,7 @@ const AddFieldItems = ({
   officialFields,
 }) => {
   const dispatch = useDispatch();
-  const isToStix = fieldNameToUpdate ? true : false;
+  const isToStix = !!fieldNameToUpdate;
 
   const handleSelectStixField = (value, required, fieldNameToUpdate) => {
     isToStix
@@ -30,7 +30,7 @@ const AddFieldItems = ({
       title={
         isToStix
           ? `${title}`
-          : `${title}  (${officialFields[type].size}/${items.length})`
+          : `${title} (${officialFields[type].size}/${items.length})`
       }
     >
       <ul>
