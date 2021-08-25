@@ -9,16 +9,10 @@ import {
 } from "./utils.js";
 import { testArgs } from "../../global/testHelper";
 
-// ------------------------------------------------------
-// loadJsonFromDisk
-
 test("loadJsonFromDisk", () => {
   loadJsonFromDisk(testArgs.arrayMapping);
   expect(shifterMappingToStateMapping.toHaveBeenCalled);
 });
-
-// ------------------------------------------------------
-// getDataSourceFieldId
 
 test("getDataSourceFieldId - return dataSourceFieldId", () => {
   expect(
@@ -30,9 +24,6 @@ test("getDataSourceFieldId - return dataSourceFieldId", () => {
     )
   ).toEqual(testArgs.dataSourceFieldId);
 });
-
-// ------------------------------------------------------
-// shifterMappingToStateMapping
 
 jest.mock("uuid", () => {
   let counter = 0;
@@ -56,9 +47,6 @@ test("shifterMappingToStateMapping - Elastic", () => {
   ).toEqual(testArgs.stateMappingElastic);
 });
 
-// ------------------------------------------------------
-// getFieldName
-
 test("get field name - no change", () => {
   expect(getFieldName("username", "0")).toEqual("username");
 });
@@ -66,15 +54,6 @@ test("get field name - no change", () => {
 test("get field name - combine", () => {
   expect(getFieldName("agent", "type")).toEqual("agent.type");
 });
-
-// ------------------------------------------------------
-// createStateMapping
-// test("create State Mapping", () => {
-//   expect(createStateMapping(testArgs.shifterMapping, testArgs.currStateMapping, 0, "source.ip")).toEqual(testArgs.createdStateMapping);
-// });
-
-// ------------------------------------------------------
-// stateMappingToShifterMapping
 
 test("convert mapping to output json content", () => {
   expect(stateMappingToShifterMapping(testArgs.mapping)).toEqual(
@@ -88,17 +67,11 @@ test("convert mapping to output json content - one object, one Source field name
   ).toEqual(testArgs.oneObj_oneSource_oneStixfield_jasonContent);
 });
 
-// ------------------------------------------------------
-// getValue
-
 test("get Value", () => {
   expect(getValue(testArgs.mappedTo, 0, "transformer")).toEqual(
     "ToDirectoryPath"
   );
 });
-
-// ------------------------------------------------------
-// getDataForStatistics
 
 test("get Data For Statistics", () => {
   expect(
