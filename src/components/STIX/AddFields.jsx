@@ -1,25 +1,17 @@
 import React from "react";
 import { Accordion } from "carbon-components-react";
 import { useSelector } from "react-redux";
-import styles from "./from_stix.module.scss";
+import styles from "./stix.module.scss";
 import AddFieldItems from "./AddFieldItems";
 import FieldSearchBar from "./FieldSearchBar";
 import ChangeVersion from "./ChangeVersion";
-import CustomField from "./CustomField";
 
-const AddFields = () => {
-  const stixFields = useSelector((state) => state.fromStix.stixFields);
+const AddFields = ({ fieldNameToUpdate, officialFields }) => {
+  const stixFields = useSelector((state) => state.stix.stixFields);
+  const isToStix = !!fieldNameToUpdate;
+
   return (
     <>
-      <div className="bx--row">
-        <div className="bx--col">
-          <h4 className="section-title">Select Fields</h4>
-        </div>
-        <div>
-          <CustomField />
-        </div>
-      </div>
-
       <div className="bx--row">
         <div className="bx--col">
           <ChangeVersion />
@@ -37,7 +29,17 @@ const AddFields = () => {
                 key={o.title}
                 title={o.title}
                 type={o.type}
-                items={o.items}
+                items={
+                  !isToStix
+                    ? o.items.filter(
+                        (item) =>
+                          !item.name.endsWith("_ref") &&
+                          !item.name.endsWith("_refs")
+                      )
+                    : o.items
+                }
+                fieldNameToUpdate={fieldNameToUpdate}
+                officialFields={officialFields}
               />
             ))}
           </Accordion>

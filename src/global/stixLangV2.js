@@ -6,7 +6,9 @@ const stixLanguageV2 = [
       { name: "mime_type", required: false },
       { name: "payload_bin", required: false },
       { name: "url", required: false },
-      { name: "hashes", required: false },
+      { name: "hashes.SHA-256", required: false },
+      { name: "hashes.MD5", required: false },
+      { name: "hashes.SHA-1", required: false },
     ],
   },
   {
@@ -57,7 +59,9 @@ const stixLanguageV2 = [
     title: "File",
     type: "file",
     items: [
-      { name: "hashes", required: false },
+      { name: "hashes.SHA-256", required: false },
+      { name: "hashes.MD5", required: false },
+      { name: "hashes.SHA-1", required: false },
       { name: "size", required: false },
       { name: "name", required: false },
       { name: "name_enc", required: false },

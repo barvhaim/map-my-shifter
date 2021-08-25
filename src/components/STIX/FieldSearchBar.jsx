@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Search } from "carbon-components-react";
-import { updateSearchFieldValue } from "../../store/actions/from_stix";
+import { updateSearchFieldValue } from "../../store/actions/stix";
 
 const FieldSearchBar = () => {
   const dispatch = useDispatch();

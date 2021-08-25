@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { Button, TextInput } from "carbon-components-react";
 import { Save16 } from "@carbon/icons-react";
-import { saveJsonToDisk, stateMappingToShifterMapping } from "./utils";
+import { saveAs } from "file-saver";
+import styles from "./export.module.scss";
 
-import styles from "./from_stix.module.scss";
-
-const Export = () => {
+const Export = (props) => {
   const [exportFilename, setExportFilename] = useState("");
-  const mapping = useSelector((state) => state.fromStix.mapping);
+  const mapping = props.mapping;
+
+  function saveJsonToDisk(filename, obj) {
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {
+      type: "application/json",
+    });
+    saveAs(blob, filename);
+  }
+
   return (
     <>
       <div className="bx--row">
@@ -40,7 +47,7 @@ const Export = () => {
                 onClick={() => {
                   saveJsonToDisk(
                     `${exportFilename}.json`,
-                    stateMappingToShifterMapping(mapping)
+                    props.stateMappingToShifterMapping(mapping)
                   );
                 }}
               >
@@ -52,6 +59,11 @@ const Export = () => {
       </div>
     </>
   );
+};
+
+Export.propTypes = {
+  mapping: PropTypes.object,
+  stateMappingToShifterMapping: PropTypes.func,
 };
 
 export default Export;

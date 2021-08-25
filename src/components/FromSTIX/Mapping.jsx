@@ -12,6 +12,7 @@ const Mapping = () => {
   const fieldMappingFilter = useSelector(
     (state) => state.fromStix.fieldMappingFilter
   );
+
   return (
     <>
       <div className="bx--row">

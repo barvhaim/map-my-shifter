@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dropdown } from "carbon-components-react";
-import { changeStixVersion } from "../../store/actions/from_stix";
+import { changeStixVersion } from "../../store/actions/stix";
 import { STIX_VERSION } from "../../global/constants";
 
 const stixVersionsList = [
@@ -17,7 +17,7 @@ const stixVersionsList = [
 
 const ChangeVersion = () => {
   const dispatch = useDispatch();
-  const stixVersion = useSelector((state) => state.fromStix.stixVersion);
+  const stixVersion = useSelector((state) => state.stix.stixVersion);
   return (
     <div>
       <Dropdown

@@ -24,12 +24,11 @@ const CustomFieldModal = () => {
       }}
       onRequestSubmit={() => {
         const [type, key] = customField.split(":");
-        dispatch(addField(type, key));
+        dispatch(addField(`${type}:${key}`));
         setCustomField("");
         dispatch(closeCustomFieldModal());
       }}
       primaryButtonDisabled={!isValidCustomStixField(customField)}
-      //   preventCloseOnClickOutside={false}
       shouldSubmitOnEnter={true}
       hasForm={true}
     >

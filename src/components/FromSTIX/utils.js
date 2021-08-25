@@ -6,10 +6,10 @@ export function stateMappingToShifterMapping(stateMapping) {
   Object.keys(stateMapping).forEach((field) => {
     const type = field.split(":")[0];
     const key = field.split(":")[1];
-    if (!(type in output)) {
-      output[type] = { fields: {} };
-    }
-    output[type]["fields"][key] = stateMapping[field].map((o) => o.value);
+    if (!(type in output)) output[type] = { fields: {} };
+    output[type]["fields"][key] = stateMapping[field].values.map(
+      (o) => o.value
+    );
   });
   return output;
 }
@@ -32,28 +32,16 @@ function shifterMappingToStateMapping(shifterMapping) {
     if ("fields" in shifterMapping[type]) {
       const fields = shifterMapping[type]["fields"];
       Object.keys(fields).forEach((key) => {
-        stateMapping[`${type}:${key}`] = fields[key].map((value) => ({
-          value,
-          id: uuidv4(),
-        }));
+        stateMapping[`${type}:${key}`] = {
+          values: fields[key].map((value) => ({
+            value,
+            id: uuidv4(),
+          })),
+        };
       });
     }
   });
   return stateMapping;
-}
-
-export function filterFieldsForValue(fields, value) {
-  if (!value || value === "") return fields;
-  const lowerCaseValue = value.toLowerCase();
-  let filteredFields = fields.filter(
-    (category) =>
-      category.title.toLowerCase().includes(lowerCaseValue) ||
-      category.type.includes(lowerCaseValue)
-  );
-  filteredFields = filteredFields.filter(
-    (category) => category.items.length > 0
-  );
-  return filteredFields;
 }
 
 export function filterMappingFieldsForValue(mappings, value) {
@@ -66,3 +54,49 @@ export function filterMappingFieldsForValue(mappings, value) {
       return obj;
     }, {});
 }
+
+export function getOfficialFieldsFromMapping(
+  mapping,
+  stixFieldsByKey,
+  stixFieldsFromMapping
+) {
+  Object.keys(mapping).forEach((field) => {
+    const [type, key] = field.split(":");
+    if (Object.keys(mapping[field].values).length > 0) {
+      Object.keys(mapping[field].values).forEach((val) => {
+        if (
+          mapping[field].values[val].value !== "" &&
+          stixFieldsByKey[type]?.includes(key)
+        )
+          stixFieldsFromMapping[type].add(`${key}`);
+      });
+    }
+  });
+  return stixFieldsFromMapping;
+}
+
+export function getDataForStatistics(officialFields, requiredStixFields) {
+  let officialObjectsCount = 0;
+  let requiredObjectsCount = 0;
+  Object.keys(officialFields).forEach((type) => {
+    officialObjectsCount += officialFields[type].size;
+    officialFields[type].forEach((key) => {
+      if (requiredStixFields.has(`${type}:${key}`)) requiredObjectsCount++;
+    });
+  });
+  return [officialObjectsCount, requiredObjectsCount];
+}
+
+export function getNumOfFields(stixFields) {
+  let officialFieldsCount = 0;
+  let requiredFieldsCount = 0;
+  Object.keys(stixFields).forEach((field) => {
+    officialFieldsCount += stixFields[field].items.length;
+    Object.keys(stixFields[field].items).forEach((item) => {
+      if (stixFields[field].items[item].required) requiredFieldsCount += 1;
+    });
+  });
+  return [officialFieldsCount, requiredFieldsCount];
+}
+
+export function mappedItems() {}
