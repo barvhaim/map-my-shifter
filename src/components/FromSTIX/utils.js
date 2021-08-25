@@ -55,26 +55,24 @@ export function filterMappingFieldsForValue(mappings, value) {
     }, {});
 }
 
-export function getOfficialFieldsFromMapping(mapping, stixFieldsObject) {
-  const officialFields = Object.assign(
-    {},
-    ...Array.from(Object.keys(stixFieldsObject), (value) => ({
-      [value]: new Set(),
-    }))
-  );
+export function getOfficialFieldsFromMapping(
+  mapping,
+  stixFieldsByKey,
+  stixFieldsFromMapping
+) {
   Object.keys(mapping).forEach((field) => {
     const [type, key] = field.split(":");
     if (Object.keys(mapping[field].values).length > 0) {
       Object.keys(mapping[field].values).forEach((val) => {
         if (
           mapping[field].values[val].value !== "" &&
-          stixFieldsObject[type]?.includes(key)
+          stixFieldsByKey[type]?.includes(key)
         )
-          officialFields[type].add(`${key}`);
+          stixFieldsFromMapping[type].add(`${key}`);
       });
     }
   });
-  return officialFields;
+  return stixFieldsFromMapping;
 }
 
 export function getDataForStatistics(officialFields, requiredStixFields) {
