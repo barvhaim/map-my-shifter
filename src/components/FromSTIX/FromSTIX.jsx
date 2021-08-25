@@ -19,7 +19,7 @@ const FromSTIX = () => {
   const stixFields = useSelector((state) => state.stix.stixFields);
   const requiredFields = requiredStixFields[stixVersion];
 
-  const OfficialStixFields = useMemo(
+  const officialStixFields = useMemo(
     () =>
       Object.assign(
         ...Array.from(stixFields, (field) => ({
@@ -33,21 +33,21 @@ const FromSTIX = () => {
     () =>
       Object.assign(
         {},
-        ...Array.from(Object.keys(OfficialStixFields), (value) => ({
+        ...Array.from(Object.keys(officialStixFields), (value) => ({
           [value]: new Set(),
         }))
       ),
-    [OfficialStixFields]
+    [officialStixFields]
   );
 
-  const MappingOfficialFields = getOfficialFieldsFromMapping(
+  const mappingOfficialFields = getOfficialFieldsFromMapping(
     mapping,
-    OfficialStixFields,
+    officialStixFields,
     officialStixKeys
   );
 
   const [officialObjectsCount, requiredObjectsCount] = getDataForStatistics(
-    MappingOfficialFields,
+    mappingOfficialFields,
     requiredFields
   );
 
@@ -61,7 +61,7 @@ const FromSTIX = () => {
 
       <div className="bx--row">
         <div className="bx--col-sm-1">
-          <SelectFields officialFields={MappingOfficialFields} />
+          <SelectFields officialFields={mappingOfficialFields} />
         </div>
 
         <div className="bx--col-sm-2">
