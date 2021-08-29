@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-import { testArgs } from "./tests/testHelper";
 
 export function stateMappingToShifterMapping(stateMapping) {
   let output = {};
@@ -92,5 +91,3 @@ export function getNumOfFields(stixFields) {
   });
   return [officialFieldsCount, requiredFieldsCount];
 }
-
-// console.log(saveJsonToDisk("filename", testArgs.toShifterMapping));
