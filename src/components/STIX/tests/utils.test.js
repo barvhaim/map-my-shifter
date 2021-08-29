@@ -65,9 +65,14 @@ test("filterFieldsForValue - no value", () => {
   expect(filterFieldsForValue(stixLanguageV2_0, "")).toEqual(stixLanguageV2_0);
 });
 
-// test("saveJsonToDisk", () => {
-//   jest.mock('file-saver', ()=>({saveAs: jest.fn()}))
-//   global.Blob = function (content, options){return  ({content, options})}
-//   saveJsonToDisk("filename", {value: "json to save"});
-//   expect(FileSaver.saveA.toHaveBeenCalled)
-// });
+const content = { value: "json to save" };
+
+jest.mock("file-saver", () => ({ saveAs: jest.fn() }));
+global.Blob = function (content, options) {
+  return { content, options };
+};
+saveJsonToDisk("filename", "content");
+expect(FileSaver.saveAs).toHaveBeenCalledWith(
+  { content: ['"content"'], options: { type: "application/json" } },
+  "filename"
+);
