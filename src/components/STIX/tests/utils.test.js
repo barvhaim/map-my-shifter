@@ -1,5 +1,6 @@
-import { filterFieldsForValue } from "./utils.js";
-import stixLanguageV2_0 from "../../global/stixLangV2";
+import { filterFieldsForValue, saveJsonToDisk } from "../utils.js";
+import stixLanguageV2_0 from "../../../global/stixLangV2";
+import FileSaver from "file-saver";
 
 const filteredFields = [
   {
@@ -63,3 +64,10 @@ test("filterFieldsForValue - search 'ar'", () => {
 test("filterFieldsForValue - no value", () => {
   expect(filterFieldsForValue(stixLanguageV2_0, "")).toEqual(stixLanguageV2_0);
 });
+
+// test("saveJsonToDisk", () => {
+//   jest.mock('file-saver', ()=>({saveAs: jest.fn()}))
+//   global.Blob = function (content, options){return  ({content, options})}
+//   saveJsonToDisk("filename", {value: "json to save"});
+//   expect(FileSaver.saveA.toHaveBeenCalled)
+// });

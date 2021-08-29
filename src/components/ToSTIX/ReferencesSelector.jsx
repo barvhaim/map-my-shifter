@@ -17,22 +17,18 @@ const ReferencesSelector = ({
 
   return (
     <div className={"bx--col-md-2"}>
-      <MultiSelect
-        id={"references"}
+      <MultiSelect.Filterable
+        id={`ComboBox_${stixFieldId}`}
         size={"sm"}
-        useTitleInItem={false}
-        label={
-          selectedReferences?.length !== 0
-            ? selectedReferences.map((referenceObjectName) =>
-                referenceObjectName !==
-                selectedReferences[selectedReferences.length - 1]
-                  ? referenceObjectName + ", "
-                  : referenceObjectName
-              )
-            : "None"
-        }
+        placeholder={"Search References"}
         invalid={false}
         invalidText="Invalid Selection"
+        items={allAvailableObjectKeys}
+        useTitleInItem={true}
+        disabled={allAvailableObjectKeys.length === 0}
+        initialSelectedItems={selectedReferences}
+        selectedItems={selectedReferences}
+        itemToString={(item) => (item ? item : "")}
         onChange={(e) => {
           dispatch(
             updateStixField(
@@ -44,12 +40,6 @@ const ReferencesSelector = ({
             )
           );
         }}
-        items={allAvailableObjectKeys}
-        disabled={allAvailableObjectKeys.length === 0}
-        initialSelectedItems={selectedReferences}
-        selectedItem={selectedReferences}
-        itemToString={(item) => (item ? item : "")}
-        inline={true}
       />
     </div>
   );

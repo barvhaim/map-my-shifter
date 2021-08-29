@@ -2,19 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, TextInput } from "carbon-components-react";
 import { Save16 } from "@carbon/icons-react";
-import { saveAs } from "file-saver";
 import styles from "./export.module.scss";
+import { saveJsonToDisk } from "../STIX/utils";
 
 const Export = (props) => {
   const [exportFilename, setExportFilename] = useState("");
   const mapping = props.mapping;
-
-  function saveJsonToDisk(filename, obj) {
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {
-      type: "application/json",
-    });
-    saveAs(blob, filename);
-  }
 
   return (
     <>
