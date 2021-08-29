@@ -6,8 +6,13 @@ import {
   stateMappingToShifterMapping,
   getValue,
   getDataForStatistics,
-} from "./utils.js";
-import { testArgs } from "../../global/testHelper";
+} from "../utils.js";
+import { testArgs } from "./testHelper";
+
+jest.mock("uuid", () => {
+  const uuidGen = () => `uuid`;
+  return { v4: uuidGen };
+});
 
 test("loadJsonFromDisk", () => {
   loadJsonFromDisk(testArgs.arrayMapping);
@@ -23,16 +28,6 @@ test("getDataSourceFieldId - return dataSourceFieldId", () => {
       testArgs.dataSourceFieldId
     )
   ).toEqual(testArgs.dataSourceFieldId);
-});
-
-jest.mock("uuid", () => {
-  let counter = 0;
-  counter += 1;
-  const uuidGen = () => `uuid_${counter}`;
-  uuidGen.reset = () => {
-    counter = 0;
-  };
-  return { v4: uuidGen };
 });
 
 test("shifterMappingToStateMapping - Qradar", () => {
@@ -55,16 +50,16 @@ test("get field name - combine", () => {
   expect(getFieldName("agent", "type")).toEqual("agent.type");
 });
 
-test("convert mapping to output json content", () => {
-  expect(stateMappingToShifterMapping(testArgs.mapping)).toEqual(
-    testArgs.outputJsonContent
+test("convert mapping to json output - Qradar", () => {
+  expect(stateMappingToShifterMapping(testArgs.QradarMapping)).toEqual(
+    testArgs.QradarOutput
   );
 });
 
-test("convert mapping to output json content - one object, one Source field name, one stix field", () => {
-  expect(
-    stateMappingToShifterMapping(testArgs.oneObj_oneSource_oneStixfield_mapping)
-  ).toEqual(testArgs.oneObj_oneSource_oneStixfield_jasonContent);
+test("convert mapping to json output - Elastic", () => {
+  expect(stateMappingToShifterMapping(testArgs.elasticMapping)).toEqual(
+    testArgs.elasticOutput
+  );
 });
 
 test("get Value", () => {
