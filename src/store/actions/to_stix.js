@@ -4,6 +4,8 @@ export const ADD_NEW_OBJECT = "ADD_NEW_OBJECT";
 export const REMOVE_OBJECT = "REMOVE_OBJECT";
 export const ADD_DATASOURCE_FIELD = "ADD_DATASOURCE_FIELD";
 export const REMOVE_DATASOURCE_FIELD = "REMOVE_DATASOURCE_FIELD";
+export const MOVE_DATASOURCE_FIELD_TO_OBJECT =
+  "MOVE_DATASOURCE_FIELD_TO_OBJECT";
 export const UPDATE_DATASOURCE_FIELD = "UPDATE_DATASOURCE_FIELD";
 export const REMOVE_STIX_FIELD = "REMOVE_STIX_FIELD";
 export const ADD_STIX_FIELD = "ADD_STIX_FIELD";
@@ -13,6 +15,10 @@ export const UPDATE_TO_STIX_MAPPINGS_FROM_FILE =
   "UPDATE_TO_STIX_MAPPINGS_FROM_FILE";
 export const OPEN_SELECT_FIELD_MODAL = "OPEN_SELECT_FIELD_MODAL";
 export const CLOSE_SELECT_FIELD_MODAL = "CLOSE_SELECT_FIELD_MODAL";
+export const OPEN_MOVE_FIELD_TO_OBJECT_MODAL =
+  "OPEN_MOVE_FIELD_TO_OBJECT_MODAL";
+export const CLOSE_MOVE_FIELD_TO_OBJECT_MODAL =
+  "CLOSE_MOVE_FIELD_TO_OBJECT_MODAL";
 
 export function openNewObjectModal() {
   return {
@@ -40,6 +46,22 @@ export function openSelectFieldModal(objectKey, sourceFieldId, stixFieldId) {
 export function closeSelectFieldModal() {
   return {
     type: CLOSE_SELECT_FIELD_MODAL,
+  };
+}
+
+export function openMoveFieldToObjectModal(objectKey, fieldId) {
+  return {
+    type: OPEN_MOVE_FIELD_TO_OBJECT_MODAL,
+    payload: {
+      objectKey,
+      fieldId,
+    },
+  };
+}
+
+export function closeMoveFieldToObjectModal() {
+  return {
+    type: CLOSE_MOVE_FIELD_TO_OBJECT_MODAL,
   };
 }
 
@@ -88,6 +110,15 @@ export function removeDataSourceField(objectName, fieldId) {
     payload: {
       objectName,
       fieldId,
+    },
+  };
+}
+
+export function moveDataSourceFieldToObject(objectToMoveTo) {
+  return {
+    type: MOVE_DATASOURCE_FIELD_TO_OBJECT,
+    payload: {
+      objectToMoveTo,
     },
   };
 }

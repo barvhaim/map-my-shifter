@@ -46,6 +46,8 @@ const StixField = ({
             </div>
             <div>
               <List20
+                style={{ border: 0 }}
+                className={`${styles.object_item__btn}`}
                 onClick={() => {
                   dispatch(
                     openSelectFieldModal(objectKey, sourceFieldId, stixFieldId)

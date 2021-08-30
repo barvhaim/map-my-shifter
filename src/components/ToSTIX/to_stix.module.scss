@@ -19,6 +19,11 @@
     border: $spacing-01 solid $carbon--gray-100;
   }
 
+  .object_item__btn_disable {
+    cursor: default;
+    fill: $carbon--gray-40;
+  }
+
   .object_item__title {
     @include carbon--type-style("productive-heading-03");
     padding-bottom: $spacing-04;
@@ -44,6 +49,19 @@
     margin-bottom: $spacing-04;
     border-bottom: $spacing-01 solid $carbon--gray-30;
   }
+}
+
+.modal {
+  padding: {
+    top: $spacing-03;
+    bottom: $spacing-10;
+  }
+  margin-top: $spacing-03;
+  margin-bottom: $spacing-13;
+}
+
+.ComboBox {
+  margin-left: $spacing-10;
 }
 
 .statistics__col {
