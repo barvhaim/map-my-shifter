@@ -127,17 +127,15 @@ export function stateMappingToShifterMapping(stateMapping) {
         if (!(innerField in outputLevel)) {
           outputLevel[innerField] = [];
         }
-        if (!(key in outputLevel[innerField])) {
-          outputLevel[innerField] = [
-            ...outputLevel[innerField],
-            {
-              key: key,
-              object: object,
-              ...(transformer ? { transformer: transformer } : {}),
-              ...(references ? { references: references } : {}),
-            },
-          ];
-        }
+        outputLevel[innerField] = [
+          ...outputLevel[innerField],
+          {
+            key: key,
+            object: object,
+            ...(transformer ? { transformer: transformer } : {}),
+            ...(references ? { references: references } : {}),
+          },
+        ];
       });
     });
   });
