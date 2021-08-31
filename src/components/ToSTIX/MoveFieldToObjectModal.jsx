@@ -8,46 +8,48 @@ import {
 import styles from "./to_stix.module.scss";
 
 const MoveFieldToObjectModal = () => {
+  console.log("modal");
   const dispatch = useDispatch();
-  const mapping = useSelector((state) => state.toStix.mapping);
+  const objects = useSelector((state) => state.toStix.objects);
   const data = useSelector((state) => state.toStix.moveFieldToObjectModalData);
   const allAvailableObjectKeys = useMemo(() => {
-    return [...Object.keys(mapping)].filter((o) => o !== data?.objectKey);
-  }, [data, mapping]);
+    return objects.filter((o) => o !== data?.objectKey);
+  }, [data, objects]);
   const isOpen = !!data;
   const [object, setobject] = useState("");
+  const fieldName = "";
+  // const fieldName = isOpen
+  //   ? mapping[data?.objectKey][data?.fieldId]?.field
+  //   : "";
 
   return (
     <Modal
       shouldSubmitOnEnter={true}
       open={isOpen}
-      primaryButtonText={"Move Field"}
+      primaryButtonText={"Move"}
       secondaryButtonText={"Cancel"}
       onRequestClose={() => {
         dispatch(closeMoveFieldToObjectModal());
+        setobject("");
       }}
       onRequestSubmit={() => {
         dispatch(moveDataSourceFieldToObject(object));
         dispatch(closeMoveFieldToObjectModal());
         setobject("");
       }}
-      modalHeading={
-        isOpen
-          ? `Select object to move field "${
-              mapping[data?.objectKey][data?.fieldId].field
-            }" to`
-          : ""
-      }
+      modalHeading={`Select object to move field ${
+        fieldName ? `${fieldName}` : ""
+      } to`}
       className={styles.modal}
     >
-      <div className={styles.modal}>
+      <div className={styles.modal} id={`div_${data?.objectKey}`}>
         <ComboBox
           className={styles.ComboBox}
-          id={data?.objectKey}
-          // light={true}
+          id={`comboBox_${data?.objectKey}`}
+          light
           placeholder={"Search object..."}
           items={allAvailableObjectKeys}
-          downshiftProps={{ isOpen: isOpen }}
+          // downshiftProps={{ isOpen: isOpen }}
           itemToString={(item) => (item ? item : "")}
           selectedItem={object}
           onChange={(e) => {

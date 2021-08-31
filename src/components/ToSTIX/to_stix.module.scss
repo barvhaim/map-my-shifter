@@ -61,6 +61,7 @@
 }
 
 .ComboBox {
+  background-color: white;
   margin-left: $spacing-10;
 }
 
@@ -81,4 +82,8 @@
   .coverage_count {
     @include carbon--type-style("label-01");
   }
+}
+
+.background {
+  background-color: white;
 }

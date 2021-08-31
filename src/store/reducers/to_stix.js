@@ -25,6 +25,7 @@ const INITIAL_STATE = {
   selectFieldModalData: null,
   moveFieldToObjectModalData: null,
   mapping: {},
+  objects: [],
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -82,6 +83,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       if (!(action.payload?.name in state.mapping)) {
         return {
           ...state,
+          objects: [...state.objects, action.payload.name],
           mapping: {
             ...state.mapping,
             [action.payload.name]: {},
@@ -97,6 +99,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
           state.mapping;
         return {
           ...state,
+          objects: Object.keys(restOfMapping),
           mapping: restOfMapping,
         };
       }
