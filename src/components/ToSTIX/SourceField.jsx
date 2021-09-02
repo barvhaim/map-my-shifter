@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   removeDataSourceField,
   updateDataSourceField,
   openMoveFieldToObjectModal,
 } from "../../store/actions/to_stix";
 import { SubtractAlt20, WatsonHealthStackedMove20 } from "@carbon/icons-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "carbon-components-react";
 import styles from "./to_stix.module.scss";
 import StixFieldsTable from "./StixFieldsTable";
 
 const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const dispatch = useDispatch();
-
+  const objects = useSelector((state) => state.toStix.objects);
+  const fieldName = fieldData.field;
+  const allAvailableObjectKeys = useMemo(() => {
+    return objects.filter((o) => o !== objectKey);
+  }, [objectKey, objects]);
   return (
     <div className={"bx--row"}>
       <div>
@@ -31,17 +35,21 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
           onChange={(e) => {
             dispatch(updateDataSourceField(objectKey, fieldId, e.target.value));
           }}
-          value={fieldData.field}
+          value={fieldName}
           size={"sm"}
         />
       </div>
       <div>
         <WatsonHealthStackedMove20
           style={{ marginRight: "1rem", border: 0 }}
-          className={`${styles.object_item__btn}`}
+          className={
+            allAvailableObjectKeys.length === 0
+              ? `${styles.object_item__btn_disable}`
+              : `${styles.object_item__btn}`
+          }
           aria-label="Add"
           onClick={() => {
-            dispatch(openMoveFieldToObjectModal(objectKey, fieldId));
+            dispatch(openMoveFieldToObjectModal(objectKey, fieldId, fieldName));
           }}
         />
       </div>

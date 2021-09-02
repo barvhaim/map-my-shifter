@@ -68,6 +68,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
         moveFieldToObjectModalData: {
           objectKey: action.payload.objectKey,
           fieldId: action.payload.fieldId,
+          fieldName: action.payload.fieldName,
         },
       };
     }

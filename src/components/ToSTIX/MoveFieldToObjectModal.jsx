@@ -16,11 +16,8 @@ const MoveFieldToObjectModal = () => {
     return objects.filter((o) => o !== data?.objectKey);
   }, [data, objects]);
   const isOpen = !!data;
-  const [object, setobject] = useState("");
-  const fieldName = "";
-  // const fieldName = isOpen
-  //   ? mapping[data?.objectKey][data?.fieldId]?.field
-  //   : "";
+  const [object, setObject] = useState("");
+  const fieldName = data?.fieldName;
 
   return (
     <Modal
@@ -30,12 +27,12 @@ const MoveFieldToObjectModal = () => {
       secondaryButtonText={"Cancel"}
       onRequestClose={() => {
         dispatch(closeMoveFieldToObjectModal());
-        setobject("");
+        setObject("");
       }}
       onRequestSubmit={() => {
         dispatch(moveDataSourceFieldToObject(object));
         dispatch(closeMoveFieldToObjectModal());
-        setobject("");
+        setObject("");
       }}
       modalHeading={`Select object to move field ${
         fieldName ? `${fieldName}` : ""
@@ -53,7 +50,7 @@ const MoveFieldToObjectModal = () => {
           itemToString={(item) => (item ? item : "")}
           selectedItem={object}
           onChange={(e) => {
-            setobject(e.selectedItem);
+            setObject(e.selectedItem);
           }}
         />
       </div>

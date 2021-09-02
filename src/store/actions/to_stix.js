@@ -49,12 +49,13 @@ export function closeSelectFieldModal() {
   };
 }
 
-export function openMoveFieldToObjectModal(objectKey, fieldId) {
+export function openMoveFieldToObjectModal(objectKey, fieldId, fieldName) {
   return {
     type: OPEN_MOVE_FIELD_TO_OBJECT_MODAL,
     payload: {
       objectKey,
       fieldId,
+      fieldName,
     },
   };
 }
