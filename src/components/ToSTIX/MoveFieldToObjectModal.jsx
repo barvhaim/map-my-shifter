@@ -45,7 +45,6 @@ const MoveFieldToObjectModal = () => {
           light
           placeholder={"Search object..."}
           items={allAvailableObjectKeys}
-          // downshiftProps={{ isOpen: isOpen }}
           itemToString={(item) => (item ? item : "")}
           selectedItem={object}
           onChange={(e) => {

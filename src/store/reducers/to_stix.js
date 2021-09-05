@@ -24,22 +24,7 @@ const INITIAL_STATE = {
   isNewObjectModalOpen: false,
   selectFieldModalData: null,
   moveFieldToObjectModalData: null,
-  mapping: {
-    a: {
-      "52181978-9d09-4264-a031-297ec9f1e0bd": {
-        field: "",
-        mapped_to: [
-          {
-            id: "10eff11e-21cc-46a3-98f9-c847b14514b7",
-            key: "",
-            references: [],
-          },
-        ],
-      },
-    },
-    b: {},
-    c: {},
-  },
+  mapping: {},
   objects: ["a", "b", "c"],
 };
 

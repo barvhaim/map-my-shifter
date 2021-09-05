@@ -11,8 +11,6 @@ const ReferencesSelector = ({
 }) => {
   const dispatch = useDispatch();
   const objects = useSelector((state) => state.toStix.objects);
-  // console.log(objects)
-  // console.log(selectedReferences);
   const allAvailableObjectKeys = useMemo(() => {
     return objects.filter((o) => o !== objectKey);
   }, [objectKey, objects]);
@@ -21,8 +19,6 @@ const ReferencesSelector = ({
     const updatedReferences = selectedReferences.filter((ref) => {
       return objects.includes(ref);
     });
-    // console.log(updatedReferences);
-    // console.log(selectedReferences);
     dispatch(
       updateStixField(
         updatedReferences,
@@ -34,12 +30,10 @@ const ReferencesSelector = ({
     );
   }, [objects]);
 
-  // selectedReferences = updatedReferences;
-  // console.log(selectedReferences)
-
   return (
     <div className={"bx--col-md-2"}>
       <MultiSelect.Filterable
+        key={selectedReferences}
         id={`MultiSelect_${stixFieldId}`}
         size={"sm"}
         downshiftProps={{ setItemCount: selectedReferences.length }}
@@ -57,7 +51,6 @@ const ReferencesSelector = ({
         })}
         itemToString={(item) => (item ? item : "")}
         onChange={(e) => {
-          console.log(e.selectedItems);
           dispatch(
             updateStixField(
               e.selectedItems.filter((ref) => {
