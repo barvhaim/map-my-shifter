@@ -279,6 +279,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapping: {},
+        objects: [],
       };
     }
 
@@ -286,6 +287,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapping: action.payload.mappings,
+        objects: Object.keys(action.payload.mappings),
       };
     }
 

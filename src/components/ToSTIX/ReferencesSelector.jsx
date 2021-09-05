@@ -28,6 +28,7 @@ const ReferencesSelector = ({
         stixFieldId
       )
     );
+    // eslint-disable-next-line
   }, [allAvailableObjectKeys]);
 
   return (

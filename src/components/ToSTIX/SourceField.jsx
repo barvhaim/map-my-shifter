@@ -17,6 +17,8 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const allAvailableObjectKeys = useMemo(() => {
     return objects.filter((o) => o !== objectKey);
   }, [objectKey, objects]);
+  const disableMovingfield = allAvailableObjectKeys.length === 0;
+
   return (
     <div className={"bx--row"}>
       <div>
@@ -43,14 +45,18 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
         <WatsonHealthStackedMove20
           style={{ marginRight: "1rem", border: 0 }}
           className={
-            allAvailableObjectKeys.length === 0
+            disableMovingfield
               ? `${styles.object_item__btn_disable}`
               : `${styles.object_item__btn}`
           }
-          aria-label="Add"
-          onClick={() => {
-            dispatch(openMoveFieldToObjectModal(objectKey, fieldId, fieldName));
-          }}
+          aria-label="Move field to object"
+          onClick={() =>
+            disableMovingfield
+              ? {}
+              : dispatch(
+                  openMoveFieldToObjectModal(objectKey, fieldId, fieldName)
+                )
+          }
         />
       </div>
     </div>
