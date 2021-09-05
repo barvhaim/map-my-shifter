@@ -8,7 +8,6 @@ import {
 import styles from "./to_stix.module.scss";
 
 const MoveFieldToObjectModal = () => {
-  console.log("modal");
   const dispatch = useDispatch();
   const objects = useSelector((state) => state.toStix.objects);
   const data = useSelector((state) => state.toStix.moveFieldToObjectModalData);
