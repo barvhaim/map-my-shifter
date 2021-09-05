@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, TextInput } from "carbon-components-react";
+import { Button, TextInput } from "@carbon/ibm-security";
 import { Save16 } from "@carbon/icons-react";
 import styles from "./export.module.scss";
 import { saveJsonToDisk } from "../STIX/utils";

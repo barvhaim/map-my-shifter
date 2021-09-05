@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
+// import "./index.scss";
+import "@carbon/ibm-security/css/index.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 

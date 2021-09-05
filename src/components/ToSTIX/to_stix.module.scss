@@ -11,7 +11,7 @@
 }
 
 .object__item_content {
-  background-color: $white-0;
+  background-color: $carbon--gray-100;
   padding: $spacing-05 $spacing-05;
 
   .object_item__btn {
@@ -31,7 +31,7 @@
   }
 
   .object_item__map {
-    background-color: $white-0;
+    background-color: $carbon--gray-100;
     margin-bottom: $spacing-07;
     padding: $spacing-05 $spacing-05;
     border: $spacing-01 solid $carbon--gray-30;
@@ -61,12 +61,12 @@
 }
 
 .ComboBox {
-  background-color: white;
+  background-color: $carbon--gray-80;
   margin-left: $spacing-10;
 }
 
 .statistics__col {
-  background-color: $carbon--white-0;
+  background-color: $carbon--gray-100;
   padding: {
     top: $spacing-05;
     bottom: $spacing-05;
@@ -82,8 +82,4 @@
   .coverage_count {
     @include carbon--type-style("label-01");
   }
-}
-
-.background {
-  background-color: white;
 }

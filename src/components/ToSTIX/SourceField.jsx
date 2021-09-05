@@ -6,7 +6,7 @@ import {
 } from "../../store/actions/to_stix";
 import { SubtractAlt20, WatsonHealthStackedMove20 } from "@carbon/icons-react";
 import { useDispatch, useSelector } from "react-redux";
-import { TextInput } from "carbon-components-react";
+import { TextInput } from "@carbon/ibm-security";
 import styles from "./to_stix.module.scss";
 import StixFieldsTable from "./StixFieldsTable";
 

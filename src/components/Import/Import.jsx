@@ -1,5 +1,5 @@
 import React from "react";
-import { FileUploader } from "carbon-components-react";
+import { FileUploader } from "@carbon/ibm-security";
 import styles from "./import.module.scss";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";

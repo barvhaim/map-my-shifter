@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "carbon-components-react";
+import { Modal } from "@carbon/ibm-security";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSelectFieldModal } from "../../store/actions/to_stix";
 import AddFields from "../STIX/AddFields";

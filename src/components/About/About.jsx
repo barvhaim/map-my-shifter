@@ -4,7 +4,7 @@ import {
   AccordionItem,
   UnorderedList,
   ListItem,
-} from "carbon-components-react";
+} from "@carbon/ibm-security";
 import "./About.scss";
 
 const About = () => {
@@ -53,7 +53,8 @@ const About = () => {
                 <ListItem>
                   To STIX object mapping - When results object is back from the
                   data source, this object should be displayed in the final
-                  results as STIX object. For examples {"{"}"filename": "xxxxx"}
+                  results as STIX object. For examples {"{"}"filename": "xxxxx"
+                  {"}"}
                   should be translated to STIX object of type `file`.
                   <a
                     href={

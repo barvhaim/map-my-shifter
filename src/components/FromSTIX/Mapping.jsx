@@ -40,13 +40,11 @@ const Mapping = () => {
         <div
           className={`bx--col ${styles.full_height__col} ${styles.mapping__col}`}
         >
-          <ul>
-            {Object.keys(
-              filterMappingFieldsForValue(mapping, fieldMappingFilter)
-            ).map((o) => (
-              <MappingItem key={o} title={o} />
-            ))}
-          </ul>
+          {Object.keys(
+            filterMappingFieldsForValue(mapping, fieldMappingFilter)
+          ).map((o) => (
+            <MappingItem key={o} title={o} />
+          ))}
         </div>
       </div>
     </>

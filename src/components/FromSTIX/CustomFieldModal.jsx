@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, TextInput } from "carbon-components-react";
+import { Modal, TextInput } from "@carbon/ibm-security";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCustomFieldModal, addField } from "../../store/actions/from_stix";
 import { isValidCustomStixField } from "../../global/stixHelper";

@@ -6,7 +6,7 @@ import {
   deleteValue,
   updateValue,
 } from "../../store/actions/from_stix";
-import { TextInput } from "carbon-components-react";
+import { TextInput } from "@carbon/ibm-security";
 import { Delete20, Close16, Add16 } from "@carbon/icons-react";
 import styles from "./from_stix.module.scss";
 
@@ -14,7 +14,7 @@ const MappingItem = ({ title }) => {
   const values = useSelector((state) => state.fromStix.mapping[title].values);
   const dispatch = useDispatch();
   return (
-    <li className={styles.mapping__item}>
+    <div className={styles.mapping__item}>
       <div className="bx--row" style={{ marginBottom: ".5rem" }}>
         <div className="bx--col-sm-3">
           <h1 className={styles.mapping_item__title}>{title}</h1>
@@ -70,7 +70,7 @@ const MappingItem = ({ title }) => {
           Use the [+] button to add values.
         </div>
       )}
-    </li>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { TextInput } from "carbon-components-react";
+import { TextInput } from "@carbon/ibm-security";
 import { updateMappingsFilterFieldValue } from "../../store/actions/from_stix";
 
 const MappingsFilterBar = () => {

@@ -5,7 +5,7 @@ import {
   removeStixField,
   updateStixField,
 } from "../../store/actions/to_stix";
-import { ComboBox, TextInput } from "carbon-components-react";
+import { ComboBox, TextInput } from "@carbon/ibm-security";
 import { useDispatch } from "react-redux";
 import transformers from "../../global/transformers";
 import { Delete20, List20 } from "@carbon/icons-react";
