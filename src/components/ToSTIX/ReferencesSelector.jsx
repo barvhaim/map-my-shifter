@@ -17,7 +17,7 @@ const ReferencesSelector = ({
 
   useEffect(() => {
     const updatedReferences = selectedReferences.filter((ref) => {
-      return objects.includes(ref);
+      return allAvailableObjectKeys.includes(ref);
     });
     dispatch(
       updateStixField(
@@ -28,13 +28,13 @@ const ReferencesSelector = ({
         stixFieldId
       )
     );
-  }, [objects]);
+  }, [allAvailableObjectKeys]);
 
   return (
     <div className={"bx--col-md-2"}>
       <MultiSelect.Filterable
-        key={selectedReferences}
-        id={`MultiSelect_${stixFieldId}`}
+        key={`${stixFieldId}_${selectedReferences}`}
+        id={`MultiSelect.Filterable_${stixFieldId}`}
         size={"sm"}
         downshiftProps={{ setItemCount: selectedReferences.length }}
         placeholder={"Search References"}
@@ -43,19 +43,13 @@ const ReferencesSelector = ({
         items={allAvailableObjectKeys}
         useTitleInItem={true}
         disabled={allAvailableObjectKeys.length === 0}
-        initialSelectedItems={selectedReferences.filter((ref) => {
-          return objects.includes(ref);
-        })}
-        selectedItems={selectedReferences.filter((ref) => {
-          return objects.includes(ref);
-        })}
+        initialSelectedItems={selectedReferences}
+        selectedItems={selectedReferences}
         itemToString={(item) => (item ? item : "")}
         onChange={(e) => {
           dispatch(
             updateStixField(
-              e.selectedItems.filter((ref) => {
-                return objects.includes(ref);
-              }),
+              e.selectedItems,
               "references",
               objectKey,
               sourceFieldId,

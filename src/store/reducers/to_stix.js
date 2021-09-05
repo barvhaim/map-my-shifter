@@ -25,7 +25,7 @@ const INITIAL_STATE = {
   selectFieldModalData: null,
   moveFieldToObjectModalData: null,
   mapping: {},
-  objects: ["a", "b", "c"],
+  objects: [],
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
