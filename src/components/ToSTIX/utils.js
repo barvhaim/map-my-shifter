@@ -89,7 +89,12 @@ export function createStateMapping(
       id: mapped_to_id,
       key: shifterMapping[dataSourceField].key.replace(".", ":"),
       ...(transformer ? { transformer: transformer } : {}),
-      ...(references ? { references: references } : {}),
+      ...(references
+        ? {
+            references:
+              references.constructor === Array ? references : [references],
+          }
+        : {}),
     },
   ];
   return stateMapping;
