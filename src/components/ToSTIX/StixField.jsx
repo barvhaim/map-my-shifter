@@ -62,7 +62,7 @@ const StixField = ({
             id={`ComboBox_${stixFieldId}`}
             size={"sm"}
             placeholder={"Search Transformer"}
-            ariaLabel="ComboBox"
+            ariaLabel="transformers_combobox"
             items={transformers}
             selectedItem={stixFieldTransformer ? stixFieldTransformer : null}
             onChange={(e) => {
