@@ -11,12 +11,11 @@
 }
 
 .object__item_content {
-  background-color: $carbon--gray-100;
+  background-color: $carbon--gray-90;
   padding: $spacing-05 $spacing-05;
 
   .object_item__btn {
     cursor: pointer;
-    border: $spacing-01 solid $carbon--gray-100;
   }
 
   .object_item__btn_disable {
@@ -31,7 +30,7 @@
   }
 
   .object_item__map {
-    background-color: $carbon--gray-100;
+    background-color: $carbon--gray-90;
     margin-bottom: $spacing-07;
     padding: $spacing-05 $spacing-05;
     border: $spacing-01 solid $carbon--gray-30;
@@ -66,7 +65,7 @@
 }
 
 .statistics__col {
-  background-color: $carbon--gray-100;
+  background-color: $carbon--gray-90;
   padding: {
     top: $spacing-05;
     bottom: $spacing-05;

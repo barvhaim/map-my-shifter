@@ -10,5 +10,6 @@ p {
 .tile__btn {
   height: 8.5rem;
   @include carbon--type-style("productive-heading-03");
-  background-color: $carbon--gray-80;
+  background-color: $carbon--gray-90;
+  padding: $spacing-05 $spacing-05;
 }

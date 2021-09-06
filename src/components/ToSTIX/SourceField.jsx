@@ -23,7 +23,7 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
     <div className={"bx--row"}>
       <div>
         <SubtractAlt20
-          style={{ marginLeft: "1rem", border: 0 }}
+          style={{ marginLeft: "1rem" }}
           className={`${styles.object_item__btn}`}
           onClick={() => {
             dispatch(removeDataSourceField(objectKey, fieldId));

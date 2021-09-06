@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 
 const Welcome = () => {
   const history = useHistory();
+  console.log(history);
   const handleClickableTile = (link) => {
     history.push(link);
   };

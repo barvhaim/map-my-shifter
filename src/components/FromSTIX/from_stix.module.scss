@@ -19,7 +19,7 @@
 .mapping__col {
   .mapping__item {
     padding: $spacing-05 $spacing-05;
-    background-color: $carbon--gray-100;
+    background-color: $carbon--gray-90;
     .mapping__item_empty {
       @include carbon--type-style("helper-text-01");
       color: $carbon--red-60;
@@ -39,7 +39,7 @@
 }
 
 .statistics__col {
-  background-color: $carbon--gray-100;
+  background-color: $carbon--gray-90;
   padding: {
     top: $spacing-05;
     bottom: $spacing-05;
