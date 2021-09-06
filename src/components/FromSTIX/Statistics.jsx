@@ -35,4 +35,4 @@ const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
   );
 };
 
-export default Statistics;
+export default React.memo(Statistics);
