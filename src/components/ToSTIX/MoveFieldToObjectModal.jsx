@@ -40,7 +40,7 @@ const MoveFieldToObjectModal = () => {
     >
       <div className={styles.modal} id={`div_${data?.objectKey}`}>
         <ComboBox
-          className={styles.ComboBox}
+          className={styles.combo_box}
           id={`comboBox_${data?.objectKey}`}
           light
           placeholder={"Search object..."}
