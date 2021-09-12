@@ -1,18 +1,27 @@
 import React from "react";
 import { Add32 } from "@carbon/icons-react";
 import { Button } from "@carbon/ibm-security";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openNewObjectModal } from "../../store/actions/to_stix";
 import MappingObjects from "./MappingObjects";
 import SelectFieldModal from "./SelectFieldModal";
 import MoveFieldToObjectModal from "./MoveFieldToObjectModal";
+import NewObjectModal from "./NewObjectModal";
 
-const Mapping = () => {
+const MappingTab = ({ title, addingFunction }) => {
   const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.toStix.isNewObjectModalOpen);
+  const isStix = title === "object";
+
   return (
     <>
-      <SelectFieldModal />
-      <MoveFieldToObjectModal />
+      <NewObjectModal isOpen={isOpen} add={addingFunction} title={title} />
+      {isStix && (
+        <>
+          <SelectFieldModal />
+          <MoveFieldToObjectModal />
+        </>
+      )}
       <div className="bx--row">
         <div className="bx--col" style={{ textAlign: "right" }}>
           <Button
@@ -21,14 +30,14 @@ const Mapping = () => {
               dispatch(openNewObjectModal());
             }}
           >
-            New Object
+            New {title}
           </Button>
         </div>
       </div>
 
-      <MappingObjects />
+      <MappingObjects title={title} />
     </>
   );
 };
 
-export default React.memo(Mapping);
+export default React.memo(MappingTab);

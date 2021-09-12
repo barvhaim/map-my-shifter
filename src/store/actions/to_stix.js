@@ -1,7 +1,9 @@
 export const OPEN_NEW_OBJECT_MODAL = "OPEN_NEW_OBJECT_MODAL";
 export const CLOSE_NEW_OBJECT_MODAL = "CLOSE_NEW_OBJECT_MODAL";
-export const ADD_NEW_OBJECT = "ADD_NEW_OBJECT";
-export const REMOVE_OBJECT = "REMOVE_OBJECT";
+export const ADD_NEW_STIX_OBJECT = "ADD_NEW_STIX_OBJECT";
+export const ADD_NEW_METADATA_OBJECT = "ADD_NEW_METADATA_OBJECT";
+export const REMOVE_STIX_OBJECT = "REMOVE_STIX_OBJECT";
+export const REMOVE_METADATA_OBJECT = "REMOVE_METADATA_OBJECT";
 export const ADD_DATASOURCE_FIELD = "ADD_DATASOURCE_FIELD";
 export const REMOVE_DATASOURCE_FIELD = "REMOVE_DATASOURCE_FIELD";
 export const MOVE_DATASOURCE_FIELD_TO_OBJECT =
@@ -10,6 +12,9 @@ export const UPDATE_DATASOURCE_FIELD = "UPDATE_DATASOURCE_FIELD";
 export const REMOVE_STIX_FIELD = "REMOVE_STIX_FIELD";
 export const ADD_STIX_FIELD = "ADD_STIX_FIELD";
 export const UPDATE_STIX_FIELD = "UPDATE_STIX_FIELD";
+export const ADD_METADATA_FIELD = "ADD_METADATA_FIELD";
+export const REMOVE_METADATA_FIELD = "REMOVE_METADATA_FIELD";
+export const UPDATE_METADATA_FIELD = "UPDATE_METADATA_FIELD";
 export const CLEAR_TO_STIX_MAPPINGS = "CLEAR_TO_STIX_MAPPINGS";
 export const UPDATE_TO_STIX_MAPPINGS_FROM_FILE =
   "UPDATE_TO_STIX_MAPPINGS_FROM_FILE";
@@ -66,30 +71,58 @@ export function closeMoveFieldToObjectModal() {
   };
 }
 
-export function addNewObject(name) {
+export function addNewStixObject(name) {
   return {
-    type: ADD_NEW_OBJECT,
+    type: ADD_NEW_STIX_OBJECT,
     payload: {
       name,
     },
   };
 }
 
-export function removeObject(name) {
+export function addNewMetadataObject(name) {
   return {
-    type: REMOVE_OBJECT,
+    type: ADD_NEW_METADATA_OBJECT,
     payload: {
       name,
     },
   };
 }
 
-export function addDataSourceField(objectName, fieldName) {
+export function removeStixObject(name) {
+  return {
+    type: REMOVE_STIX_OBJECT,
+    payload: {
+      name,
+    },
+  };
+}
+
+export function removeMetadataObject(name) {
+  return {
+    type: REMOVE_METADATA_OBJECT,
+    payload: {
+      name,
+    },
+  };
+}
+
+// export function updateMetadataObject(objectName, fieldId, fieldName) {
+//   return {
+//     type: UPDATE_METADATA_OBJECT,
+//     payload: {
+//       objectName,
+//       fieldId,
+//       fieldName,
+//     },
+//   };
+// }
+
+export function addDataSourceField(objectName) {
   return {
     type: ADD_DATASOURCE_FIELD,
     payload: {
       objectName,
-      fieldName,
     },
   };
 }
@@ -159,17 +192,49 @@ export function removeStixField(objectName, fieldId, mappingId) {
   };
 }
 
+export function addMetadataField(objectName) {
+  return {
+    type: ADD_METADATA_FIELD,
+    payload: {
+      objectName,
+    },
+  };
+}
+
+export function removeMetadataField(objectName, mappingId) {
+  return {
+    type: REMOVE_METADATA_FIELD,
+    payload: {
+      objectName,
+      mappingId,
+    },
+  };
+}
+
+export function updateMetadataField(value, type, objectName, mappingId) {
+  return {
+    type: UPDATE_METADATA_FIELD,
+    payload: {
+      value,
+      type,
+      objectName,
+      mappingId,
+    },
+  };
+}
+
 export function clearMappings() {
   return {
     type: CLEAR_TO_STIX_MAPPINGS,
   };
 }
 
-export function updateMappingsFromFile(mappings) {
+export function updateMappingsFromFile(stixMapping, metadataMapping) {
   return {
     type: UPDATE_TO_STIX_MAPPINGS_FROM_FILE,
     payload: {
-      mappings,
+      stixMapping,
+      metadataMapping,
     },
   };
 }

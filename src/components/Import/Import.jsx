@@ -38,8 +38,14 @@ const Import = (props) => {
                       "result" in _event.target
                     ) {
                       input = JSON.parse(_event.target.result);
-                      const mappings = props.loadJsonFromDisk(input);
-                      dispatch(props.updateMappingsFromFile(mappings));
+                      const [stixMapping, metadataMapping] =
+                        props.loadJsonFromDisk(input);
+                      dispatch(
+                        props.updateMappingsFromFile(
+                          stixMapping,
+                          metadataMapping
+                        )
+                      );
                     }
                   };
                   reader.readAsText(event.target.files[0]);

@@ -18,6 +18,7 @@ const MappingsFilterBar = () => {
       labelText=""
       id={"mappings-filter-input"}
       placeholder={"Filter field…"}
+      autoComplete={"off"}
     />
   );
 };

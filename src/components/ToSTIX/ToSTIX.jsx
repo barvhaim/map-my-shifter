@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Mapping from "./Mapping";
+import MappingTabs from "./MappingTabs";
 import Export from "../Export/Export";
 import Import from "../Import/Import";
-import NewObjectModal from "./NewObjectModal";
 import { stateMappingToShifterMapping, loadJsonFromDisk } from "./utils";
 import {
   updateMappingsFromFile,
@@ -12,11 +11,13 @@ import {
 import Statistics from "./Statistics";
 
 const ToSTIX = () => {
-  const mapping = useSelector((state) => state.toStix.mapping);
+  const stixMapping = useSelector((state) => state.toStix.stixMapping);
+  const metadataMapping = useSelector((state) => state.toStix.metadataMapping);
+  console.log(stixMapping);
+  console.log(metadataMapping);
 
   return (
     <>
-      <NewObjectModal />
       <div className="bx--grid">
         <div className="bx--row">
           <div className="bx--col">
@@ -26,14 +27,15 @@ const ToSTIX = () => {
 
         <div className="bx--row">
           <div className="bx--col-sm-3">
-            <Mapping />
+            <MappingTabs />
           </div>
 
           <div className="bx--col-sm-1">
             <div className="bx--row">
               <div className="bx--col-sm-4">
                 <Export
-                  mapping={mapping}
+                  stixMapping={stixMapping}
+                  metadataMapping={metadataMapping}
                   stateMappingToShifterMapping={stateMappingToShifterMapping}
                 />
               </div>
@@ -51,7 +53,7 @@ const ToSTIX = () => {
 
             <div className="bx--row">
               <div className="bx--col-sm-4">
-                <Statistics mapping={mapping} />
+                <Statistics stixMapping={stixMapping} />
               </div>
             </div>
           </div>

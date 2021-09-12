@@ -9,7 +9,7 @@ const SelectFields = ({ officialFields }) => {
         <div className="bx--col">
           <h4 className="section-title">Select Fields</h4>
         </div>
-        <div>
+        <div className="bx--col" style={{ textAlign: "right" }}>
           <CustomField />
         </div>
       </div>

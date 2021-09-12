@@ -4,7 +4,7 @@ import styles from "./to_stix.module.scss";
 import { getDataForStatistics } from "./utils";
 import StatisticObject from "./StatisticObject";
 
-const Statistics = ({ mapping }) => {
+const Statistics = ({ stixMapping }) => {
   const stixFields = useSelector((state) => state.stix.stixFields);
   const stixTypesSet = useMemo(
     () => new Set(Object.values(stixFields).map((field) => field.type)),
@@ -15,7 +15,7 @@ const Statistics = ({ mapping }) => {
     customFieldsCount,
     officialObjectsCount,
     customObjectsCount,
-  ] = getDataForStatistics(mapping, stixTypesSet);
+  ] = getDataForStatistics(stixMapping, stixTypesSet);
 
   const sum = officialFieldsCount + customFieldsCount;
 

@@ -13,7 +13,7 @@ import {
 } from "../actions/from_stix";
 
 const INITIAL_STATE = {
-  mapping: {},
+  stixMapping: {},
   fieldMappingFilter: "",
   customFieldModalShow: false,
 };
@@ -22,11 +22,11 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_FIELD: {
       const field = action.payload.field;
-      if (!(field in state.mapping)) {
+      if (!(field in state.stixMapping)) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [field]: {
               values: [],
             },
@@ -37,26 +37,26 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
     }
 
     case DELETE_FIELD: {
-      if (action.payload.field in state.mapping) {
-        const { [action.payload.field]: v, ...mapping } = state.mapping;
+      if (action.payload.field in state.stixMapping) {
+        const { [action.payload.field]: v, ...stixMapping } = state.stixMapping;
         return {
           ...state,
-          mapping: mapping,
+          stixMapping: stixMapping,
         };
       }
       return state;
     }
 
     case ADD_VALUE: {
-      if (action.payload.field in state.mapping) {
+      if (action.payload.field in state.stixMapping) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [action.payload.field]: {
-              ...state.mapping[action.payload.field],
+              ...state.stixMapping[action.payload.field],
               values: [
-                ...state.mapping[action.payload.field].values,
+                ...state.stixMapping[action.payload.field].values,
                 { value: "", id: uuidv4() },
               ],
             },
@@ -67,14 +67,14 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
     }
 
     case DELETE_VALUE: {
-      if (action.payload.field in state.mapping) {
+      if (action.payload.field in state.stixMapping) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [action.payload.field]: {
-              ...state.mapping[action.payload.field],
-              values: state.mapping[action.payload.field].values.filter(
+              ...state.stixMapping[action.payload.field],
+              values: state.stixMapping[action.payload.field].values.filter(
                 (o) => o.id !== action.payload.id
               ),
             },
@@ -85,14 +85,14 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
     }
 
     case UPDATE_VALUE: {
-      if (action.payload.field in state.mapping) {
+      if (action.payload.field in state.stixMapping) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [action.payload.field]: {
-              ...state.mapping[action.payload.field],
-              values: state.mapping[action.payload.field].values.map((o) =>
+              ...state.stixMapping[action.payload.field],
+              values: state.stixMapping[action.payload.field].values.map((o) =>
                 o.id === action.payload.id
                   ? { ...o, value: action.payload.value }
                   : o
@@ -114,14 +114,14 @@ const FromSTIXReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_FROM_STIX_MAPPINGS_FROM_FILE: {
       return {
         ...state,
-        mapping: action.payload.mappings,
+        stixMapping: action.payload.stixMapping,
       };
     }
 
     case CLEAR_FROM_STIX_MAPPINGS: {
       return {
         ...state,
-        mapping: {},
+        stixMapping: {},
       };
     }
 

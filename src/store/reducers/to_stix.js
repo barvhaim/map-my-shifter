@@ -2,16 +2,21 @@ import { v4 as uuidv4 } from "uuid";
 
 import {
   ADD_DATASOURCE_FIELD,
-  ADD_NEW_OBJECT,
-  CLOSE_NEW_OBJECT_MODAL,
+  ADD_NEW_STIX_OBJECT,
+  ADD_NEW_METADATA_OBJECT,
   OPEN_NEW_OBJECT_MODAL,
+  CLOSE_NEW_OBJECT_MODAL,
   REMOVE_DATASOURCE_FIELD,
   MOVE_DATASOURCE_FIELD_TO_OBJECT,
-  REMOVE_OBJECT,
+  REMOVE_STIX_OBJECT,
+  REMOVE_METADATA_OBJECT,
   UPDATE_DATASOURCE_FIELD,
   ADD_STIX_FIELD,
   REMOVE_STIX_FIELD,
   UPDATE_STIX_FIELD,
+  ADD_METADATA_FIELD,
+  REMOVE_METADATA_FIELD,
+  UPDATE_METADATA_FIELD,
   CLEAR_TO_STIX_MAPPINGS,
   UPDATE_TO_STIX_MAPPINGS_FROM_FILE,
   OPEN_SELECT_FIELD_MODAL,
@@ -22,10 +27,12 @@ import {
 
 const INITIAL_STATE = {
   isNewObjectModalOpen: false,
+  isNewMetadataFieldModalOpen: false,
   selectFieldModalData: null,
   moveFieldToObjectModalData: null,
-  mapping: {},
+  stixMapping: {},
   objects: [],
+  metadataMapping: {},
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -80,13 +87,13 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
-    case ADD_NEW_OBJECT: {
-      if (!(action.payload?.name in state.mapping)) {
+    case ADD_NEW_STIX_OBJECT: {
+      if (!(action.payload?.name in state.stixMapping)) {
         return {
           ...state,
           objects: [...state.objects, action.payload.name],
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [action.payload.name]: {},
           },
         };
@@ -94,14 +101,39 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    case REMOVE_OBJECT: {
-      if (action.payload?.name in state.mapping) {
+    case ADD_NEW_METADATA_OBJECT: {
+      if (!(action.payload?.name in state.metadataMapping)) {
+        return {
+          ...state,
+          metadataMapping: {
+            ...state.metadataMapping,
+            [action.payload.name]: [],
+          },
+        };
+      }
+      return state;
+    }
+
+    case REMOVE_STIX_OBJECT: {
+      if (action.payload?.name in state.stixMapping) {
         const { [action.payload?.name]: omit, ...restOfMapping } =
-          state.mapping;
+          state.stixMapping;
         return {
           ...state,
           objects: Object.keys(restOfMapping),
-          mapping: restOfMapping,
+          stixMapping: restOfMapping,
+        };
+      }
+      return state;
+    }
+
+    case REMOVE_METADATA_OBJECT: {
+      if (action.payload?.name in state.metadataMapping) {
+        const { [action.payload?.name]: omit, ...restOfMapping } =
+          state.metadataMapping;
+        return {
+          ...state,
+          metadataMapping: restOfMapping,
         };
       }
       return state;
@@ -109,16 +141,15 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
 
     case ADD_DATASOURCE_FIELD: {
       const objectName = action.payload?.objectName;
-      const fieldName = action.payload?.fieldName;
-      if (objectName in state.mapping) {
+      if (objectName in state.stixMapping) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: {
-              ...state.mapping[objectName],
+              ...state.stixMapping[objectName],
               [uuidv4()]: {
-                field: fieldName,
+                field: "",
                 mapped_to: [],
               },
             },
@@ -132,15 +163,18 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const objectName = action.payload?.objectName;
       const fieldName = action.payload?.fieldName;
       const fieldId = action.payload?.fieldId;
-      if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
+      if (
+        objectName in state.stixMapping &&
+        fieldId in state.stixMapping[objectName]
+      ) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: {
-              ...state.mapping[objectName],
+              ...state.stixMapping[objectName],
               [fieldId]: {
-                ...state.mapping[objectName][fieldId],
+                ...state.stixMapping[objectName][fieldId],
                 field: fieldName,
               },
             },
@@ -153,12 +187,16 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_DATASOURCE_FIELD: {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
-      if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
-        const { [fieldId]: omit, ...restOfFields } = state.mapping[objectName];
+      if (
+        objectName in state.stixMapping &&
+        fieldId in state.stixMapping[objectName]
+      ) {
+        const { [fieldId]: omit, ...restOfFields } =
+          state.stixMapping[objectName];
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: restOfFields,
           },
         };
@@ -170,16 +208,20 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const currObject = state.moveFieldToObjectModalData?.objectKey;
       const objectToMoveTo = action.payload?.objectToMoveTo;
       const fieldId = state.moveFieldToObjectModalData?.fieldId;
-      if (currObject in state.mapping && fieldId in state.mapping[currObject]) {
-        const { [fieldId]: omit, ...restOfFields } = state.mapping[currObject];
+      if (
+        currObject in state.stixMapping &&
+        fieldId in state.stixMapping[currObject]
+      ) {
+        const { [fieldId]: omit, ...restOfFields } =
+          state.stixMapping[currObject];
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectToMoveTo]: {
-              ...state.mapping[objectToMoveTo],
+              ...state.stixMapping[objectToMoveTo],
               [fieldId]: {
-                ...state.mapping[currObject][fieldId],
+                ...state.stixMapping[currObject][fieldId],
               },
             },
             [currObject]: restOfFields,
@@ -193,17 +235,17 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
       const key = action.payload?.key;
-      if (objectName in state.mapping) {
+      if (objectName in state.stixMapping) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: {
-              ...state.mapping[objectName],
+              ...state.stixMapping[objectName],
               [fieldId]: {
-                ...state.mapping[objectName][fieldId],
+                ...state.stixMapping[objectName][fieldId],
                 mapped_to: [
-                  ...state.mapping[objectName][fieldId].mapped_to,
+                  ...state.stixMapping[objectName][fieldId].mapped_to,
                   {
                     id: uuidv4(),
                     key: key,
@@ -221,18 +263,21 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const objectName = action.payload?.objectName;
       const fieldId = action.payload?.fieldId;
       const mappingId = action.payload?.mappingId;
-      if (objectName in state.mapping && fieldId in state.mapping[objectName]) {
+      if (
+        objectName in state.stixMapping &&
+        fieldId in state.stixMapping[objectName]
+      ) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: {
-              ...state.mapping[objectName],
+              ...state.stixMapping[objectName],
               [fieldId]: {
-                ...state.mapping[objectName][fieldId],
-                mapped_to: state.mapping[objectName][fieldId].mapped_to.filter(
-                  (o) => o.id !== mappingId
-                ),
+                ...state.stixMapping[objectName][fieldId],
+                mapped_to: state.stixMapping[objectName][
+                  fieldId
+                ].mapped_to.filter((o) => o.id !== mappingId),
               },
             },
           },
@@ -251,18 +296,18 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       const value = action.payload?.value;
       const type = action.payload?.type;
       if (
-        objectName in state.mapping &&
-        sourceFieldId in state.mapping[objectName]
+        objectName in state.stixMapping &&
+        sourceFieldId in state.stixMapping[objectName]
       ) {
         return {
           ...state,
-          mapping: {
-            ...state.mapping,
+          stixMapping: {
+            ...state.stixMapping,
             [objectName]: {
-              ...state.mapping[objectName],
+              ...state.stixMapping[objectName],
               [sourceFieldId]: {
-                ...state.mapping[objectName][sourceFieldId],
-                mapped_to: state.mapping[objectName][
+                ...state.stixMapping[objectName][sourceFieldId],
+                mapped_to: state.stixMapping[objectName][
                   sourceFieldId
                 ].mapped_to.map((o) =>
                   o.id === stixFieldId ? { ...o, [type]: value } : o
@@ -275,19 +320,101 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
+    case ADD_METADATA_FIELD: {
+      const objectName = action.payload?.objectName;
+      if (objectName in state.metadataMapping) {
+        return {
+          ...state,
+          metadataMapping: {
+            ...state.metadataMapping,
+            [objectName]: [
+              ...state.metadataMapping[objectName],
+              {
+                id: uuidv4(),
+                key: "",
+              },
+            ],
+          },
+        };
+      }
+      return state;
+    }
+
+    // case UPDATE_METADATA_OBJECT: {
+    // const objectName = action.payload?.objectName;
+    // const fieldName = action.payload?.fieldName;
+    // const fieldId = action.payload?.fieldId;
+    // if (objectName in state.metadataMapping) {
+    //   return {
+    //     ...state,
+    //     metadataMapping: {
+    //       ...state.metadataMapping,
+    //       [objectName]: {
+    //         ...state.metadataMapping[objectName],
+    //         [fieldId]: {
+    //           ...state.metadataMapping[objectName][fieldId],
+    //           field: fieldName,
+    //         },
+    //       },
+    //     },
+    //   };
+    // }
+    // return state;
+    // }
+
+    case REMOVE_METADATA_FIELD: {
+      const objectName = action.payload?.objectName;
+      const mappingId = action.payload?.mappingId;
+      if (objectName in state.metadataMapping) {
+        return {
+          ...state,
+          metadataMapping: {
+            ...state.metadataMapping,
+            [objectName]: state.metadataMapping[objectName].filter(
+              (o) => o.id !== mappingId
+            ),
+          },
+        };
+      }
+      return state;
+    }
+
+    case UPDATE_METADATA_FIELD: {
+      const objectName = action.payload?.objectName;
+      const metadataFieldId = action.payload?.mappingId;
+      const value = action.payload?.value;
+      const type = action.payload?.type;
+      if (objectName in state.metadataMapping) {
+        return {
+          ...state,
+          metadataMapping: {
+            ...state.metadataMapping,
+            [objectName]: state.metadataMapping[objectName].map((o) =>
+              o.id === metadataFieldId ? { ...o, [type]: value } : o
+            ),
+          },
+        };
+      }
+      return state;
+    }
+
     case CLEAR_TO_STIX_MAPPINGS: {
       return {
         ...state,
-        mapping: {},
+        stixMapping: {},
         objects: [],
+        metadataMapping: {},
       };
     }
 
     case UPDATE_TO_STIX_MAPPINGS_FROM_FILE: {
+      const stixMapping = action.payload.stixMapping;
+      const metadataMapping = action.payload.metadataMapping;
       return {
         ...state,
-        mapping: action.payload.mappings,
-        objects: Object.keys(action.payload.mappings),
+        stixMapping: stixMapping,
+        metadataMapping: metadataMapping,
+        objects: Object.keys(stixMapping),
       };
     }
 
