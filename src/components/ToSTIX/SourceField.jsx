@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import {
   removeDataSourceField,
-  removeMetadataObject,
   updateDataSourceField,
   openMoveFieldToObjectModal,
 } from "../../store/actions/to_stix";
@@ -11,10 +10,10 @@ import { TextInput } from "@carbon/ibm-security";
 import styles from "./to_stix.module.scss";
 import MappedFieldsTable from "./MappedFieldsTable";
 
-const SourceFieldHeader = ({ fieldId, objectKey, fieldData, isStix }) => {
+const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const dispatch = useDispatch();
   const objects = useSelector((state) => state.toStix.objects);
-  const fieldName = isStix ? fieldData.field : objectKey;
+  const fieldName = fieldData.field;
   const allAvailableObjectKeys = useMemo(() => {
     return objects.filter((o) => o !== objectKey);
   }, [objectKey, objects]);
@@ -27,9 +26,7 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData, isStix }) => {
           style={{ marginLeft: "1rem" }}
           className={`${styles.object_item__btn}`}
           onClick={() => {
-            isStix
-              ? dispatch(removeDataSourceField(objectKey, fieldId))
-              : dispatch(removeMetadataObject(objectKey, fieldId));
+            dispatch(removeDataSourceField(objectKey, fieldId));
           }}
         />
       </div>
@@ -41,30 +38,27 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData, isStix }) => {
             dispatch(updateDataSourceField(objectKey, fieldId, e.target.value));
           }}
           value={fieldName}
-          readOnly={!isStix}
           size={"sm"}
         />
       </div>
-      {isStix && (
-        <div>
-          <WatsonHealthStackedMove20
-            style={{ marginRight: "1rem", border: 0 }}
-            className={
-              disableMovingfield
-                ? `${styles.object_item__btn_disable}`
-                : `${styles.object_item__btn}`
-            }
-            aria-label="Move field to object"
-            onClick={() =>
-              disableMovingfield
-                ? {}
-                : dispatch(
-                    openMoveFieldToObjectModal(objectKey, fieldId, fieldName)
-                  )
-            }
-          />
-        </div>
-      )}
+      <div>
+        <WatsonHealthStackedMove20
+          style={{ marginRight: "1rem", border: 0 }}
+          className={
+            disableMovingfield
+              ? `${styles.object_item__btn_disable}`
+              : `${styles.object_item__btn}`
+          }
+          aria-label="Move field to object"
+          onClick={() =>
+            disableMovingfield
+              ? {}
+              : dispatch(
+                  openMoveFieldToObjectModal(objectKey, fieldId, fieldName)
+                )
+          }
+        />
+      </div>
     </div>
   );
 };
@@ -73,7 +67,6 @@ const SourceField = ({ objectKey, fieldId, fieldData, isStix }) => {
   return (
     <div key={fieldId} className={styles.object_item__map}>
       <SourceFieldHeader
-        isStix={isStix}
         objectKey={objectKey}
         fieldId={fieldId}
         fieldData={fieldData}

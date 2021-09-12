@@ -36,9 +36,7 @@ const MappedFieldsTableBody = ({
     const mappedFieldTransformer = mappedField?.transformer;
     const mappedFieldReferences =
       mappedField.references && mappedField.references.length !== 0
-        ? mappedField.references.constructor === Array
-          ? mappedField.references
-          : [mappedField.references]
+        ? mappedField.references
         : [];
     return (
       <MappedField

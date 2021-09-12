@@ -10,7 +10,7 @@ export const testArgs = {
           {
             id: "702f1e4d-e75c-4230-83dd-8a5d6c8de1ff",
             key: "process:creator_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -43,17 +43,17 @@ export const testArgs = {
       {
         key: "x-ibm-finding.src_application_user_ref",
         object: "finding",
-        references: "useraccount",
+        references: ["useraccount"],
       },
       {
         key: "process.creator_user_ref",
         object: "process",
-        references: "useraccount",
+        references: ["useraccount"],
       },
       {
         key: "x-oca-event.user_ref",
         object: "event",
-        references: "useraccount",
+        references: ["useraccount"],
       },
     ],
   },
@@ -82,7 +82,7 @@ export const testArgs = {
         {
           key: "network-traffic.src_ref",
           object: "nt",
-          references: "src_ip",
+          references: ["src_ip"],
         },
       ],
     },
@@ -123,7 +123,7 @@ export const testArgs = {
           {
             id: "uuid",
             key: "x-ibm-finding:src_application_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -135,7 +135,7 @@ export const testArgs = {
           {
             id: "uuid",
             key: "process:creator_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -147,7 +147,7 @@ export const testArgs = {
           {
             id: "uuid",
             key: "x-oca-event:user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -177,7 +177,7 @@ export const testArgs = {
           {
             id: "uuid",
             key: "network-traffic:src_ref",
-            references: "src_ip",
+            references: ["src_ip"],
           },
         ],
       },
@@ -199,7 +199,7 @@ export const testArgs = {
     {
       key: "network-traffic.src_ref",
       object: "nt",
-      references: "src_ip",
+      references: ["src_ip"],
     },
   ],
 
@@ -234,12 +234,12 @@ export const testArgs = {
           {
             id: "1400517f-ea68-4ecc-af74-998767fc109d",
             key: "network-traffic:src_ref",
-            references: "src_ip",
+            references: ["src_ip"],
           },
           {
             id: "6885e92c-497c-44a8-b051-2b9240e6edca",
             key: "network-traffic:src_ref",
-            references: "src_ip",
+            references: ["src_ip"],
           },
         ],
       },
@@ -277,12 +277,12 @@ export const testArgs = {
           {
             id: "1400517f-ea68-4ecc-af74-998767fc109d",
             key: "network-traffic:src_ref",
-            references: "src_ip",
+            references: ["src_ip"],
           },
           {
             id: "6885e92c-497c-44a8-b051-2b9240e6edca",
             key: "network-traffic:src_ref",
-            references: "src_ip",
+            references: ["src_ip"],
           },
         ],
       },
@@ -323,7 +323,7 @@ export const testArgs = {
           {
             id: "ae999cdc-355a-423f-af28-524f3929fea7",
             key: "x-ibm-finding:src_application_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -335,7 +335,7 @@ export const testArgs = {
           {
             id: "ff0db88b-0e20-4840-bfe6-c42f5829b922",
             key: "process:creator_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -347,7 +347,7 @@ export const testArgs = {
           {
             id: "0c591d52-6160-4756-a8a6-10426e892d58",
             key: "x-oca-event:user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -370,17 +370,17 @@ export const testArgs = {
       {
         key: "x-ibm-finding.src_application_user_ref",
         object: "finding",
-        references: "useraccount",
+        references: ["useraccount"],
       },
       {
         key: "process.creator_user_ref",
         object: "process",
-        references: "useraccount",
+        references: ["useraccount"],
       },
       {
         key: "x-oca-event.user_ref",
         object: "event",
-        references: "useraccount",
+        references: ["useraccount"],
       },
     ],
   },
@@ -519,7 +519,7 @@ export const testArgs = {
           {
             id: "a27d2d66-1367-439d-bdf6-43732dc8282d",
             key: "x-ibm-finding:src_application_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -531,7 +531,7 @@ export const testArgs = {
           {
             id: "d52c46ab-ba0b-4e87-b403-402b459e0121",
             key: "process:creator_user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
@@ -543,7 +543,7 @@ export const testArgs = {
           {
             id: "c171f8a2-cf81-451a-a36b-25021fa3ab32",
             key: "x-oca-event:user_ref",
-            references: "useraccount",
+            references: ["useraccount"],
           },
         ],
       },
