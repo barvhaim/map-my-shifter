@@ -1,21 +1,14 @@
 import React from "react";
-import SourceField from "./SourceField";
+import MappedFieldsTable from "./MappedFieldsTable";
 
 const MetadataObjectBody = ({ sourceFields, objectKey, isStix }) => {
   return (
-    <SourceField
+    <MappedFieldsTable
       isStix={isStix}
-      key={sourceFields}
       objectKey={objectKey}
-      fieldId={sourceFields}
-      fieldData={sourceFields}
+      sourceFieldId={sourceFields}
+      sourceFieldData={sourceFields}
     />
-    //   <MappedFieldsTable
-    //   isStix={isStix}
-    //   objectKey={objectKey}
-    //   sourceFieldId={sourceFields}
-    //   sourceFieldData={fieldData}
-    // />
   );
 };
 

@@ -8,7 +8,6 @@ import {
 import {
   addDataSourceField,
   removeStixObject,
-  addMetadataField,
   removeMetadataObject,
 } from "../../store/actions/to_stix";
 import { useDispatch } from "react-redux";
@@ -33,19 +32,19 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
       <div className={`bx--col ${styles.object_item__title}`}>{name}</div>
 
       <div className={`bx--col`} style={{ textAlign: "right" }}>
-        <Add20
-          className={`${styles.object_item__btn}`}
-          style={{
-            marginRight: ".5rem",
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            isStix
-              ? dispatch(addDataSourceField(name))
-              : dispatch(addMetadataField(name));
-          }}
-        />
+        {isStix && (
+          <Add20
+            className={`${styles.object_item__btn}`}
+            style={{
+              marginRight: ".5rem",
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dispatch(addDataSourceField(name));
+            }}
+          />
+        )}
         <Close20
           className={`${styles.object_item__btn}`}
           onClick={(e) => {
@@ -66,14 +65,13 @@ const MappingObject = ({ objectKey, objectData, isStix }) => {
   return (
     <div className={`bx--row ${styles.object__item_box}`}>
       <div className={`bx--col ${styles.object__item_content}`}>
-        {isStix && (
-          <ObjectHeader
-            name={objectKey}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            isStix={isStix}
-          />
-        )}
+        <ObjectHeader
+          name={objectKey}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isStix={isStix}
+        />
+
         {isStix && isOpen && (
           <StixObjectBody
             objectKey={objectKey}
@@ -81,7 +79,7 @@ const MappingObject = ({ objectKey, objectData, isStix }) => {
             isStix={isStix}
           />
         )}
-        {!isStix && (
+        {!isStix && isOpen && (
           <MetadataObjectBody
             objectKey={objectKey}
             sourceFields={objectData}

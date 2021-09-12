@@ -62,22 +62,20 @@ const MappedFieldsTable = ({
   isStix,
 }) => {
   return (
-    <div className={`bx--row ${styles.object_item__field}`}>
-      <div className={"bx--col-sm-4"}>
-        <MappedFieldsTableHeader
-          isStix={isStix}
-          objectKey={objectKey}
-          sourceFieldId={sourceFieldId}
-        />
-        <MappedFieldsTableBody
-          key={`${objectKey}_${sourceFieldId}`}
-          isStix={isStix}
-          objectKey={objectKey}
-          sourceFieldId={sourceFieldId}
-          fieldsData={isStix ? sourceFieldData.mapped_to : sourceFieldData}
-        />
-      </div>
-    </div>
+    <>
+      <MappedFieldsTableHeader
+        isStix={isStix}
+        objectKey={objectKey}
+        sourceFieldId={sourceFieldId}
+      />
+      <MappedFieldsTableBody
+        key={`${objectKey}_${sourceFieldId}`}
+        isStix={isStix}
+        objectKey={objectKey}
+        sourceFieldId={sourceFieldId}
+        fieldsData={isStix ? sourceFieldData.mapped_to : sourceFieldData}
+      />
+    </>
   );
 };
 

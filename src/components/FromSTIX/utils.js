@@ -33,7 +33,7 @@ export function shifterMappingToStateMapping(shifterMapping) {
       });
     }
   });
-  return stateMapping;
+  return [stateMapping, {}];
 }
 
 export function filterMappingFieldsForValue(stixMapping, value) {

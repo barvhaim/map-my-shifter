@@ -78,12 +78,16 @@ const SourceField = ({ objectKey, fieldId, fieldData, isStix }) => {
         fieldId={fieldId}
         fieldData={fieldData}
       />
-      <MappedFieldsTable
-        isStix={isStix}
-        objectKey={objectKey}
-        sourceFieldId={fieldId}
-        sourceFieldData={fieldData}
-      />
+      <div className={`bx--row ${styles.object_item__field}`}>
+        <div className={"bx--col-sm-4"}>
+          <MappedFieldsTable
+            isStix={isStix}
+            objectKey={objectKey}
+            sourceFieldId={fieldId}
+            sourceFieldData={fieldData}
+          />
+        </div>
+      </div>
     </div>
   );
 };
