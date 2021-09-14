@@ -1,4 +1,3 @@
-import { saveAs } from "file-saver";
 import { v4 as uuidv4 } from "uuid";
 
 export function stateMappingToShifterMapping(stateMapping) {
@@ -14,18 +13,11 @@ export function stateMappingToShifterMapping(stateMapping) {
   return output;
 }
 
-export function saveJsonToDisk(filename, obj) {
-  const blob = new Blob([JSON.stringify(obj, null, 2)], {
-    type: "application/json",
-  });
-  saveAs(blob, filename);
-}
-
 export function loadJsonFromDisk(obj) {
   return shifterMappingToStateMapping(obj);
 }
 
-function shifterMappingToStateMapping(shifterMapping) {
+export function shifterMappingToStateMapping(shifterMapping) {
   let stateMapping = {};
   if (!shifterMapping) return stateMapping;
   Object.keys(shifterMapping).forEach((type) => {
@@ -67,8 +59,9 @@ export function getOfficialFieldsFromMapping(
         if (
           mapping[field].values[val].value !== "" &&
           stixFieldsByKey[type]?.includes(key)
-        )
+        ) {
           stixFieldsFromMapping[type].add(`${key}`);
+        }
       });
     }
   });
@@ -98,5 +91,3 @@ export function getNumOfFields(stixFields) {
   });
   return [officialFieldsCount, requiredFieldsCount];
 }
-
-export function mappedItems() {}

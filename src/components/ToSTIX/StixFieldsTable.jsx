@@ -29,9 +29,7 @@ const StixFieldsTableBody = ({ objectKey, sourceFieldId, stixFieldsData }) => {
     const stixFieldTransformer = stixField?.transformer;
     const stixFieldReferences =
       stixField.references && stixField.references.length !== 0
-        ? !typeof stixField.references === Array
-          ? stixField.references
-          : [stixField.references]
+        ? stixField.references
         : [];
     return (
       <StixField

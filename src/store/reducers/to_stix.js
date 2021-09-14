@@ -6,6 +6,7 @@ import {
   CLOSE_NEW_OBJECT_MODAL,
   OPEN_NEW_OBJECT_MODAL,
   REMOVE_DATASOURCE_FIELD,
+  MOVE_DATASOURCE_FIELD_TO_OBJECT,
   REMOVE_OBJECT,
   UPDATE_DATASOURCE_FIELD,
   ADD_STIX_FIELD,
@@ -15,12 +16,16 @@ import {
   UPDATE_TO_STIX_MAPPINGS_FROM_FILE,
   OPEN_SELECT_FIELD_MODAL,
   CLOSE_SELECT_FIELD_MODAL,
+  OPEN_MOVE_FIELD_TO_OBJECT_MODAL,
+  CLOSE_MOVE_FIELD_TO_OBJECT_MODAL,
 } from "../actions/to_stix";
 
 const INITIAL_STATE = {
   isNewObjectModalOpen: false,
   selectFieldModalData: null,
+  moveFieldToObjectModalData: null,
   mapping: {},
+  objects: [],
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -57,10 +62,29 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
+    case OPEN_MOVE_FIELD_TO_OBJECT_MODAL: {
+      return {
+        ...state,
+        moveFieldToObjectModalData: {
+          objectKey: action.payload.objectKey,
+          fieldId: action.payload.fieldId,
+          fieldName: action.payload.fieldName,
+        },
+      };
+    }
+
+    case CLOSE_MOVE_FIELD_TO_OBJECT_MODAL: {
+      return {
+        ...state,
+        moveFieldToObjectModalData: null,
+      };
+    }
+
     case ADD_NEW_OBJECT: {
       if (!(action.payload?.name in state.mapping)) {
         return {
           ...state,
+          objects: [...state.objects, action.payload.name],
           mapping: {
             ...state.mapping,
             [action.payload.name]: {},
@@ -76,6 +100,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
           state.mapping;
         return {
           ...state,
+          objects: Object.keys(restOfMapping),
           mapping: restOfMapping,
         };
       }
@@ -135,6 +160,29 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
           mapping: {
             ...state.mapping,
             [objectName]: restOfFields,
+          },
+        };
+      }
+      return state;
+    }
+
+    case MOVE_DATASOURCE_FIELD_TO_OBJECT: {
+      const currObject = state.moveFieldToObjectModalData?.objectKey;
+      const objectToMoveTo = action.payload?.objectToMoveTo;
+      const fieldId = state.moveFieldToObjectModalData?.fieldId;
+      if (currObject in state.mapping && fieldId in state.mapping[currObject]) {
+        const { [fieldId]: omit, ...restOfFields } = state.mapping[currObject];
+        return {
+          ...state,
+          mapping: {
+            ...state.mapping,
+            [objectToMoveTo]: {
+              ...state.mapping[objectToMoveTo],
+              [fieldId]: {
+                ...state.mapping[currObject][fieldId],
+              },
+            },
+            [currObject]: restOfFields,
           },
         };
       }
@@ -231,6 +279,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapping: {},
+        objects: [],
       };
     }
 
@@ -238,6 +287,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapping: action.payload.mappings,
+        objects: Object.keys(action.payload.mappings),
       };
     }
 

@@ -15,7 +15,7 @@ const FieldSearchBar = () => {
       onChange={(event) => {
         dispatch(updateSearchFieldValue(event.target.value));
       }}
-      placeHolderText={"Search field…"}
+      placeholder={"Search field…"}
     />
   );
 };

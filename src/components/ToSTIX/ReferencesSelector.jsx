@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MultiSelect } from "carbon-components-react";
 import { updateStixField } from "../../store/actions/to_stix";
@@ -10,29 +10,43 @@ const ReferencesSelector = ({
   stixFieldId,
 }) => {
   const dispatch = useDispatch();
-  const mapping = useSelector((state) => state.toStix.mapping);
+  const objects = useSelector((state) => state.toStix.objects);
   const allAvailableObjectKeys = useMemo(() => {
-    return [...Object.keys(mapping)].filter((o) => o !== objectKey);
-  }, [objectKey, mapping]);
+    return objects.filter((o) => o !== objectKey);
+  }, [objectKey, objects]);
+
+  useEffect(() => {
+    const updatedReferences = selectedReferences.filter((ref) => {
+      return allAvailableObjectKeys.includes(ref);
+    });
+    dispatch(
+      updateStixField(
+        updatedReferences,
+        "references",
+        objectKey,
+        sourceFieldId,
+        stixFieldId
+      )
+    );
+    // eslint-disable-next-line
+  }, [allAvailableObjectKeys]);
 
   return (
     <div className={"bx--col-md-2"}>
-      <MultiSelect
-        id={"references"}
+      <MultiSelect.Filterable
+        key={`${stixFieldId}_${selectedReferences}`}
+        id={`MultiSelect.Filterable_${stixFieldId}`}
         size={"sm"}
-        useTitleInItem={false}
-        label={
-          selectedReferences?.length !== 0
-            ? selectedReferences.map((referenceObjectName) =>
-                referenceObjectName !==
-                selectedReferences[selectedReferences.length - 1]
-                  ? referenceObjectName + ", "
-                  : referenceObjectName
-              )
-            : "None"
-        }
+        downshiftProps={{ setItemCount: selectedReferences.length }}
+        placeholder={"Search References"}
         invalid={false}
         invalidText="Invalid Selection"
+        items={allAvailableObjectKeys}
+        useTitleInItem={true}
+        disabled={allAvailableObjectKeys.length === 0}
+        initialSelectedItems={selectedReferences}
+        selectedItems={selectedReferences}
+        itemToString={(item) => (item ? item : "")}
         onChange={(e) => {
           dispatch(
             updateStixField(
@@ -44,12 +58,6 @@ const ReferencesSelector = ({
             )
           );
         }}
-        items={allAvailableObjectKeys}
-        disabled={allAvailableObjectKeys.length === 0}
-        initialSelectedItems={selectedReferences}
-        selectedItem={selectedReferences}
-        itemToString={(item) => (item ? item : "")}
-        inline={true}
       />
     </div>
   );

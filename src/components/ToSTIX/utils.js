@@ -89,39 +89,58 @@ export function createStateMapping(
       id: mapped_to_id,
       key: shifterMapping[dataSourceField].key.replace(".", ":"),
       ...(transformer ? { transformer: transformer } : {}),
-      ...(references ? { references: references } : {}),
+      ...(references
+        ? {
+            references:
+              references.constructor === Array ? references : [references],
+          }
+        : {}),
     },
   ];
   return stateMapping;
+}
+
+export function buildInnerField(sourceField, outputLevel) {
+  const splitedField = sourceField.split(".");
+  const innerField = splitedField[splitedField.length - 1];
+  for (let i = 0; i < splitedField.length - 1; i++) {
+    if (splitedField[i] in outputLevel)
+      outputLevel = outputLevel[splitedField[i]];
+    else {
+      outputLevel[splitedField[i]] = {};
+      outputLevel = outputLevel[splitedField[i]];
+    }
+  }
+  return [innerField, outputLevel];
 }
 
 export function stateMappingToShifterMapping(stateMapping) {
   let output = {};
   Object.keys(stateMapping).forEach((object) => {
     Object.keys(stateMapping[object]).forEach((field) => {
-      const _field = stateMapping[object][field].field;
+      let sourceField = stateMapping[object][field].field;
       const mappedTo = stateMapping[object][field].mapped_to;
       Object.keys(mappedTo).forEach((index) => {
         const key = mappedTo[index].key.replace(":", ".");
         const transformer = getValue(mappedTo, index, "transformer");
         const references = getValue(mappedTo, index, "references");
-        if (!(_field in output)) {
-          output[_field] = [];
+        let outputLevel = output;
+        let innerField = sourceField;
+        if (sourceField.includes(".")) {
+          [innerField, outputLevel] = buildInnerField(sourceField, outputLevel);
         }
-        if (!(key in output[_field])) {
-          output = {
-            ...output,
-            [_field]: [
-              ...output[_field],
-              {
-                key: key,
-                object: object,
-                ...(transformer ? { transformer: transformer } : {}),
-                ...(references ? { references: references } : {}),
-              },
-            ],
-          };
+        if (!(innerField in outputLevel)) {
+          outputLevel[innerField] = [];
         }
+        outputLevel[innerField] = [
+          ...outputLevel[innerField],
+          {
+            key: key,
+            object: object,
+            ...(transformer ? { transformer: transformer } : {}),
+            ...(references ? { references: references } : {}),
+          },
+        ];
       });
     });
   });

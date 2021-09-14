@@ -5,7 +5,7 @@ import {
   removeStixField,
   updateStixField,
 } from "../../store/actions/to_stix";
-import { Dropdown, TextInput } from "carbon-components-react";
+import { ComboBox, TextInput } from "carbon-components-react";
 import { useDispatch } from "react-redux";
 import transformers from "../../global/transformers";
 import { Delete20, List20 } from "@carbon/icons-react";
@@ -46,6 +46,8 @@ const StixField = ({
             </div>
             <div>
               <List20
+                style={{ border: 0 }}
+                className={`${styles.object_item__btn}`}
                 onClick={() => {
                   dispatch(
                     openSelectFieldModal(objectKey, sourceFieldId, stixFieldId)
@@ -56,13 +58,13 @@ const StixField = ({
           </div>
         </div>
         <div className={"bx--col-md-2"}>
-          <Dropdown
+          <ComboBox
+            id={`ComboBox_${stixFieldId}`}
             size={"sm"}
-            ariaLabel="Dropdown"
-            id="transformer"
+            placeholder={"Search Transformer"}
+            ariaLabel="transformers_combobox"
             items={transformers}
-            label="None"
-            selectedItem={stixFieldTransformer}
+            selectedItem={stixFieldTransformer ? stixFieldTransformer : null}
             onChange={(e) => {
               dispatch(
                 updateStixField(
