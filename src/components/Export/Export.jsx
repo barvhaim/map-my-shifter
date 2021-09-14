@@ -59,4 +59,4 @@ Export.propTypes = {
   stateMappingToShifterMapping: PropTypes.func,
 };
 
-export default Export;
+export default React.memo(Export);

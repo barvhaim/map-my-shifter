@@ -22,4 +22,4 @@ const MappingsFilterBar = () => {
   );
 };
 
-export default MappingsFilterBar;
+export default React.memo(MappingsFilterBar);

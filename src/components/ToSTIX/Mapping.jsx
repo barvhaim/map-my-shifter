@@ -31,4 +31,4 @@ const Mapping = () => {
   );
 };
 
-export default Mapping;
+export default React.memo(Mapping);

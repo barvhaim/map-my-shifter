@@ -75,4 +75,4 @@ const MappingItem = ({ title }) => {
   );
 };
 
-export default MappingItem;
+export default React.memo(MappingItem);

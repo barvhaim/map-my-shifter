@@ -16,4 +16,4 @@ const StatisticObject = ({ fieldsCount, objectsCount, sum, type }) => {
   );
 };
 
-export default StatisticObject;
+export default React.memo(StatisticObject);

@@ -45,4 +45,4 @@ const NewObjectModal = () => {
   );
 };
 
-export default NewObjectModal;
+export default React.memo(NewObjectModal);

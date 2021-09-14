@@ -62,4 +62,4 @@ Import.propTypes = {
   clearMappings: PropTypes.func,
 };
 
-export default Import;
+export default React.memo(Import);
