@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TextInput } from "@carbon/ibm-security";
 import {
   Add20,
   Close20,
@@ -9,27 +10,55 @@ import {
   addDataSourceField,
   removeStixObject,
   removeMetadataObject,
+  updateObjectName,
 } from "../../store/actions/to_stix";
-import { useDispatch } from "react-redux";
+import { isValidObjectName } from "./utils";
+import { useDispatch, useSelector } from "react-redux";
 import StixObjectBody from "./StixObjectBody";
 import MetadataObjectBody from "./MetadataObjectBody";
 import styles from "./to_stix.module.scss";
 
 const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
   const dispatch = useDispatch();
+  const mappingObjects = isStix ? "stixObjects" : "metadataObjects";
+  const objects = useSelector((state) => state.toStix[mappingObjects]);
+  const [newName, setName] = useState(name);
 
   return (
-    <div
-      className={`bx--row`}
-      style={{ cursor: "pointer" }}
-      onClick={() => {
-        setIsOpen(!isOpen);
-      }}
-    >
-      <span style={{ marginLeft: "1rem" }}>
-        {isOpen ? <ChevronDown32 /> : <ChevronUp32 />}
+    <div className={`bx--row`}>
+      <span style={{ marginLeft: "1rem", cursor: "pointer" }}>
+        {isOpen ? (
+          <ChevronDown32
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        ) : (
+          <ChevronUp32
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        )}
       </span>
-      <div className={`bx--col ${styles.object_item__title}`}>{name}</div>
+      <TextInput
+        className={`bx--col ${styles.object_item__title}`}
+        id={`${isStix}__${name}`}
+        labelText={""}
+        autoComplete={"off"}
+        value={newName}
+        invalid={!newName || !isValidObjectName(name, newName, objects)}
+        invalidText={
+          !newName
+            ? "object name must contain atleast one character"
+            : "object name already exists"
+        }
+        onChange={(input) => {
+          if (!isValidObjectName(name, newName, objects))
+            dispatch(updateObjectName(name, input.target.value, isStix));
+          setName(input.target.value);
+        }}
+      />
 
       <div className={`bx--col`} style={{ textAlign: "right" }}>
         {isStix && (

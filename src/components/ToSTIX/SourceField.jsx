@@ -12,11 +12,11 @@ import MappedFieldsTable from "./MappedFieldsTable";
 
 const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const dispatch = useDispatch();
-  const objects = useSelector((state) => state.toStix.objects);
+  const stixObjects = useSelector((state) => state.toStix.stixObjects);
   const fieldName = fieldData.field;
   const allAvailableObjectKeys = useMemo(() => {
-    return objects.filter((o) => o !== objectKey);
-  }, [objectKey, objects]);
+    return stixObjects.filter((o) => o !== objectKey);
+  }, [objectKey, stixObjects]);
   const disableMovingfield = allAvailableObjectKeys.length === 0;
 
   return (

@@ -42,7 +42,7 @@ const MappingObjects = ({ title }) => {
               <h4 className="section-title" style={{ marginLeft: "1rem" }}>
                 Objects Map
               </h4>
-              <ButtonClusterModule style={{ position: "absolute" }}>
+              <ButtonClusterModule>
                 {Object.keys(mapping).map((o) => {
                   return (
                     <div key={`${isStix}_${o}`}>

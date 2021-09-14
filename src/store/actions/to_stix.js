@@ -2,6 +2,7 @@ export const OPEN_NEW_OBJECT_MODAL = "OPEN_NEW_OBJECT_MODAL";
 export const CLOSE_NEW_OBJECT_MODAL = "CLOSE_NEW_OBJECT_MODAL";
 export const ADD_NEW_STIX_OBJECT = "ADD_NEW_STIX_OBJECT";
 export const ADD_NEW_METADATA_OBJECT = "ADD_NEW_METADATA_OBJECT";
+export const UPDATE_OBJECT_NAME = "UPDATE_OBJECT_NAME";
 export const REMOVE_STIX_OBJECT = "REMOVE_STIX_OBJECT";
 export const REMOVE_METADATA_OBJECT = "REMOVE_METADATA_OBJECT";
 export const ADD_DATASOURCE_FIELD = "ADD_DATASOURCE_FIELD";
@@ -107,16 +108,16 @@ export function removeMetadataObject(name) {
   };
 }
 
-// export function updateMetadataObject(objectName, fieldId, fieldName) {
-//   return {
-//     type: UPDATE_METADATA_OBJECT,
-//     payload: {
-//       objectName,
-//       fieldId,
-//       fieldName,
-//     },
-//   };
-// }
+export function updateObjectName(oldName, newName, isStix) {
+  return {
+    type: UPDATE_OBJECT_NAME,
+    payload: {
+      oldName,
+      newName,
+      isStix,
+    },
+  };
+}
 
 export function addDataSourceField(objectName) {
   return {
