@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { TextInput } from "@carbon/ibm-security";
+import { TextInput, Button } from "@carbon/ibm-security";
 import {
   Add20,
   Close20,
+  Close16,
   ChevronUp32,
   ChevronDown32,
+  Checkmark16,
+  Edit16,
 } from "@carbon/icons-react";
 import {
   addDataSourceField,
@@ -23,6 +26,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
   const mappingObjects = isStix ? "stixObjects" : "metadataObjects";
   const objects = useSelector((state) => state.toStix[mappingObjects]);
   const [newName, setName] = useState(name);
+  const [isEditingObjectName, setEditObjectName] = useState(false);
 
   return (
     <div className={`bx--row`}>
@@ -41,24 +45,70 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
           />
         )}
       </span>
-      <TextInput
-        className={`bx--col ${styles.object_item__title}`}
-        id={`${isStix}__${name}`}
-        labelText={""}
-        autoComplete={"off"}
-        value={newName}
-        invalid={!newName || !isValidObjectName(name, newName, objects)}
-        invalidText={
-          !newName
-            ? "object name must contain atleast one character"
-            : "object name already exists"
-        }
-        onChange={(input) => {
-          if (!isValidObjectName(name, newName, objects))
-            dispatch(updateObjectName(name, input.target.value, isStix));
-          setName(input.target.value);
-        }}
-      />
+      {!isEditingObjectName && (
+        <div className={`bx--col ${styles.object_item__title}`}>
+          {name}
+          <Button
+            kind="ghost"
+            style={{ paddingTop: 1 }}
+            renderIcon={Edit16}
+            iconDescription="edit object name"
+            hasIconOnly
+            onClick={() => {
+              setEditObjectName(!isEditingObjectName);
+            }}
+          />
+        </div>
+      )}
+      {isEditingObjectName && (
+        <div className={`bx--row`}>
+          <TextInput
+            className={`bx--col ${styles.object_item__title}`}
+            id={`${isStix}__${name}`}
+            labelText={""}
+            autoComplete={"off"}
+            value={newName}
+            invalid={!isValidObjectName(name, newName, objects)}
+            invalidText={
+              !newName
+                ? "object name must contain atleast one character"
+                : "object name already exists"
+            }
+            onChange={(input) => {
+              setName(input.target.value);
+            }}
+          />
+          <Button
+            className={`bx--col`}
+            kind="ghost"
+            small
+            style={{ paddingTop: 1 }}
+            renderIcon={Checkmark16}
+            iconDescription="submit new object name"
+            hasIconOnly
+            disabled={!isValidObjectName(name, newName, objects)}
+            onClick={() => {
+              if (isValidObjectName(name, newName, objects)) {
+                dispatch(updateObjectName(name, newName, isStix));
+                setEditObjectName(!isEditingObjectName);
+              }
+            }}
+          />
+          <Button
+            className={`bx--col`}
+            kind="ghost"
+            small
+            style={{ paddingTop: 1 }}
+            renderIcon={Close16}
+            iconDescription="submit new object name"
+            hasIconOnly
+            onClick={() => {
+              setName(name);
+              setEditObjectName(!isEditingObjectName);
+            }}
+          />
+        </div>
+      )}
 
       <div className={`bx--col`} style={{ textAlign: "right" }}>
         {isStix && (
