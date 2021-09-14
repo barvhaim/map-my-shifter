@@ -1,33 +1,126 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-import {
-  Header,
-  HeaderName,
-  SkipToContent,
-  HeaderNavigation,
-  HeaderMenuItem,
-} from "carbon-components-react";
+import { Shell } from "@carbon/ibm-security";
 
 const HeaderSection = () => {
   return (
-    <Header aria-label="Carbon Tutorial">
-      <SkipToContent />
-      <HeaderName element={Link} to="/" prefix="MAP">
-        My Shifter
-      </HeaderName>
-      <HeaderNavigation aria-label="Side navigation">
-        <HeaderMenuItem element={Link} to="/from_stix">
-          From STIX
-        </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/to_stix">
-          To STIX
-        </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/about">
-          About
-        </HeaderMenuItem>
-      </HeaderNavigation>
-    </Header>
+    <Shell
+      header={{
+        labels: {
+          brand: {
+            company: "IBM",
+            product: "Map My Shifter",
+          },
+          notifications: {
+            button: "Toggle notifications",
+            clear: "Clear",
+            clear_all: "Clear all notifications",
+            link: "View all",
+            success: "You're all caught up!",
+            title: "Notifications",
+            today: "Today",
+            via: "via",
+          },
+          profile: {
+            account: "Account",
+            button: "Toggle profile",
+            edit_profile: "Edit profile",
+            link: "Profile & account",
+            registration: "Create an account",
+            sign_in: "Sign in",
+            sign_out: "Sign out",
+          },
+        },
+        links: {
+          edit_profile: "#",
+          notifications_preferences: "#",
+          notifications_view_all: "#",
+          product: "/",
+          profile: "#",
+          registration: "#",
+          sign_in: "#",
+          sign_out: "#",
+        },
+        totalNotifications: 0,
+      }}
+      profile={{
+        image_url: null,
+        name: {
+          first_name: "Demo",
+          surname: "User",
+        },
+      }}
+      renderAddons={[]}
+      skipToContent={{
+        href: "/",
+        label: "Skip to content",
+      }}
+      toolbar={{
+        labels: {
+          mainNavigation: {
+            ariaLabel: "Main navigation",
+          },
+          menu: {
+            button: "Toggle menu",
+            tooltip: "Menu",
+          },
+          settings: {
+            button: "Toggle settings",
+            tooltip: "Settings",
+          },
+          support: {
+            button: "Toggle about",
+            tooltip: "Creators",
+          },
+        },
+        menu: [
+          {
+            id: "#map-my-shifter",
+            title: "Map My Shifter",
+            navigation: [
+              {
+                id: "#from-stix",
+                title: "From STIX",
+                children: undefined,
+                content: undefined,
+                href: "/from_stix",
+                icon: undefined,
+              },
+              {
+                id: "#to-stix",
+                title: "To STIX",
+                children: undefined,
+                content: undefined,
+                href: "/to_stix",
+                icon: undefined,
+              },
+            ],
+          },
+        ],
+        settings: [
+          {
+            id: "#1",
+            title: "Application settings",
+            navigation: [],
+          },
+        ],
+        support: [
+          {
+            id: "#2",
+            title: "About",
+            href: "/about",
+            navigation: [
+              {
+                id: "#21",
+                title: "About",
+                href: "/about",
+                content: undefined,
+                icon: undefined,
+              },
+            ],
+          },
+        ],
+      }}
+    />
   );
 };
 export default HeaderSection;

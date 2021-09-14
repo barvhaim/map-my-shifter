@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion } from "carbon-components-react";
+import { Accordion } from "@carbon/ibm-security";
 import { useSelector } from "react-redux";
 import styles from "./stix.module.scss";
 import AddFieldItems from "./AddFieldItems";
@@ -20,7 +20,11 @@ const AddFields = ({ fieldNameToUpdate, officialFields }) => {
 
       <div className="bx--row">
         <div
-          className={`bx--col ${styles.full_height__col} ${styles.add_fields__col}`}
+          className={
+            isToStix
+              ? `bx--col ${styles.add_fields__col}`
+              : `bx--col ${styles.full_height__col} ${styles.add_fields__col}`
+          }
         >
           <FieldSearchBar />
           <Accordion>

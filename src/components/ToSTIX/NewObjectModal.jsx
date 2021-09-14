@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, TextInput } from "carbon-components-react";
+import { Modal, TextInput } from "@carbon/ibm-security";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewObject, closeNewObjectModal } from "../../store/actions/to_stix";
 

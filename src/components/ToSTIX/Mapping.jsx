@@ -1,6 +1,6 @@
 import React from "react";
 import { Add32 } from "@carbon/icons-react";
-import { Button } from "carbon-components-react";
+import { Button } from "@carbon/ibm-security";
 import { useDispatch } from "react-redux";
 import { openNewObjectModal } from "../../store/actions/to_stix";
 import MappingObjects from "./MappingObjects";

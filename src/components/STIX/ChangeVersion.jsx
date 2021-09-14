@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Dropdown } from "carbon-components-react";
+import { Dropdown } from "@carbon/ibm-security";
 import { changeStixVersion } from "../../store/actions/stix";
 import { STIX_VERSION } from "../../global/constants";
 

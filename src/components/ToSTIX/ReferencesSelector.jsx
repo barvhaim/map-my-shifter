@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MultiSelect } from "carbon-components-react";
+import { MultiSelect } from "@carbon/ibm-security";
 import { updateStixField } from "../../store/actions/to_stix";
 
 const ReferencesSelector = ({

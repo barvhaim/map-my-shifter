@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showCustomFieldModal } from "../../store/actions/from_stix";
 import CustomFieldModal from "./CustomFieldModal";
-import { Button } from "carbon-components-react";
+import { Button } from "@carbon/ibm-security";
 
 const CustomField = () => {
   const dispatch = useDispatch();

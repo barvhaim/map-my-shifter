@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Search } from "carbon-components-react";
+import { Search } from "@carbon/ibm-security";
 import { updateSearchFieldValue } from "../../store/actions/stix";
 
 const FieldSearchBar = () => {

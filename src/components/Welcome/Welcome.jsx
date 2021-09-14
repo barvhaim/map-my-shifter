@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "./logo-no-bg.png";
-import { ClickableTile } from "carbon-components-react";
+import { ClickableTile } from "@carbon/ibm-security";
 import styles from "./welcome.module.scss";
 import { useHistory } from "react-router-dom";
 

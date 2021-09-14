@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Modal, ComboBox } from "carbon-components-react";
+import { Modal, ComboBox } from "@carbon/ibm-security";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeMoveFieldToObjectModal,
