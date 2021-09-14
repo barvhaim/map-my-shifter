@@ -8,14 +8,18 @@ import {
 
 const MappingTabs = () => {
   return (
-    <Tabs>
-      <Tab id="StixObjects" label="STIX">
-        <MappingTab title={"object"} addingFunction={addNewStixObject} />
-      </Tab>
-      <Tab id="Metadata" label="Metadata">
-        <MappingTab title={"field"} addingFunction={addNewMetadataObject} />
-      </Tab>
-    </Tabs>
+    <>
+      <div className="bx--col-sm-3">
+        <Tabs>
+          <Tab id="StixObjects" label="STIX">
+            <MappingTab title={"object"} addingFunction={addNewStixObject} />
+          </Tab>
+          <Tab id="Metadata" label="Metadata">
+            <MappingTab title={"field"} addingFunction={addNewMetadataObject} />
+          </Tab>
+        </Tabs>
+      </div>
+    </>
   );
 };
 

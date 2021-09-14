@@ -13,8 +13,6 @@ import Statistics from "./Statistics";
 const ToSTIX = () => {
   const stixMapping = useSelector((state) => state.toStix.stixMapping);
   const metadataMapping = useSelector((state) => state.toStix.metadataMapping);
-  console.log(stixMapping);
-  console.log(metadataMapping);
 
   return (
     <>
@@ -26,9 +24,7 @@ const ToSTIX = () => {
         </div>
 
         <div className="bx--row">
-          <div className="bx--col-sm-3">
-            <MappingTabs />
-          </div>
+          <MappingTabs />
 
           <div className="bx--col-sm-1">
             <div className="bx--row">
