@@ -28,4 +28,4 @@ const CustomField = () => {
   );
 };
 
-export default CustomField;
+export default React.memo(CustomField);

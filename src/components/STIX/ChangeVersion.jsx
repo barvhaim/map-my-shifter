@@ -34,4 +34,4 @@ const ChangeVersion = () => {
   );
 };
 
-export default ChangeVersion;
+export default React.memo(ChangeVersion);

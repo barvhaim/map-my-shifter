@@ -19,4 +19,4 @@ const SelectFields = ({ officialFields }) => {
   );
 };
 
-export default SelectFields;
+export default React.memo(SelectFields);
