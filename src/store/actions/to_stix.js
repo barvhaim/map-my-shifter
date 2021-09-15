@@ -107,17 +107,6 @@ export function removeMetadataObject(name) {
   };
 }
 
-// export function updateMetadataObject(objectName, fieldId, fieldName) {
-//   return {
-//     type: UPDATE_METADATA_OBJECT,
-//     payload: {
-//       objectName,
-//       fieldId,
-//       fieldName,
-//     },
-//   };
-// }
-
 export function addDataSourceField(objectName) {
   return {
     type: ADD_DATASOURCE_FIELD,

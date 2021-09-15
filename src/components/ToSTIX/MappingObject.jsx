@@ -29,7 +29,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
       <span style={{ marginLeft: "1rem" }}>
         {isOpen ? <ChevronDown32 /> : <ChevronUp32 />}
       </span>
-      <div className={`bx--col ${styles.object_item__title}`}>{name}</div>
+      <div className={`bx--col ${styles.object_item__title}`}>noaa</div>
 
       <div className={`bx--col`} style={{ textAlign: "right" }}>
         {isStix && (
@@ -71,21 +71,15 @@ const MappingObject = ({ objectKey, objectData, isStix }) => {
           setIsOpen={setIsOpen}
           isStix={isStix}
         />
-
-        {isStix && isOpen && (
-          <StixObjectBody
-            objectKey={objectKey}
-            sourceFields={objectData}
-            isStix={isStix}
-          />
-        )}
-        {!isStix && isOpen && (
-          <MetadataObjectBody
-            objectKey={objectKey}
-            sourceFields={objectData}
-            isStix={isStix}
-          />
-        )}
+        {isOpen &&
+          (isStix ? (
+            <StixObjectBody objectKey={objectKey} sourceFields={objectData} />
+          ) : (
+            <MetadataObjectBody
+              objectKey={objectKey}
+              sourceFields={objectData}
+            />
+          ))}
       </div>
     </div>
   );

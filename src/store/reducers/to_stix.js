@@ -340,28 +340,6 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
-    // case UPDATE_METADATA_OBJECT: {
-    // const objectName = action.payload?.objectName;
-    // const fieldName = action.payload?.fieldName;
-    // const fieldId = action.payload?.fieldId;
-    // if (objectName in state.metadataMapping) {
-    //   return {
-    //     ...state,
-    //     metadataMapping: {
-    //       ...state.metadataMapping,
-    //       [objectName]: {
-    //         ...state.metadataMapping[objectName],
-    //         [fieldId]: {
-    //           ...state.metadataMapping[objectName][fieldId],
-    //           field: fieldName,
-    //         },
-    //       },
-    //     },
-    //   };
-    // }
-    // return state;
-    // }
-
     case REMOVE_METADATA_FIELD: {
       const objectName = action.payload?.objectName;
       const mappingId = action.payload?.mappingId;

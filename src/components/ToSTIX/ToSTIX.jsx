@@ -13,8 +13,6 @@ import Statistics from "./Statistics";
 const ToSTIX = () => {
   const stixMapping = useSelector((state) => state.toStix.stixMapping);
   const metadataMapping = useSelector((state) => state.toStix.metadataMapping);
-  console.log(stixMapping);
-  console.log(metadataMapping);
 
   return (
     <>

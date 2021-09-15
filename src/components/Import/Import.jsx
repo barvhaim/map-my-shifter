@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 const Import = (props) => {
-  console.log(props);
   const dispatch = useDispatch();
 
   return (

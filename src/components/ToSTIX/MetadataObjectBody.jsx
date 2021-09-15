@@ -1,10 +1,10 @@
 import React from "react";
 import MappedFieldsTable from "./MappedFieldsTable";
 
-const MetadataObjectBody = ({ sourceFields, objectKey, isStix }) => {
+const MetadataObjectBody = ({ sourceFields, objectKey }) => {
   return (
     <MappedFieldsTable
-      isStix={isStix}
+      isStix={false}
       objectKey={objectKey}
       sourceFieldId={sourceFields}
       sourceFieldData={sourceFields}
