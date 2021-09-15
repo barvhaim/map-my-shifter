@@ -2,6 +2,10 @@
 @import "@carbon/type/scss/styles";
 @import "@carbon/colors/scss/colors";
 
+.tabs {
+  margin-bottom: 20em;
+}
+
 .object__item_box {
   margin-top: $spacing-05;
   padding: $spacing-03 $spacing-05;
@@ -83,11 +87,32 @@
   }
 }
 
+.minimap {
+  width: 90%;
+  background-color: $carbon--gray-80;
+}
+
 .minimap__tile {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-05;
+  margin-bottom: $spacing-01;
+  padding-left: $spacing-05;
   color: $carbon--white-0;
   background-color: $carbon--gray-90;
   &:hover {
     cursor: pointer;
     background-color: $carbon--gray-80;
+  }
+}
+
+.minimap__activTile {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-05;
+  margin-bottom: $spacing-01;
+  padding-left: $spacing-05;
+  color: $carbon--white-0;
+  background-color: $carbon--gray-70;
+  &:hover {
+    cursor: pointer;
   }
 }

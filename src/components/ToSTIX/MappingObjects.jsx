@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import MappingObject from "./MappingObject";
 import Minimap from "./Minimap";
+import styles from "./to_stix.module.scss";
 
 const MappingObjects = ({ title }) => {
   const isStix = title === "object";
@@ -23,14 +24,14 @@ const MappingObjects = ({ title }) => {
   }
 
   return (
-    <div className="bx--row">
+    <div className={`bx--row ${styles.tabs}`}>
       <Minimap isStix={isStix} />
       <div className="bx--col-sm-3">
         {Object.keys(mapping).map((o) => {
           return (
-            <div id={`${isStix}_${o}`} key={`${isStix}_${o}`}>
+            <div id={`${o}`} key={`${o}`}>
               <MappingObject
-                key={`${isStix}_${o}`}
+                key={`${o}`}
                 objectKey={o}
                 objectData={mapping[o]}
                 isStix={isStix}

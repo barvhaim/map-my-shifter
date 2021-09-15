@@ -230,3 +230,7 @@ export function getDataForStatistics(stixMapping, stixTypesSet) {
 export function isValidObjectName(oldName, newName, objects) {
   return newName && (oldName === newName || !objects.includes(newName));
 }
+
+export function isActivObject(object, activObject) {
+  return object === activObject;
+}
