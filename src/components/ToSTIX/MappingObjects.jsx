@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import MappingObject from "./MappingObject";
 import { Link } from "react-scroll";
-import "react-minimap/dist/react-minimap.css";
 import { ButtonClusterModule, Tile } from "@carbon/ibm-security";
 import styles from "./to_stix.module.scss";
 import StickyBox from "react-sticky-box";
