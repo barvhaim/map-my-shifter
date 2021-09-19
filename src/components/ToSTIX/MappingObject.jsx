@@ -27,6 +27,12 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
   const objects = useSelector((state) => state.toStix[mappingObjects]);
   const [newName, setName] = useState(name);
   const [isEditingObjectName, setEditObjectName] = useState(false);
+  const objectNameChangeHandler = () => {
+    if (isValidObjectName(name, newName, objects)) {
+      dispatch(updateObjectName(name, newName, isStix));
+      setEditObjectName(!isEditingObjectName);
+    }
+  };
 
   return (
     <div className={`bx--row`}>
@@ -52,7 +58,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             kind="ghost"
             style={{ paddingTop: 1 }}
             renderIcon={Edit16}
-            iconDescription="edit object name"
+            iconDescription="Edit object name"
             hasIconOnly
             onClick={() => {
               setEditObjectName(!isEditingObjectName);
@@ -77,30 +83,32 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             onChange={(input) => {
               setName(input.target.value);
             }}
-          />
-          <Button
-            className={`bx--col`}
-            kind="ghost"
-            small
-            style={{ paddingTop: 1 }}
-            renderIcon={Checkmark16}
-            iconDescription="submit new object name"
-            hasIconOnly
-            disabled={!isValidObjectName(name, newName, objects)}
-            onClick={() => {
-              if (isValidObjectName(name, newName, objects)) {
-                dispatch(updateObjectName(name, newName, isStix));
-                setEditObjectName(!isEditingObjectName);
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                objectNameChangeHandler();
               }
             }}
           />
           <Button
             className={`bx--col`}
             kind="ghost"
-            small
+            size="sm"
+            style={{ paddingTop: 1 }}
+            renderIcon={Checkmark16}
+            iconDescription="Submit new object name"
+            hasIconOnly
+            disabled={!isValidObjectName(name, newName, objects)}
+            onClick={() => {
+              objectNameChangeHandler();
+            }}
+          />
+          <Button
+            className={`bx--col`}
+            kind="ghost"
+            size="sm"
             style={{ paddingTop: 1 }}
             renderIcon={Close16}
-            iconDescription="submit new object name"
+            iconDescription="Cancel"
             hasIconOnly
             onClick={() => {
               setName(name);

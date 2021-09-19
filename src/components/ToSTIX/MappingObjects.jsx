@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import MappingObject from "./MappingObject";
 import Minimap from "./Minimap";
 import styles from "./to_stix.module.scss";
+import { TYPE } from "../../global/constants";
 
-const MappingObjects = ({ title }) => {
-  const isStix = title === "object";
+const MappingObjects = ({ type }) => {
+  const isStix = type === TYPE.OBJECT;
   const mappingObjects = isStix ? "stixMapping" : "metadataMapping";
   const mapping = useSelector((state) => state.toStix[mappingObjects]);
   const isMappingEmpty = Object.keys(mapping).length === 0;
@@ -15,7 +16,7 @@ const MappingObjects = ({ title }) => {
       <div className="bx--row">
         <div className={`bx--col`}>
           <p style={{ paddingTop: "1rem" }}>
-            There are currently no {title}s to show. Click the “New {title}”
+            There are currently no {type}s to show. Click the “New {type}”
             button to start mapping or load configuration.
           </p>
         </div>

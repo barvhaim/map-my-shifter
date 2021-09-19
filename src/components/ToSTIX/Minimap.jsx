@@ -29,11 +29,12 @@ const Minimap = ({ isStix }) => {
                     onSetActive={() => setActivObject(o)}
                   >
                     <div
-                      className={
-                        isActivObject(o, activObject)
-                          ? styles.minimap__activTile
-                          : styles.minimap__tile
-                      }
+                      className={`${styles.minimap__tile} 
+                        ${
+                          isActivObject(o, activObject)
+                            ? styles.minimap__activTile
+                            : ""
+                        }`}
                     >
                       {o}
                     </div>

@@ -5,6 +5,7 @@ import {
   addNewStixObject,
   addNewMetadataObject,
 } from "../../store/actions/to_stix";
+import { TYPE } from "../../global/constants";
 
 const MappingTabs = () => {
   return (
@@ -12,10 +13,13 @@ const MappingTabs = () => {
       <div className="bx--col-sm-3">
         <Tabs>
           <Tab id="StixObjects" label="STIX">
-            <MappingTab title={"object"} addingFunction={addNewStixObject} />
+            <MappingTab type={TYPE.OBJECT} addingFunction={addNewStixObject} />
           </Tab>
           <Tab id="Metadata" label="Metadata">
-            <MappingTab title={"field"} addingFunction={addNewMetadataObject} />
+            <MappingTab
+              type={TYPE.FIELD}
+              addingFunction={addNewMetadataObject}
+            />
           </Tab>
         </Tabs>
       </div>
