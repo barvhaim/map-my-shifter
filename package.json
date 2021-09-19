@@ -1,6 +1,7 @@
 {
   "name": "map-my-shifter",
   "version": "0.1.0",
+  "main": "public/electron.js",
   "homepage": "http://barvhaim.github.io/map-my-shifter",
   "private": true,
   "dependencies": {
@@ -15,6 +16,7 @@
     "carbon-components": "10.41.0",
     "carbon-components-react": "7.41.0",
     "carbon-icons": "7.0.7",
+    "electron-is-dev": "^1.2.0",
     "file-saver": "^2.0.2",
     "node-sass": "4.12.0",
     "react": "^16.13.1",
@@ -28,6 +30,8 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
+    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -59,8 +63,11 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
+    "electron": "^9.1.1",
     "gh-pages": "^3.1.0",
     "pre-commit": "^1.2.2",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "wait-on": "^5.1.0"
   }
 }
