@@ -30,7 +30,7 @@ const NewObjectModal = ({ isOpen, add, type }) => {
     >
       <TextInput
         id={`new-${type}-name`}
-        labelText={`${type} name`}
+        labelText={type.charAt(0).toUpperCase() + type.slice(1) + " name"}
         autoComplete={"off"}
         onChange={(e) => {
           setName(e.target.value);

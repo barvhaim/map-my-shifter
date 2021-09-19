@@ -157,21 +157,15 @@ const MappingObject = ({ objectKey, objectData, isStix }) => {
           setIsOpen={setIsOpen}
           isStix={isStix}
         />
-
-        {isStix && isOpen && (
-          <StixObjectBody
-            objectKey={objectKey}
-            sourceFields={objectData}
-            isStix={isStix}
-          />
-        )}
-        {!isStix && isOpen && (
-          <MetadataObjectBody
-            objectKey={objectKey}
-            sourceFields={objectData}
-            isStix={isStix}
-          />
-        )}
+        {isOpen &&
+          (isStix ? (
+            <StixObjectBody objectKey={objectKey} sourceFields={objectData} />
+          ) : (
+            <MetadataObjectBody
+              objectKey={objectKey}
+              sourceFields={objectData}
+            />
+          ))}
       </div>
     </div>
   );

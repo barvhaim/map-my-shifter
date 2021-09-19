@@ -1,7 +1,7 @@
 import React from "react";
 import SourceField from "./SourceField";
 
-const StixObjectBody = ({ sourceFields, objectKey, isStix }) => {
+const StixObjectBody = ({ sourceFields, objectKey }) => {
   const isEmptyObject = Object.keys(sourceFields).length === 0;
 
   if (isEmptyObject) {
@@ -18,7 +18,7 @@ const StixObjectBody = ({ sourceFields, objectKey, isStix }) => {
   return Object.keys(sourceFields).map((fieldId) => {
     return (
       <SourceField
-        isStix={isStix}
+        isStix={true}
         key={fieldId}
         objectKey={objectKey}
         fieldId={fieldId}
