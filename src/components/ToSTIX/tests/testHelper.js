@@ -88,101 +88,118 @@ export const testArgs = {
     },
   },
 
-  stateMappingQradar: {
-    "x-qradar": {
-      uuid: {
-        field: "categoryid",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "x-qradar:category_id",
-            transformer: "ToInteger",
-          },
-          {
-            id: "uuid",
-            key: "x-qradar:category_id",
-          },
-        ],
+  stateMappingQradar: [
+    {
+      "x-qradar": {
+        uuid: {
+          field: "categoryid",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "x-qradar:category_id",
+              transformer: "ToInteger",
+            },
+            {
+              id: "uuid",
+              key: "x-qradar:category_id",
+            },
+          ],
+        },
+      },
+      useraccount: {
+        uuid: {
+          field: "username",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "user-account:user_id",
+            },
+          ],
+        },
+      },
+      finding: {
+        uuid: {
+          field: "username",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "x-ibm-finding:src_application_user_ref",
+              references: ["useraccount"],
+            },
+          ],
+        },
+      },
+      process: {
+        uuid: {
+          field: "username",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "process:creator_user_ref",
+              references: ["useraccount"],
+            },
+          ],
+        },
+      },
+      event: {
+        uuid: {
+          field: "username",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "x-oca-event:user_ref",
+              references: ["useraccount"],
+            },
+          ],
+        },
       },
     },
-    useraccount: {
-      uuid: {
-        field: "username",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "user-account:user_id",
-          },
-        ],
-      },
-    },
-    finding: {
-      uuid: {
-        field: "username",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "x-ibm-finding:src_application_user_ref",
-            references: ["useraccount"],
-          },
-        ],
-      },
-    },
-    process: {
-      uuid: {
-        field: "username",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "process:creator_user_ref",
-            references: ["useraccount"],
-          },
-        ],
-      },
-    },
-    event: {
-      uuid: {
-        field: "username",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "x-oca-event:user_ref",
-            references: ["useraccount"],
-          },
-        ],
-      },
-    },
-  },
+    {},
+  ],
 
-  stateMappingElastic: {
-    src_ip: {
-      uuid: {
-        field: "source.ip",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "ipv4-addr:value",
-          },
-          {
-            id: "uuid",
-            key: "ipv6-addr:value",
-          },
-        ],
+  stateMappingElastic: [
+    {
+      src_ip: {
+        uuid: {
+          field: "source.ip",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "ipv4-addr:value",
+            },
+            {
+              id: "uuid",
+              key: "ipv6-addr:value",
+            },
+          ],
+        },
+      },
+      nt: {
+        uuid: {
+          field: "source.ip",
+          mapped_to: [
+            {
+              id: "uuid",
+              key: "network-traffic:src_ref",
+              references: ["src_ip"],
+            },
+          ],
+        },
       },
     },
-    nt: {
-      uuid: {
-        field: "source.ip",
-        mapped_to: [
-          {
-            id: "uuid",
-            key: "network-traffic:src_ref",
-            references: ["src_ip"],
-          },
-        ],
-      },
+    {
+      "@timestamp": [
+        {
+          id: "uuid",
+          key: "first_observed",
+        },
+        {
+          id: "uuid",
+          key: "last_observed",
+        },
+      ],
     },
-  },
+  ],
 
   // ------------------------------------------------------
   // createStateMapping
@@ -385,57 +402,93 @@ export const testArgs = {
     ],
   },
 
-  elasticMapping: {
-    src_ip: {
-      "375172af-ed16-477a-bca3-5b884d510e0d": {
-        field: "source.ip",
-        mapped_to: [
-          {
-            id: "99b12982-c493-4deb-ab42-4640bc576691",
-            key: "ipv4-addr:value",
-          },
-          {
-            id: "0e5438ae-da18-442f-b917-eff6c02efd9a",
-            key: "ipv6-addr:value",
-          },
-        ],
+  elasticMapping: [
+    {
+      src_ip: {
+        "375172af-ed16-477a-bca3-5b884d510e0d": {
+          field: "source.ip",
+          mapped_to: [
+            {
+              id: "99b12982-c493-4deb-ab42-4640bc576691",
+              key: "ipv4-addr:value",
+            },
+            {
+              id: "0e5438ae-da18-442f-b917-eff6c02efd9a",
+              key: "ipv6-addr:value",
+            },
+          ],
+        },
+        "89890909-ffd1-4e1e-a5e1-76c9d1b58401": {
+          field: "source.as.number",
+          mapped_to: [
+            {
+              id: "59d4bc2b-5215-4e6e-876a-b68f6fe166b2",
+              key: "ipv4-addr:belongs_to_refs",
+              references: ["nt"],
+            },
+          ],
+        },
       },
-      "89890909-ffd1-4e1e-a5e1-76c9d1b58401": {
-        field: "source.as.number",
-        mapped_to: [
-          {
-            id: "59d4bc2b-5215-4e6e-876a-b68f6fe166b2",
-            key: "ipv4-addr:belongs_to_refs",
-            references: ["nt"],
-          },
-        ],
+      nt: {
+        "de2857a7-85ad-4aa4-bc5e-4675f8d08187": {
+          field: "source.port",
+          mapped_to: [
+            {
+              id: "fed1dff8-fbec-400b-8ff7-291504d654f2",
+              key: "network-traffic:src_port",
+              transformer: "ToInteger",
+            },
+          ],
+        },
+      },
+      "autonomous-system": {
+        "186c5bb6-e150-476d-915f-07679c1028d4": {
+          field: "source.as.number",
+          mapped_to: [
+            {
+              id: "ba70d5a6-fb92-46ec-ad84-668aa70c57d2",
+              key: "autonomous-system:number",
+            },
+          ],
+        },
       },
     },
-    nt: {
-      "de2857a7-85ad-4aa4-bc5e-4675f8d08187": {
-        field: "source.port",
-        mapped_to: [
-          {
-            id: "fed1dff8-fbec-400b-8ff7-291504d654f2",
-            key: "network-traffic:src_port",
-            transformer: "ToInteger",
-          },
-        ],
-      },
+    {
+      "@timestamp": [
+        {
+          id: "f8803c88-81a4-4adc-9aa8-89776b50e1ca",
+          key: "first_observed",
+        },
+        {
+          id: "9970eb70-548c-4a31-bc74-480854761b44",
+          key: "last_observed",
+        },
+      ],
+      "source.as.organization.name": [
+        {
+          id: "48d3fc90-393f-42da-b22b-f257afd137dd",
+          key: "autonomous-system.name",
+        },
+      ],
     },
-    "autonomous-system": {
-      "186c5bb6-e150-476d-915f-07679c1028d4": {
-        field: "source.as.number",
-        mapped_to: [
-          {
-            id: "ba70d5a6-fb92-46ec-ad84-668aa70c57d2",
-            key: "autonomous-system:number",
-          },
-        ],
-      },
-    },
-  },
+  ],
   elasticOutput: {
+    "@timestamp": [
+      {
+        key: "first_observed",
+        cybox: false,
+      },
+      {
+        key: "last_observed",
+        cybox: false,
+      },
+    ],
+    "source.as.organization.name": [
+      {
+        key: "autonomous-system.name",
+        cybox: false,
+      },
+    ],
     source: {
       ip: [
         {

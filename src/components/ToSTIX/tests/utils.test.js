@@ -32,13 +32,13 @@ test("getDataSourceFieldId - return dataSourceFieldId", () => {
 
 test("shifterMappingToStateMapping - Qradar", () => {
   expect(
-    shifterMappingToStateMapping(testArgs.shifterMappingQradar, {}, "")
+    shifterMappingToStateMapping(testArgs.shifterMappingQradar, {}, {}, "")
   ).toEqual(testArgs.stateMappingQradar);
 });
 
 test("shifterMappingToStateMapping - Elastic", () => {
   expect(
-    shifterMappingToStateMapping(testArgs.shifterMappingElastic, {}, "")
+    shifterMappingToStateMapping(testArgs.shifterMappingElastic, {}, {}, "")
   ).toEqual(testArgs.stateMappingElastic);
 });
 
@@ -51,21 +51,22 @@ test("get field name - combine", () => {
 });
 
 test("convert mapping to json output - Qradar", () => {
-  expect(stateMappingToShifterMapping(testArgs.QradarMapping)).toEqual(
+  expect(stateMappingToShifterMapping(testArgs.QradarMapping, {})).toEqual(
     testArgs.QradarOutput
   );
 });
 
 test("convert mapping to json output - Elastic", () => {
-  expect(stateMappingToShifterMapping(testArgs.elasticMapping)).toEqual(
-    testArgs.elasticOutput
-  );
+  expect(
+    stateMappingToShifterMapping(
+      testArgs.elasticMapping[0],
+      testArgs.elasticMapping[1]
+    )
+  ).toEqual(testArgs.elasticOutput);
 });
 
 test("get Value", () => {
-  expect(getValue(testArgs.mappedTo, 0, "transformer")).toEqual(
-    "ToDirectoryPath"
-  );
+  expect(getValue(testArgs.mappedTo[0].transformer)).toEqual("ToDirectoryPath");
 });
 
 test("get Data For Statistics", () => {

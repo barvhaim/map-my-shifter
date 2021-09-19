@@ -32,21 +32,21 @@ test("shifterMappingToStateMapping", () => {
 });
 
 test("filterMappingFieldsForValue", () => {
-  expect(filterMappingFieldsForValue(testArgs.toStateMapping, "ip")).toEqual(
+  expect(filterMappingFieldsForValue(testArgs.toStateMapping[0], "ip")).toEqual(
     testArgs.filterdMapping
   );
 });
 
-test("filterMappingFieldsForValue", () => {
-  expect(filterMappingFieldsForValue(testArgs.toStateMapping, "")).toEqual(
-    testArgs.toStateMapping
+test("filterMappingFieldsForValue - empty", () => {
+  expect(filterMappingFieldsForValue(testArgs.toStateMapping[0], "")).toEqual(
+    testArgs.toStateMapping[0]
   );
 });
 
 test("getOfficialFieldsFromMapping", () => {
   expect(
     getOfficialFieldsFromMapping(
-      testArgs.toStateMapping,
+      testArgs.toStateMapping[0],
       testArgs.officialStixFields,
       testArgs.officialStixKeys
     )
