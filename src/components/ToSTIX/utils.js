@@ -231,6 +231,6 @@ export function isValidObjectName(oldName, newName, objects) {
   return newName && (oldName === newName || !objects.includes(newName));
 }
 
-export function isActivObject(object, activObject) {
+export function isActiveObject(object, activObject) {
   return object === activObject;
 }

@@ -51,22 +51,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
           />
         )}
       </span>
-      {!isEditingObjectName && (
-        <div className={`bx--col ${styles.object_item__title}`}>
-          {name}
-          <Button
-            kind="ghost"
-            style={{ paddingTop: 1 }}
-            renderIcon={Edit16}
-            iconDescription="Edit object name"
-            hasIconOnly
-            onClick={() => {
-              setEditObjectName(!isEditingObjectName);
-            }}
-          />
-        </div>
-      )}
-      {isEditingObjectName && (
+      {isEditingObjectName ? (
         <div className={`bx--row ${styles.object_item__edit_title}`}>
           <TextInput
             className={`bx--col ${styles.object_item__title}`}
@@ -77,8 +62,8 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             invalid={!isValidObjectName(name, newName, objects)}
             invalidText={
               !newName
-                ? "object name must contain atleast one character"
-                : "object name already exists"
+                ? "Object name must contain atleast one character."
+                : "Object name already exists."
             }
             onChange={(input) => {
               setName(input.target.value);
@@ -112,6 +97,20 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             hasIconOnly
             onClick={() => {
               setName(name);
+              setEditObjectName(!isEditingObjectName);
+            }}
+          />
+        </div>
+      ) : (
+        <div className={`bx--col ${styles.object_item__title}`}>
+          {name}
+          <Button
+            kind="ghost"
+            style={{ paddingTop: 1 }}
+            renderIcon={Edit16}
+            iconDescription="Edit object name"
+            hasIconOnly
+            onClick={() => {
               setEditObjectName(!isEditingObjectName);
             }}
           />

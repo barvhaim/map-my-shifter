@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
 import styles from "./to_stix.module.scss";
 import StickyBox from "react-sticky-box";
-import { isActivObject } from "./utils";
+import { isActiveObject } from "./utils";
 
 const Minimap = ({ isStix }) => {
   const mappingObjects = isStix ? "stixMapping" : "metadataMapping";
@@ -31,8 +31,8 @@ const Minimap = ({ isStix }) => {
                     <div
                       className={`${styles.minimap__tile} 
                         ${
-                          isActivObject(o, activObject)
-                            ? styles.minimap__activTile
+                          isActiveObject(o, activObject)
+                            ? styles.minimap__activeTile
                             : ""
                         }`}
                     >

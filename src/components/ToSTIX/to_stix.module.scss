@@ -3,7 +3,7 @@
 @import "@carbon/colors/scss/colors";
 
 .tabs {
-  margin-bottom: 30em;
+  margin-bottom: carbon--mini-units($count: 50);
 }
 
 .object__item_box {
@@ -113,6 +113,6 @@
   }
 }
 
-.minimap__activTile {
+.minimap__activeTile {
   background-color: $carbon--gray-70;
 }
