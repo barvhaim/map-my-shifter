@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
-import { ButtonClusterModule, Tile } from "@carbon/ibm-security";
 import styles from "./to_stix.module.scss";
 import StickyBox from "react-sticky-box";
 import { isActivObject } from "./utils";
@@ -14,7 +13,7 @@ const Minimap = ({ isStix }) => {
   return (
     <div className="bx--col-sm-1">
       <StickyBox offsetTop={70}>
-        <div style={{ maxHeight: 650, overflowY: "auto", overflowX: "hidden" }}>
+        <div style={{ overflowY: "auto", overflowX: "hidden" }}>
           <h4 className="section-title" style={{ marginLeft: "1rem" }}>
             Objects Map
           </h4>

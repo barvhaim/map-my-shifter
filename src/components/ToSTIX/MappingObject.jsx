@@ -61,7 +61,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
         </div>
       )}
       {isEditingObjectName && (
-        <div className={`bx--row`}>
+        <div className={`bx--row ${styles.object_item__edit_title}`}>
           <TextInput
             className={`bx--col ${styles.object_item__title}`}
             id={`${isStix}__${name}`}
