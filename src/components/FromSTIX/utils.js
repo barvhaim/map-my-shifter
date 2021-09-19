@@ -33,31 +33,31 @@ export function shifterMappingToStateMapping(shifterMapping) {
       });
     }
   });
-  return stateMapping;
+  return [stateMapping, {}];
 }
 
-export function filterMappingFieldsForValue(mappings, value) {
-  if (!value || value === "") return mappings;
+export function filterMappingFieldsForValue(stixMapping, value) {
+  if (!value || value === "") return stixMapping;
   const lowerCaseValue = value.toLowerCase();
-  return Object.keys(mappings)
+  return Object.keys(stixMapping)
     .filter((category) => category.toLowerCase().includes(lowerCaseValue))
     .reduce((obj, key) => {
-      obj[key] = mappings[key];
+      obj[key] = stixMapping[key];
       return obj;
     }, {});
 }
 
 export function getOfficialFieldsFromMapping(
-  mapping,
+  stixMapping,
   stixFieldsByKey,
   stixFieldsFromMapping
 ) {
-  Object.keys(mapping).forEach((field) => {
+  Object.keys(stixMapping).forEach((field) => {
     const [type, key] = field.split(":");
-    if (Object.keys(mapping[field].values).length > 0) {
-      Object.keys(mapping[field].values).forEach((val) => {
+    if (Object.keys(stixMapping[field].values).length > 0) {
+      Object.keys(stixMapping[field].values).forEach((val) => {
         if (
-          mapping[field].values[val].value !== "" &&
+          stixMapping[field].values[val].value !== "" &&
           stixFieldsByKey[type]?.includes(key)
         ) {
           stixFieldsFromMapping[type].add(`${key}`);

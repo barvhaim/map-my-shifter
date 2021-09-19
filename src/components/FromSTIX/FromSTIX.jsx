@@ -14,19 +14,15 @@ import { getDataForStatistics, getOfficialFieldsFromMapping } from "./utils";
 import { requiredStixFields } from "../../global/requiredStixFields";
 
 const FromSTIX = () => {
-  const mapping = useSelector((state) => state.fromStix.mapping);
+  const stixMapping = useSelector((state) => state.fromStix.stixMapping);
   const stixVersion = useSelector((state) => state.stix.stixVersion);
   const stixFields = useSelector((state) => state.stix.stixFields);
   const requiredFields = requiredStixFields[stixVersion];
 
-  const officialStixFields = useMemo(
-    () =>
-      Object.assign(
-        ...Array.from(stixFields, (field) => ({
-          [field.type]: field.items.map((item) => item.name),
-        }))
-      ),
-    [stixFields]
+  const officialStixFields = Object.assign(
+    ...Array.from(stixFields, (field) => ({
+      [field.type]: field.items.map((item) => item.name),
+    }))
   );
 
   const officialStixKeys = useMemo(
@@ -41,7 +37,7 @@ const FromSTIX = () => {
   );
 
   const mappingOfficialFields = getOfficialFieldsFromMapping(
-    mapping,
+    stixMapping,
     officialStixFields,
     officialStixKeys
   );
@@ -72,7 +68,7 @@ const FromSTIX = () => {
           <div className="bx--row">
             <div className="bx--col-sm-4">
               <Export
-                mapping={mapping}
+                stixMapping={stixMapping}
                 stateMappingToShifterMapping={stateMappingToShifterMapping}
               />
             </div>

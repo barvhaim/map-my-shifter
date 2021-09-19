@@ -7,7 +7,8 @@ import { saveJsonToDisk } from "../STIX/utils";
 
 const Export = (props) => {
   const [exportFilename, setExportFilename] = useState("");
-  const mapping = props.mapping;
+  const stixMapping = props.stixMapping;
+  const metadataMapping = props.metadataMapping;
 
   return (
     <>
@@ -40,7 +41,10 @@ const Export = (props) => {
                 onClick={() => {
                   saveJsonToDisk(
                     `${exportFilename}.json`,
-                    props.stateMappingToShifterMapping(mapping)
+                    props.stateMappingToShifterMapping(
+                      stixMapping,
+                      metadataMapping
+                    )
                   );
                 }}
               >
@@ -55,7 +59,8 @@ const Export = (props) => {
 };
 
 Export.propTypes = {
-  mapping: PropTypes.object,
+  stixMapping: PropTypes.object,
+  metadataMapping: PropTypes.object,
   stateMappingToShifterMapping: PropTypes.func,
 };
 

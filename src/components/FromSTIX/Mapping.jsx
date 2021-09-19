@@ -8,7 +8,7 @@ import { clearMappings } from "../../store/actions/from_stix";
 
 const Mapping = () => {
   const dispatch = useDispatch();
-  const mapping = useSelector((state) => state.fromStix.mapping);
+  const stixMapping = useSelector((state) => state.fromStix.stixMapping);
   const fieldMappingFilter = useSelector(
     (state) => state.fromStix.fieldMappingFilter
   );
@@ -18,7 +18,7 @@ const Mapping = () => {
       <div className="bx--row">
         <div className="bx--col">
           <h4 className="section-title">
-            {Object.keys(mapping).length} Total Fields{" "}
+            {Object.keys(stixMapping).length} Total Fields{" "}
             <span
               onClick={() => {
                 dispatch(clearMappings());
@@ -41,7 +41,7 @@ const Mapping = () => {
           className={`bx--col ${styles.full_height__col} ${styles.mapping__col}`}
         >
           {Object.keys(
-            filterMappingFieldsForValue(mapping, fieldMappingFilter)
+            filterMappingFieldsForValue(stixMapping, fieldMappingFilter)
           ).map((o) => (
             <MappingItem key={o} title={o} />
           ))}

@@ -9,7 +9,7 @@
 
 .mappings_clear__btn {
   @include carbon--type-style("helper-text-01");
-  color: $carbon--blue-70;
+  color: $carbon--blue-40;
   text-decoration: underline;
   &:hover {
     cursor: pointer;

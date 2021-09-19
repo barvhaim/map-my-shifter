@@ -1,42 +1,41 @@
 import React, { useState } from "react";
 import { Modal, TextInput } from "@carbon/ibm-security";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewObject, closeNewObjectModal } from "../../store/actions/to_stix";
+import { useDispatch } from "react-redux";
+import { closeNewObjectModal } from "../../store/actions/to_stix";
 
-const NewObjectModal = () => {
+const NewObjectModal = ({ isOpen, add, title }) => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.toStix.isNewObjectModalOpen);
-  const [objectName, setObjectName] = useState("");
+  const [Name, setName] = useState("");
 
   return (
     <Modal
       shouldSubmitOnEnter={true}
       open={isOpen}
       onRequestClose={() => {
-        setObjectName("");
+        setName("");
         dispatch(closeNewObjectModal());
       }}
       onRequestSubmit={() => {
-        if (objectName !== "") {
-          dispatch(addNewObject(objectName));
-          setObjectName("");
+        if (Name !== "") {
+          dispatch(add(Name));
+          setName("");
         }
         dispatch(closeNewObjectModal());
       }}
       primaryButtonText={"Create"}
       secondaryButtonText={"Cancel"}
-      modalHeading={"Create new object"}
+      modalHeading={`Create new ${title}`}
       hasForm={true}
-      primaryButtonDisabled={objectName === ""}
+      primaryButtonDisabled={Name === ""}
     >
       <TextInput
-        id={"new-object-name"}
-        labelText={"Object name"}
+        id={`new-${title}-name`}
+        labelText={title.charAt(0).toUpperCase() + title.slice(1) + " name"}
         autoComplete={"off"}
         onChange={(e) => {
-          setObjectName(e.target.value);
+          setName(e.target.value);
         }}
-        value={objectName}
+        value={Name}
         helperText={
           "Should be lowercase, use dash for spacing, e.g. `foo_bar` "
         }

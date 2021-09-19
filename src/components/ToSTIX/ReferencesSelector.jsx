@@ -7,7 +7,7 @@ const ReferencesSelector = ({
   selectedReferences,
   objectKey,
   sourceFieldId,
-  stixFieldId,
+  mappedFieldId,
 }) => {
   const dispatch = useDispatch();
   const objects = useSelector((state) => state.toStix.objects);
@@ -25,7 +25,7 @@ const ReferencesSelector = ({
         "references",
         objectKey,
         sourceFieldId,
-        stixFieldId
+        mappedFieldId
       )
     );
     // eslint-disable-next-line
@@ -34,8 +34,8 @@ const ReferencesSelector = ({
   return (
     <div className={"bx--col-md-2"}>
       <MultiSelect.Filterable
-        key={`${stixFieldId}_${selectedReferences}`}
-        id={`MultiSelect.Filterable_${stixFieldId}`}
+        key={`${mappedFieldId}_${selectedReferences}`}
+        id={`MultiSelect.Filterable_${mappedFieldId}`}
         size={"sm"}
         downshiftProps={{ setItemCount: selectedReferences.length }}
         placeholder={"Search References"}
@@ -54,7 +54,7 @@ const ReferencesSelector = ({
               "references",
               objectKey,
               sourceFieldId,
-              stixFieldId
+              mappedFieldId
             )
           );
         }}

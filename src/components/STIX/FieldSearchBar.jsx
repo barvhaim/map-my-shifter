@@ -20,4 +20,4 @@ const FieldSearchBar = () => {
   );
 };
 
-export default FieldSearchBar;
+export default React.memo(FieldSearchBar);

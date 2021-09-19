@@ -57,4 +57,4 @@ const AddFieldItems = ({
   );
 };
 
-export default AddFieldItems;
+export default React.memo(AddFieldItems);

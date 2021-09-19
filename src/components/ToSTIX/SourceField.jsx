@@ -8,7 +8,7 @@ import { SubtractAlt20, WatsonHealthStackedMove20 } from "@carbon/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "@carbon/ibm-security";
 import styles from "./to_stix.module.scss";
-import StixFieldsTable from "./StixFieldsTable";
+import MappedFieldsTable from "./MappedFieldsTable";
 
 const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
       <div className={`bx--col`}>
         <TextInput
           labelText={"Source field name"}
-          id={fieldId}
+          id={`${fieldId}`}
           onChange={(e) => {
             dispatch(updateDataSourceField(objectKey, fieldId, e.target.value));
           }}
@@ -63,7 +63,7 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
   );
 };
 
-const SourceField = ({ objectKey, fieldId, fieldData }) => {
+const SourceField = ({ objectKey, fieldId, fieldData, isStix }) => {
   return (
     <div key={fieldId} className={styles.object_item__map}>
       <SourceFieldHeader
@@ -71,11 +71,16 @@ const SourceField = ({ objectKey, fieldId, fieldData }) => {
         fieldId={fieldId}
         fieldData={fieldData}
       />
-      <StixFieldsTable
-        objectKey={objectKey}
-        sourceFieldId={fieldId}
-        sourceFieldData={fieldData}
-      />
+      <div className={`bx--row ${styles.object_item__field}`}>
+        <div className={"bx--col-sm-4"}>
+          <MappedFieldsTable
+            isStix={isStix}
+            objectKey={objectKey}
+            sourceFieldId={fieldId}
+            sourceFieldData={fieldData}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -70,11 +70,11 @@ export function updateMappingsFilterFieldValue(value) {
   };
 }
 
-export function updateMappingsFromFile(mappings) {
+export function updateMappingsFromFile(stixMapping) {
   return {
     type: UPDATE_FROM_STIX_MAPPINGS_FROM_FILE,
     payload: {
-      mappings,
+      stixMapping,
     },
   };
 }
