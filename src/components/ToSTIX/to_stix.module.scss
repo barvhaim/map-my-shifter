@@ -2,7 +2,7 @@
 @import "@carbon/type/scss/styles";
 @import "@carbon/colors/scss/colors";
 
-.MappingObjects {
+.mapping__objects {
   margin-top: carbon--mini-units($count: 7);
   margin-bottom: carbon--mini-units($count: 60);
 }
@@ -93,7 +93,7 @@
   }
 }
 
-.Sticky__Box {
+.sticky__box {
   max-height: carbon--mini-units($count: 60);
   overflow-y: auto;
   overflow-x: hidden;
