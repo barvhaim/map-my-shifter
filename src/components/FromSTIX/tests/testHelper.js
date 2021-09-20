@@ -59,48 +59,51 @@ export const testArgs = {
     },
   },
 
-  toStateMapping: {
-    "ipv4-addr:value": {
-      values: [
-        {
-          value: "sourceip",
-          id: "uuid",
-        },
-        {
-          value: "destinationip",
-          id: "uuid",
-        },
-      ],
+  toStateMapping: [
+    {
+      "ipv4-addr:value": {
+        values: [
+          {
+            value: "sourceip",
+            id: "uuid",
+          },
+          {
+            value: "destinationip",
+            id: "uuid",
+          },
+        ],
+      },
+      "x-oca-asset:hostname": {
+        values: [
+          {
+            value: "identityhostname",
+            id: "uuid",
+          },
+        ],
+      },
+      "x-oca-asset:ip_refs[*].value": {
+        values: [
+          {
+            value: "identityip",
+            id: "uuid",
+          },
+          {
+            value: "sourceip",
+            id: "uuid",
+          },
+        ],
+      },
+      "x-oca-asset:mac_refs[*].value": {
+        values: [
+          {
+            value: "sourcemac",
+            id: "uuid",
+          },
+        ],
+      },
     },
-    "x-oca-asset:hostname": {
-      values: [
-        {
-          value: "identityhostname",
-          id: "uuid",
-        },
-      ],
-    },
-    "x-oca-asset:ip_refs[*].value": {
-      values: [
-        {
-          value: "identityip",
-          id: "uuid",
-        },
-        {
-          value: "sourceip",
-          id: "uuid",
-        },
-      ],
-    },
-    "x-oca-asset:mac_refs[*].value": {
-      values: [
-        {
-          value: "sourcemac",
-          id: "uuid",
-        },
-      ],
-    },
-  },
+    {},
+  ],
 
   // ------------------------------------------------------
   // filterMappingFieldsForValue
