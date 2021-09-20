@@ -13,7 +13,7 @@ const Minimap = ({ isStix }) => {
   return (
     <div className="bx--col-sm-1">
       <StickyBox offsetTop={70}>
-        <div className={styles.StickyBox}>
+        <div className={styles.Sticky__Box}>
           <h4 className="section-title" style={{ marginLeft: "1rem" }}>
             Objects Map
           </h4>

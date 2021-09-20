@@ -93,8 +93,8 @@
   }
 }
 
-.StickyBox {
-  max-height: 60em;
+.Sticky__Box {
+  max-height: carbon--mini-units($count: 60);
   overflow-y: auto;
   overflow-x: hidden;
 }
