@@ -7,15 +7,16 @@ import MappingObjects from "./MappingObjects";
 import SelectFieldModal from "./SelectFieldModal";
 import MoveFieldToObjectModal from "./MoveFieldToObjectModal";
 import NewObjectModal from "./NewObjectModal";
+import { MAPPING_TYPE } from "../../global/constants";
 
-const MappingTab = ({ title, addingFunction }) => {
+const MappingTab = ({ type, addingFunction }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.toStix.isNewObjectModalOpen);
-  const isStix = title === "object";
+  const isStix = type === MAPPING_TYPE.OBJECT;
 
   return (
     <>
-      <NewObjectModal isOpen={isOpen} add={addingFunction} title={title} />
+      <NewObjectModal isOpen={isOpen} add={addingFunction} type={type} />
       {isStix && (
         <>
           <SelectFieldModal />
@@ -30,12 +31,12 @@ const MappingTab = ({ title, addingFunction }) => {
               dispatch(openNewObjectModal());
             }}
           >
-            New {title}
+            New {type}
           </Button>
         </div>
       </div>
 
-      <MappingObjects title={title} />
+      <MappingObjects type={type} />
     </>
   );
 };

@@ -27,7 +27,6 @@ const AddFieldItems = ({
 
   return (
     <AccordionItem
-      style={{ height: "100000" }}
       title={
         isToStix
           ? `${title}`

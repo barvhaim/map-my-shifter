@@ -9,11 +9,11 @@ import styles from "./to_stix.module.scss";
 
 const MoveFieldToObjectModal = () => {
   const dispatch = useDispatch();
-  const objects = useSelector((state) => state.toStix.objects);
+  const stixObjects = useSelector((state) => state.toStix.stixObjects);
   const data = useSelector((state) => state.toStix.moveFieldToObjectModalData);
   const allAvailableObjectKeys = useMemo(() => {
-    return objects.filter((o) => o !== data?.objectKey);
-  }, [data, objects]);
+    return stixObjects.filter((o) => o !== data?.objectKey);
+  }, [data, stixObjects]);
   const isOpen = !!data;
   const [object, setObject] = useState("");
   const fieldName = data?.fieldName;

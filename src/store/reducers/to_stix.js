@@ -4,6 +4,7 @@ import {
   ADD_DATASOURCE_FIELD,
   ADD_NEW_STIX_OBJECT,
   ADD_NEW_METADATA_OBJECT,
+  UPDATE_OBJECT_NAME,
   OPEN_NEW_OBJECT_MODAL,
   CLOSE_NEW_OBJECT_MODAL,
   REMOVE_DATASOURCE_FIELD,
@@ -31,8 +32,9 @@ const INITIAL_STATE = {
   selectFieldModalData: null,
   moveFieldToObjectModalData: null,
   stixMapping: {},
-  objects: [],
+  stixObjects: [],
   metadataMapping: {},
+  metadataObjects: [],
 };
 
 const ToSTIXReducer = (state = INITIAL_STATE, action) => {
@@ -91,7 +93,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       if (!(action.payload?.name in state.stixMapping)) {
         return {
           ...state,
-          objects: [...state.objects, action.payload.name],
+          stixObjects: [...state.stixObjects, action.payload.name],
           stixMapping: {
             ...state.stixMapping,
             [action.payload.name]: {},
@@ -120,7 +122,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
           state.stixMapping;
         return {
           ...state,
-          objects: Object.keys(restOfMapping),
+          stixObjects: Object.keys(restOfMapping),
           stixMapping: restOfMapping,
         };
       }
@@ -340,6 +342,29 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return state;
     }
 
+    case UPDATE_OBJECT_NAME: {
+      const oldName = action.payload?.oldName;
+      const newName = action.payload?.newName;
+      const isStix = action.payload?.isStix;
+      const mapping = isStix ? "stixMapping" : "metadataMapping";
+      const objects = isStix ? "stixObjects" : "metadataObjects";
+      const oldNameData = state[mapping][oldName];
+      const { [oldName]: omit, ...restOfMapping } = state[mapping];
+      if (oldName in state[mapping]) {
+        return {
+          ...state,
+          [mapping]: {
+            [newName]: {
+              ...oldNameData,
+            },
+            ...restOfMapping,
+          },
+          [objects]: Object.keys(restOfMapping),
+        };
+      }
+      return state;
+    }
+
     case REMOVE_METADATA_FIELD: {
       const objectName = action.payload?.objectName;
       const mappingId = action.payload?.mappingId;
@@ -380,7 +405,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         stixMapping: {},
-        objects: [],
+        stixObjects: [],
         metadataMapping: {},
       };
     }
@@ -392,7 +417,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
         ...state,
         stixMapping: stixMapping,
         metadataMapping: metadataMapping,
-        objects: Object.keys(stixMapping),
+        stixObjects: Object.keys(stixMapping),
       };
     }
 

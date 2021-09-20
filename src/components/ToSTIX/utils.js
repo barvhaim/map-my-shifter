@@ -226,3 +226,11 @@ export function getDataForStatistics(stixMapping, stixTypesSet) {
   ];
   return data;
 }
+
+export function isValidObjectName(oldName, newName, objects) {
+  return newName && (oldName === newName || !objects.includes(newName));
+}
+
+export function isActiveObject(object, activObject) {
+  return object === activObject;
+}

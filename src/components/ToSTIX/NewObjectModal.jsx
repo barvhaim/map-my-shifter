@@ -3,7 +3,7 @@ import { Modal, TextInput } from "@carbon/ibm-security";
 import { useDispatch } from "react-redux";
 import { closeNewObjectModal } from "../../store/actions/to_stix";
 
-const NewObjectModal = ({ isOpen, add, title }) => {
+const NewObjectModal = ({ isOpen, add, type }) => {
   const dispatch = useDispatch();
   const [Name, setName] = useState("");
 
@@ -24,13 +24,13 @@ const NewObjectModal = ({ isOpen, add, title }) => {
       }}
       primaryButtonText={"Create"}
       secondaryButtonText={"Cancel"}
-      modalHeading={`Create new ${title}`}
+      modalHeading={`Create new ${type}`}
       hasForm={true}
       primaryButtonDisabled={Name === ""}
     >
       <TextInput
-        id={`new-${title}-name`}
-        labelText={title.charAt(0).toUpperCase() + title.slice(1) + " name"}
+        id={`new-${type}-name`}
+        labelText={type.charAt(0).toUpperCase() + type.slice(1) + " name"}
         autoComplete={"off"}
         onChange={(e) => {
           setName(e.target.value);

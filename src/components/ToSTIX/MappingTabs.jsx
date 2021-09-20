@@ -5,17 +5,28 @@ import {
   addNewStixObject,
   addNewMetadataObject,
 } from "../../store/actions/to_stix";
+import { MAPPING_TYPE } from "../../global/constants";
 
 const MappingTabs = () => {
   return (
-    <Tabs>
-      <Tab id="StixObjects" label="STIX">
-        <MappingTab title={"object"} addingFunction={addNewStixObject} />
-      </Tab>
-      <Tab id="Metadata" label="Metadata">
-        <MappingTab title={"field"} addingFunction={addNewMetadataObject} />
-      </Tab>
-    </Tabs>
+    <>
+      <div className="bx--col-sm-3">
+        <Tabs>
+          <Tab id="StixObjects" label="STIX">
+            <MappingTab
+              type={MAPPING_TYPE.OBJECT}
+              addingFunction={addNewStixObject}
+            />
+          </Tab>
+          <Tab id="Metadata" label="Metadata">
+            <MappingTab
+              type={MAPPING_TYPE.FIELD}
+              addingFunction={addNewMetadataObject}
+            />
+          </Tab>
+        </Tabs>
+      </div>
+    </>
   );
 };
 

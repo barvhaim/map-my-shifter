@@ -24,9 +24,7 @@ const ToSTIX = () => {
         </div>
 
         <div className="bx--row">
-          <div className="bx--col-sm-3">
-            <MappingTabs />
-          </div>
+          <MappingTabs />
 
           <div className="bx--col-sm-1">
             <div className="bx--row">
