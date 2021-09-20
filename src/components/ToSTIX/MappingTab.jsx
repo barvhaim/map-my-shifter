@@ -7,12 +7,12 @@ import MappingObjects from "./MappingObjects";
 import SelectFieldModal from "./SelectFieldModal";
 import MoveFieldToObjectModal from "./MoveFieldToObjectModal";
 import NewObjectModal from "./NewObjectModal";
-import { TYPE } from "../../global/constants";
+import { MAPPING_TYPE } from "../../global/constants";
 
 const MappingTab = ({ type, addingFunction }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.toStix.isNewObjectModalOpen);
-  const isStix = type === TYPE.OBJECT;
+  const isStix = type === MAPPING_TYPE.OBJECT;
 
   return (
     <>

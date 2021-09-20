@@ -2,8 +2,9 @@
 @import "@carbon/type/scss/styles";
 @import "@carbon/colors/scss/colors";
 
-.tabs {
-  margin-bottom: carbon--mini-units($count: 50);
+.MappingObjects {
+  margin-top: carbon--mini-units($count: 7);
+  margin-bottom: carbon--mini-units($count: 60);
 }
 
 .object__item_box {
@@ -92,6 +93,12 @@
   }
 }
 
+.StickyBox {
+  max-height: 60em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .minimap {
   width: 90%;
   background-color: $carbon--gray-80;
@@ -102,6 +109,7 @@
   padding-bottom: $spacing-03;
   margin-bottom: $spacing-01;
   padding-left: $spacing-05;
+  padding-right: $spacing-05;
   color: $carbon--white-0;
   background-color: $carbon--gray-90;
   white-space: nowrap;

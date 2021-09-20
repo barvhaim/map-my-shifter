@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import MappingObject from "./MappingObject";
 import Minimap from "./Minimap";
 import styles from "./to_stix.module.scss";
-import { TYPE } from "../../global/constants";
+import { MAPPING_TYPE } from "../../global/constants";
 
 const MappingObjects = ({ type }) => {
-  const isStix = type === TYPE.OBJECT;
+  const isStix = type === MAPPING_TYPE.OBJECT;
   const mappingObjects = isStix ? "stixMapping" : "metadataMapping";
   const mapping = useSelector((state) => state.toStix[mappingObjects]);
   const isMappingEmpty = Object.keys(mapping).length === 0;
@@ -25,7 +25,7 @@ const MappingObjects = ({ type }) => {
   }
 
   return (
-    <div className={`bx--row ${styles.tabs}`}>
+    <div className={`bx--row ${styles.MappingObjects}`}>
       <Minimap isStix={isStix} />
       <div className="bx--col-sm-3">
         {Object.keys(mapping).map((o) => {

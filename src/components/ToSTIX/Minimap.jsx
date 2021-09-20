@@ -8,12 +8,12 @@ import { isActiveObject } from "./utils";
 const Minimap = ({ isStix }) => {
   const mappingObjects = isStix ? "stixMapping" : "metadataMapping";
   const mapping = useSelector((state) => state.toStix[mappingObjects]);
-  const [activObject, setActivObject] = useState("");
+  const [activeObject, setActiveObject] = useState("");
 
   return (
     <div className="bx--col-sm-1">
       <StickyBox offsetTop={70}>
-        <div style={{ overflowY: "auto", overflowX: "hidden" }}>
+        <div className={styles.StickyBox}>
           <h4 className="section-title" style={{ marginLeft: "1rem" }}>
             Objects Map
           </h4>
@@ -26,12 +26,12 @@ const Minimap = ({ isStix }) => {
                     spy={true}
                     smooth={true}
                     offset={-100}
-                    onSetActive={() => setActivObject(o)}
+                    onSetActive={() => setActiveObject(o)}
                   >
                     <div
                       className={`${styles.minimap__tile} 
                         ${
-                          isActiveObject(o, activObject)
+                          isActiveObject(o, activeObject)
                             ? styles.minimap__activeTile
                             : ""
                         }`}

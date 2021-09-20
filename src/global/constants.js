@@ -3,7 +3,7 @@ export const STIX_VERSION = {
   V_2_1: "stix_version_2_1",
 };
 
-export const TYPE = {
+export const MAPPING_TYPE = {
   OBJECT: "object",
   FIELD: "field",
 };

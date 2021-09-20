@@ -30,7 +30,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
   const objectNameChangeHandler = () => {
     if (isValidObjectName(name, newName, objects)) {
       dispatch(updateObjectName(name, newName, isStix));
-      setEditObjectName(!isEditingObjectName);
+      setEditObjectName(false);
     }
   };
 
@@ -97,7 +97,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             hasIconOnly
             onClick={() => {
               setName(name);
-              setEditObjectName(!isEditingObjectName);
+              setEditObjectName(false);
             }}
           />
         </div>
@@ -111,7 +111,7 @@ const ObjectHeader = ({ name, isOpen, setIsOpen, isStix }) => {
             iconDescription="Edit object name"
             hasIconOnly
             onClick={() => {
-              setEditObjectName(!isEditingObjectName);
+              setEditObjectName(true);
             }}
           />
         </div>
