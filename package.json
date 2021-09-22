@@ -84,7 +84,8 @@
       "icon": "public/icons/map_logo.png"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "public/icons/map_logo.png"
     },
     "linux": {
       "target": "deb"
