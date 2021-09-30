@@ -2,6 +2,14 @@
 const { app, BrowserWindow, protocol } = require("electron");
 const path = require("path");
 const url = require("url");
+let window;
+const appURL = app.isPackaged
+  ? url.format({
+      pathname: path.join(__dirname, "index.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  : "http://localhost:3000";
 
 // Create the native browser window.
 function createWindow() {
@@ -12,25 +20,16 @@ function createWindow() {
     // communicate between node-land and browser-land.
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
   });
-
-  // In production, set the initial browser path to the local bundle generated
-  // by the Create React App build process.
-  // In development, set it to localhost to allow live/hot-reloading.
-  const appURL = app.isPackaged
-    ? url.format({
-        pathname: path.join(__dirname, "index.html"),
-        protocol: "file:",
-        slashes: true,
-      })
-    : "http://localhost:3000";
   mainWindow.loadURL(appURL);
 
   // Automatically open Chrome's DevTools in development mode.
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools();
   }
+  window = mainWindow;
 }
 
 // Setup a local proxy to adjust the paths of requested files when loading
@@ -80,9 +79,10 @@ const allowedNavigationDestinations = "https://my-electron-app.com";
 app.on("web-contents-created", (event, contents) => {
   contents.on("will-navigate", (event, navigationUrl) => {
     const parsedUrl = new URL(navigationUrl);
-
+    console.log(url);
     if (!allowedNavigationDestinations.includes(parsedUrl.origin)) {
       event.preventDefault();
+      window.loadURL(appURL);
     }
   });
 });
