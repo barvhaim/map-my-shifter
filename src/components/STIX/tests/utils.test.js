@@ -65,8 +65,6 @@ test("filterFieldsForValue - no value", () => {
   expect(filterFieldsForValue(stixLanguageV2_0, "")).toEqual(stixLanguageV2_0);
 });
 
-const content = { value: "json to save" };
-
 jest.mock("file-saver", () => ({ saveAs: jest.fn() }));
 global.Blob = function (content, options) {
   return { content, options };

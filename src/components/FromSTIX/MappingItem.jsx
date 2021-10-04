@@ -43,6 +43,7 @@ const MappingItem = ({ title }) => {
       {values.length > 0 ? (
         values.map((v) => (
           <div
+            data-cy={title.replace(":", "-")}
             key={`${title}_${v.id}`}
             className="bx--row"
             style={{ marginBottom: "1rem" }}
