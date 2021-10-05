@@ -1,7 +1,15 @@
 import React from "react";
 import { Shell } from "@carbon/ibm-security";
+import { useHistory } from "react-router-dom";
 
 const HeaderSection = () => {
+  const history = useHistory();
+  const handleClick = (e, link) => {
+    e.preventDefault();
+    e.stopPropagation();
+    history.push(link);
+  };
+
   return (
     <Shell
       header={{
@@ -38,7 +46,7 @@ const HeaderSection = () => {
           profile: "#",
           registration: "#",
           sign_in: "#",
-          sign_out: "#",
+          sign_out: "/appid/logout",
         },
         totalNotifications: 0,
       }}
@@ -83,6 +91,7 @@ const HeaderSection = () => {
                 children: undefined,
                 content: undefined,
                 href: "/from_stix",
+                onClick: (e) => handleClick(e, "/from_stix"),
                 icon: undefined,
               },
               {
@@ -91,6 +100,7 @@ const HeaderSection = () => {
                 children: undefined,
                 content: undefined,
                 href: "/to_stix",
+                onClick: (e) => handleClick(e, "/to_stix"),
                 icon: undefined,
               },
             ],

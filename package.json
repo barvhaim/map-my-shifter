@@ -1,8 +1,11 @@
 {
   "name": "map-my-shifter",
   "version": "0.1.0",
-  "homepage": "http://barvhaim.github.io/map-my-shifter",
+  "homepage": "./",
   "private": true,
+  "author": "Bar Haim, Noaa Kless, Ido Hersko",
+  "description": "STIX-Shifter Connector's Mapping Builder",
+  "main": "./public/electron.js",
   "dependencies": {
     "@carbon/colors": "^10.14.0",
     "@carbon/ibm-security": "^1.45.0",
@@ -32,6 +35,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "prettier": "npx prettier --write --ignore-path .gitignore '**/*.{js,jsx,md,scss}'",
@@ -48,19 +55,40 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 electron version"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 electron version"
     ]
   },
   "devDependencies": {
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^14.0.1",
+    "electron-builder": "^22.11.7",
+    "electronmon": "^2.0.2",
     "gh-pages": "^3.1.0",
     "pre-commit": "^1.2.2",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "wait-on": "^6.0.0"
+  },
+  "build": {
+    "appId": "IBM.MapMyShifter.App",
+    "productName": "map-my-shifter",
+    "files": ["build/**/*", "node_modules/**/*"],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/icons/map_logo.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "public/icons/map_logo.png"
+    },
+    "linux": {
+      "target": "deb"
+    }
   }
 }
