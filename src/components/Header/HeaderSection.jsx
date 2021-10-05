@@ -38,7 +38,7 @@ const HeaderSection = () => {
           profile: "#",
           registration: "#",
           sign_in: "#",
-          sign_out: "#",
+          sign_out: "/appid/logout",
         },
         totalNotifications: 0,
       }}
