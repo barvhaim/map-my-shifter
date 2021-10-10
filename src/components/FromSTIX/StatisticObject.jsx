@@ -13,7 +13,7 @@ const StatisticObject = ({
   return (
     <div className="bx--col">
       <div className="bx--label-description">Official STIX Coverage</div>
-      <div className={styles.coverage_percent}>
+      <div className={styles.coverage_percent} data-cy={"coverage_percent"}>
         {officialObjectsCount === 0
           ? 0
           : Math.round(objectsStatistics * 100) / 100}
