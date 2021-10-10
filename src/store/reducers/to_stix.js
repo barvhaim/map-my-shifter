@@ -354,9 +354,7 @@ const ToSTIXReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           [mapping]: {
-            [newName]: {
-              ...oldNameData,
-            },
+            [newName]: oldNameData,
             ...restOfMapping,
           },
           [objects]: Object.keys(restOfMapping),

@@ -20,7 +20,10 @@ const Statistics = ({ officialObjectsCount, requiredObjectsCount }) => {
       </div>
 
       <div className="bx--row" style={{ marginBottom: ".75rem" }}>
-        <div className={`bx--col ${styles.statistics__col}`}>
+        <div
+          className={`bx--col ${styles.statistics__col}`}
+          data-cy={"statistics__col"}
+        >
           <div className="bx--row">
             <StatisticObject
               officialObjectsCount={officialObjectsCount}

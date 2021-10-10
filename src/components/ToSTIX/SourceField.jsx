@@ -32,6 +32,7 @@ const SourceFieldHeader = ({ fieldId, objectKey, fieldData }) => {
       </div>
       <div className={`bx--col`}>
         <TextInput
+          data-cy={objectKey}
           labelText={"Source field name"}
           id={`${fieldId}`}
           onChange={(e) => {

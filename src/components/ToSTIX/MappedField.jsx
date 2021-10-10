@@ -30,6 +30,7 @@ const MappedField = ({
           <div className={"bx--row"}>
             <div className={"bx--col"}>
               <TextInput
+                data-cy={`field_${objectKey}`}
                 id={`${mappedFieldId}`}
                 labelText={""}
                 onChange={(e) => {
@@ -77,6 +78,7 @@ const MappedField = ({
         </div>
         <div className={"bx--col-md-2"}>
           <ComboBox
+            data-cy={`transformers_${objectKey}`}
             id={`ComboBox_${mappedFieldId}`}
             size={"sm"}
             placeholder={"Search Transformer"}
