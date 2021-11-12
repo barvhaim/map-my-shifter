@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Content } from "@carbon/ibm-security";
 import "./App.scss";
-
 import Header from "./components/Header";
 import Welcome from "./components/Welcome/Welcome";
-import FromSTIX from "./components/FromSTIX";
-import ToSTIX from "./components/ToSTIX";
 import About from "./components/About";
 import store from "./store/store";
+import FrameFromSTIX from "./components/FromSTIX/FrameFromSTIX";
+import FrameToSTIX from "./components/ToSTIX/FrameToSTIX";
 
 function App() {
   return (
@@ -19,10 +18,10 @@ function App() {
         <Content>
           <Switch>
             <Route path="/from_stix">
-              <FromSTIX />
+              <FrameFromSTIX />
             </Route>
             <Route path="/to_stix">
-              <ToSTIX />
+              <FrameToSTIX />
             </Route>
             <Route path="/about">
               <About />

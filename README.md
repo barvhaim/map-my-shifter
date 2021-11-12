@@ -15,24 +15,34 @@ A typical connector requires two types of fields mapping:
 - Create mapping file from scratch.
 - Load existing mapping file, edit the file and save it to a new file.
 
-## Demo version
-
-https://barvhaim.github.io/map-my-shifter/
-
-## Development
+### Development
 
 MMS is a static client side app, there is no backend involved, except from serving the static content. It is built with [ReactJS](https://reactjs.org) library, and designed using [Carbon Design System](https://www.carbondesignsystem.com) components.
 
-### Running locally
+### Installation
 
-1. Make sure to install required packages using `yarn install` command in the project root folder.
-2. `yarn start` runs the app in development mode. Open http://localhost:3000 to view it in the browser. The page will automatically reload if you make changes to the code.
-   You will see the build errors and lint warnings in the console.
+- run `npm install map-my-shifter`
+- import moduls: `import {FromStix, ToStix} from 'map-my-shifter';`
 
-### Building the project for deployment
+### Usage
 
-1. `yarn build` builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.
-2. Your app is ready to be deployed.
+1. map-my-shifter component: react component that shows the STIX mapping
+   - `<FromStix.Mapping/>`
+   - `<ToStix.Mapping/>`
+   - you can add property `StixVersion` with the value `V_2_0` or `V_2_1`, defult is V_2_0.
+   - for example: `<FromStix.Mapping StixVersion='V_2_1'/>`
+
+##
+
+2. map-my-shifter import function: gets a javaScript object and adds the content to the mapping
+   - `FromStix.Import(JSON.parse({"ipv4-addr": {"fields": {"value": ["sourceip"]}}}))`
+   - `ToStix.Import(JSON.parse({"ipv4-addr": {"fields": {"value": ["sourceip"]}}}))`
+
+##
+
+3. map-my-shifter export function: gets a string and opens a window to save the mapping to a file.
+   - `FromStix.Export('fileName')`
+   - `ToStix.Export('fileName')`
 
 ### Authors
 
