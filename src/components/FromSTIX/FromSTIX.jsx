@@ -2,13 +2,6 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import SelectFields from "./SelectFields";
 import Mapping from "./Mapping";
-import Export from "../Export/Export";
-import Import from "../Import/Import";
-import { stateMappingToShifterMapping, loadJsonFromDisk } from "./utils";
-import {
-  updateMappingsFromFile,
-  clearMappings,
-} from "../../store/actions/from_stix";
 import Statistics from "./Statistics";
 import { getDataForStatistics, getOfficialFieldsFromMapping } from "./utils";
 import { requiredStixFields } from "../../global/requiredStixFields";
@@ -50,12 +43,6 @@ const FromSTIX = () => {
   return (
     <div className="bx--grid">
       <div className="bx--row">
-        <div className="bx--col">
-          <h1 className="page-title">From STIX</h1>
-        </div>
-      </div>
-
-      <div className="bx--row">
         <div className="bx--col-sm-1">
           <SelectFields officialFields={mappingOfficialFields} />
         </div>
@@ -63,27 +50,7 @@ const FromSTIX = () => {
         <div className="bx--col-sm-2">
           <Mapping />
         </div>
-
         <div className="bx--col-sm-1">
-          <div className="bx--row">
-            <div className="bx--col-sm-4">
-              <Export
-                stixMapping={stixMapping}
-                stateMappingToShifterMapping={stateMappingToShifterMapping}
-              />
-            </div>
-          </div>
-
-          <div className="bx--row">
-            <div className="bx--col-sm-4">
-              <Import
-                loadJsonFromDisk={loadJsonFromDisk}
-                updateMappingsFromFile={updateMappingsFromFile}
-                clearMappings={clearMappings}
-              />
-            </div>
-          </div>
-
           <div className="bx--row">
             <div className="bx--col-sm-4">
               <Statistics

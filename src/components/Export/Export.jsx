@@ -1,67 +1,28 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Button, TextInput } from "@carbon/ibm-security";
-import { Save16 } from "@carbon/icons-react";
+import React from "react";
+import { Button } from "@carbon/ibm-security";
 import styles from "./export.module.scss";
-import { saveJsonToDisk } from "../STIX/utils";
 
-const Export = (props) => {
-  const [exportFilename, setExportFilename] = useState("");
-  const stixMapping = props.stixMapping;
-  const metadataMapping = props.metadataMapping;
-
+const Export = ({
+  saveJsonToDisk,
+  stateMappingToShifterMapping,
+  stixMapping,
+  metadataMapping,
+}) => {
   return (
-    <>
-      <div className="bx--row">
-        <div className="bx--col">
-          <h4 className="section-title">Save Configuration</h4>
-        </div>
-      </div>
-
-      <div className="bx--row" style={{ marginBottom: ".75rem" }}>
-        <div className={`bx--col ${styles.export__col}`}>
-          <div className="bx--row">
-            <div className="bx--col">
-              <TextInput
-                autoComplete={"off"}
-                id={"export-filename"}
-                labelText={"Filename"}
-                value={exportFilename}
-                onChange={(input) => {
-                  setExportFilename(input.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <div className="bx--row">
-            <div className="bx--col" style={{ textAlign: "right" }}>
-              <Button
-                disabled={exportFilename.length === 0}
-                renderIcon={Save16}
-                onClick={() => {
-                  saveJsonToDisk(
-                    `${exportFilename}.json`,
-                    props.stateMappingToShifterMapping(
-                      stixMapping,
-                      metadataMapping
-                    )
-                  );
-                }}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <Button
+      kind="tertiary"
+      size="sm"
+      onClick={() => {
+        saveJsonToDisk(
+          "",
+          stateMappingToShifterMapping(stixMapping, metadataMapping)
+        );
+      }}
+      className={styles.export__btn}
+    >
+      Export
+    </Button>
   );
-};
-
-Export.propTypes = {
-  stixMapping: PropTypes.object,
-  metadataMapping: PropTypes.object,
-  stateMappingToShifterMapping: PropTypes.func,
 };
 
 export default React.memo(Export);
