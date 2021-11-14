@@ -45,7 +45,7 @@ var Statistics = function Statistics(_ref) {
         /*#__PURE__*/ React.createElement(
           "h4",
           {
-            className: "section-title",
+            className: "".concat(styles.section_title),
           },
           "Official VS Custom STIX fields"
         )

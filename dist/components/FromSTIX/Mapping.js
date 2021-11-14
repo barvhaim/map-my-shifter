@@ -30,7 +30,7 @@ var Mapping = function Mapping() {
         /*#__PURE__*/ React.createElement(
           "h4",
           {
-            className: "section-title",
+            className: "".concat(styles.section_title),
           },
           Object.keys(stixMapping).length,
           " Total Fields",
